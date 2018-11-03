@@ -18,16 +18,14 @@
                 double precision akn,phi,g
              
              open(10,file='CMN4.in',status='unknown')
-             open(20,file='CMN4_tCM.dat',status='unknown')
-             open(30,file='CMN4_tCN.dat',status='unknown')
              open(40,file='CMN4_tMN.dat',status='unknown')
              open(50,file='CMN4_tCaCc.dat',status='unknown')
-             open(60,file='CMN4_phiCrSr.dat',status='unknown')
+          !   open(60,file='CMN4_phiCrSr.dat',status='unknown')
                                 
              read(10,*)ps,akc,u,af
              read(10,*)bmax,as,d,akm
-             !read(10,*)akn,phi,g
-             read(10,*)akn,g
+             read(10,*)akn,phi,g
+             !read(10,*)akn,g
              read(10,*)hh,kk
              read(10,*)x0,y0,z0,v0,t0
             
@@ -39,11 +37,11 @@
               print *,"Can*/Cam*=",Can/Cam
               print *,"1/(1-f)=",1/(1.0-af)
           
-          phi0=3.0
+         ! phi0=3.0
           
-          do ip=0,294
-             phi=phi0+(0.5*ip)
-             print *,"----------phi=",phi,"--------------"
+         ! do ip=0,294
+         !    phi=phi0+(0.5*ip)
+         !    print *,"----------phi=",phi,"--------------"
      
           do i=1,kk
             
@@ -88,8 +86,6 @@
                      z=z0+(ak1f3+2.0*(ak2f3+ak3f3)+ak4f3)/6.0
                      v=v0+(ak1f4+2.0*(ak2f4+ak3f4)+ak4f4)/6.0
 
-             write(20,*)t0,x0,y0
-             write(30,*)t0,x0,z0
              write(40,*)t0,y0,z0
              write(50,*)t0,x0,v0
  
@@ -107,11 +103,11 @@
              print *,"M=",y
              print *,"N=",z
 
-           Cr=v/x
-           Sr=z/y
-           write(60,*)phi,Cr,Sr
+         !  Cr=v/x
+         !  Sr=z/y
+         !  write(60,*)phi,Cr,Sr
             
-          end do
+!          end do
 
 !             stop
              end
