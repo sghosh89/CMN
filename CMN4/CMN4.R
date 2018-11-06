@@ -18,7 +18,7 @@ Plotter_CMN4<-function(f,x1,x2,axlim,n=500,resloc){
   pdf(paste(resloc,"f_",f,"_Ca_vs_Cc.pdf",sep=""),width=8,height=8)
   op<-par(mar=c(5,5,2,2))
   
-  plot(NA,xlim=axlim,ylim=axlim,xlab="C_construction",ylab="C_allocation",cex.lab=2,cex.axis=2)
+  plot(NA,xlim=axlim,ylim=axlim,xlab="Construction C",ylab="Allocated C",cex.lab=2,cex.axis=2)
   #lines(x = c(0,max(a1,a2)+20),y=c(0,max(a1,a2)+20),col="green")
   abline(a=a1,b=-1,col="red")
   abline(a =a2 , b=-1/(1-f),col="blue")
@@ -129,7 +129,7 @@ axlim=c(0,max(x1[,2],x1[,3]))
 Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
 
 #-----------------------------
-# for f=0.4
+# for f=0.4,phi=5
 x1<-read.delim("CMN4_tCaCc_f_0.4_phi_5.dat",sep="")
 nametag<-"f_0.4_phi_5_CaCc"
 taglegend<-c("Allocated C","Construction C")
@@ -144,15 +144,30 @@ resloc<-"./Results/"
 axlim=c(0,max(x1[,2],x1[,3]))
 Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
 
+# for f=0.4, phi=25
+x1<-read.delim("CMN4_tCaCc_f_0.4_phi_25.dat",sep="")
+nametag<-"f_0.4_phi_25_CaCc"
+taglegend<-c("Allocated C","Construction C")
+resloc<-"./Results/"
+axlim=c(0,max(x1[,2],x1[,3]))
+Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+
+x1<-read.delim("CMN4_tMN_f_0.4_phi_25.dat",sep="")
+nametag<-"f_0.4_phi_25_MN"
+taglegend<-c("Mutualist","Non-mutualist")
+resloc<-"./Results/"
+axlim=c(0,max(x1[,2],x1[,3]))
+Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+
 #--------------------------------------
 
 x1<-read.delim("CMN4_phiCrSr.dat",sep="")
 pdf("./Results/CrSr_vs_phi.pdf",width=8,height=8)
 op<-par(mar=c(5,5,2,2))
-plot(x1[,1],x1[,2],xlab=expression(phi),ylab="",cex.lab=2,cex.axis=2,col="darkgreen",type="l",ylim=c(0,max(x1[,2],x1[,3])))
+plot(x1[,1],x1[,2],xlab=expression(phi),ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",ylim=c(0,max(x1[,2],x1[,3])))
 lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed")
 abline(h=1,col="black",lty="dotted")
-legend("topleft", c("Allocated C / Construction C", "Mutualist / Non-mutualist"), col = c("darkgreen", "darkmagenta"),
+legend("topleft", c("Construction C / Allocated C", "Non-mutualist / Mutualist"), col = c("darkgreen", "darkmagenta"),
        cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
        bty = "n") 
 par(op)
