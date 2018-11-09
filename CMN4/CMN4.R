@@ -187,7 +187,7 @@ N    <- seq(from=0,to=3,by=0.1)
 PUfun <- function(M,N){(M/(M+kc))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
 PU    <- outer(M,N, FUN="PUfun")
 
-persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist",ylab="Non-mutualist",zlab="P-uptake by AMF",cex.lab=1.5,cex.axis=1.5)
+persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",ylab="Non-mutualist (N)",zlab="P-uptake via AMF (F)",cex.lab=1.5,cex.axis=1.5)
 par(op)
 dev.off()
 
