@@ -202,7 +202,9 @@ abline(a=0.5,b=-1)
 abline(a=0.7,b=-2.5,lty="dashed")
 legend("topright", c("Mutualist : slope = -1","Non-mutualist : slope = -1/(1-f)"), 
        cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
-       bty = "n") 
+       bty = "n")
+mtext(adj=0.65,line=-15,(bquote("C"[cM]^"*"~"= C"[aM]^"*")),cex=1.5)
+mtext(adj=0.7,line=-18,(bquote("C"[cN]^"*"~"= (1-f)C"[aN]^"*")),cex=1.5)
 mtext(adj=0.7,line=-35,(bquote("C"[cM]^"*")),cex=1.5)
 mtext(adj=0.4,line=-35,(bquote("C"[cN]^"*")),cex=1.5)
 mtext(adj=-0.08,line=-11.5,(bquote("C"[aM]^"*")),cex=1.5)
