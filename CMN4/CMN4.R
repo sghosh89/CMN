@@ -191,8 +191,21 @@ persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",ylab="Non-m
 par(op)
 dev.off()
 
-
-
+# schematic diagram
+pdf("./Results/schematic_diagram.pdf",width=8,height=8)
+op<-par(mar=c(5,5,2,2))
+plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="Construction carbon", ylab="Allocated carbon",xaxt="n",yaxt="n",cex.lab=1.5)
+abline(a=0.5,b=-1)
+abline(a=0.7,b=-2.5,lty="dashed")
+legend("topright", c("Mutualist : slope = -1","Non-mutualist : slope = -1/(1-f)"), 
+       cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
+       bty = "n") 
+mtext(adj=0.7,line=-35,(bquote("C"[cM]^"*")),cex=1.5)
+mtext(adj=0.4,line=-35,(bquote("C"[cN]^"*")),cex=1.5)
+mtext(adj=-0.08,line=-11.5,(bquote("C"[aM]^"*")),cex=1.5)
+mtext(adj=-0.08,line=-2.6,(bquote("C"[aN]^"*")),cex=1.5)
+par(op)
+dev.off()
 
 
 
