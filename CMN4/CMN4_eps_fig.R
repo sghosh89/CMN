@@ -92,7 +92,7 @@ resloc<-"./Results/eps_fig/"
 x5C<-read.delim("CMN4_tCaCc_f_0.2_phi_5.dat",sep="")
 x5S<-read.delim("CMN4_tMN_f_0.2_phi_5.dat",sep="")
 
-axlim<-c(-5,500)
+axlim<-c(-5,10000)
 Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
 
