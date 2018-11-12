@@ -70,6 +70,7 @@ resloc<-"./Results/"
 Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc=resloc)
 
 #--------------------------------------------------------------------
+# plotter function to plot variables (Ca,Cc or M,N) against time
 Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc){
   pdf(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
   op<-par(mar=c(5,5,2,2))
@@ -83,81 +84,51 @@ Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc){
 }
 
 #------------------------------
-# for f=0.2
-x1<-read.delim("CMN4_tCaCc_f_0.2_phi_5.dat",sep="")
-nametag<-"f_0.2_phi_5_CaCc"
-taglegend<-c("Allocated C","Construction C")
 resloc<-"./Results/"
-axlim<-c(-5,500)
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
 
-x1<-read.delim("CMN4_tMN_f_0.2_phi_5.dat",sep="")
-nametag<-"f_0.2_phi_5_MN"
-taglegend<-c("Mutualist","Non-mutualist")
-resloc<-"./Results/"
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+# for f=0.2
+x5C<-read.delim("CMN4_tCaCc_f_0.2_phi_5.dat",sep="")
+x5S<-read.delim("CMN4_tMN_f_0.2_phi_5.dat",sep="")
+
+axlim<-c(-5,500)
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
 
 #-----------------------------
-# for f=0.3, phi=5
-x1<-read.delim("CMN4_tCaCc_f_0.3_phi_5.dat",sep="")
-nametag<-"f_0.3_phi_5_CaCc"
-taglegend<-c("Allocated C","Construction C")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
 
-x1<-read.delim("CMN4_tMN_f_0.3_phi_5.dat",sep="")
-nametag<-"f_0.3_phi_5_MN"
-taglegend<-c("Mutualist","Non-mutualist")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+# for f=0.3, phi=5
+x5C<-read.delim("CMN4_tCaCc_f_0.3_phi_5.dat",sep="") # for allocated and construction C
+x5S<-read.delim("CMN4_tMN_f_0.3_phi_5.dat",sep="") # for both symbionts
 
 # for f=0.3, phi=25
-x1<-read.delim("CMN4_tCaCc_f_0.3_phi_25.dat",sep="")
-nametag<-"f_0.3_phi_25_CaCc"
-taglegend<-c("Allocated C","Construction C")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+x25C<-read.delim("CMN4_tCaCc_f_0.3_phi_25.dat",sep="")
+x25S<-read.delim("CMN4_tMN_f_0.3_phi_25.dat",sep="")
 
-x1<-read.delim("CMN4_tMN_f_0.3_phi_25.dat",sep="")
-nametag<-"f_0.3_phi_25_MN"
-taglegend<-c("Mutualist","Non-mutualist")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+axlim<-c(0,max(x5C[,2],x5C[,3],x25C[,2],x25C[,3]))
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
+Plotter_CMN_vs_t(x1=x25C,axlim=axlim,nametag="f_0.3_phi_25_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
+
+axlim<-c(0,max(x5S[,2],x5S[,3],x25S[,2],x25S[,3]))
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
+Plotter_CMN_vs_t(x1=x25S,axlim=axlim,nametag="f_0.3_phi_25_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
 
 #-----------------------------
-# for f=0.4,phi=5
-x1<-read.delim("CMN4_tCaCc_f_0.4_phi_5.dat",sep="")
-nametag<-"f_0.4_phi_5_CaCc"
-taglegend<-c("Allocated C","Construction C")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
-
-x1<-read.delim("CMN4_tMN_f_0.4_phi_5.dat",sep="")
-nametag<-"f_0.4_phi_5_MN"
-taglegend<-c("Mutualist","Non-mutualist")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+# for f=0.4, phi=5
+x5C<-read.delim("CMN4_tCaCc_f_0.4_phi_5.dat",sep="") # for allocated and construction C
+x5S<-read.delim("CMN4_tMN_f_0.4_phi_5.dat",sep="") # for both symbionts
 
 # for f=0.4, phi=25
-x1<-read.delim("CMN4_tCaCc_f_0.4_phi_25.dat",sep="")
-nametag<-"f_0.4_phi_25_CaCc"
-taglegend<-c("Allocated C","Construction C")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+x25C<-read.delim("CMN4_tCaCc_f_0.4_phi_25.dat",sep="")
+x25S<-read.delim("CMN4_tMN_f_0.4_phi_25.dat",sep="")
 
-x1<-read.delim("CMN4_tMN_f_0.4_phi_25.dat",sep="")
-nametag<-"f_0.4_phi_25_MN"
-taglegend<-c("Mutualist","Non-mutualist")
-resloc<-"./Results/"
-axlim=c(0,max(x1[,2],x1[,3]))
-Plotter_CMN_vs_t(x1=x1,axlim=axlim,nametag=nametag,taglegend=taglegend,resloc=resloc)
+axlim<-c(0,max(x5C[,2],x5C[,3],x25C[,2],x25C[,3]))
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.4_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
+Plotter_CMN_vs_t(x1=x25C,axlim=axlim,nametag="f_0.4_phi_25_CaCc",taglegend=c("Allocated C","Construction C"),resloc=resloc)
+
+#axlim<-c(0,0.5+max(x5S[,2],x5S[,3],x25S[,2],x25S[,3]))
+axlim=c(0,2)
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.4_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
+Plotter_CMN_vs_t(x1=x25S,axlim=axlim,nametag="f_0.4_phi_25_MN",taglegend=c("Mutualist","Non-mutualist"),resloc=resloc)
 
 #--------------------------------------
 
@@ -191,6 +162,7 @@ persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",ylab="Non-m
 par(op)
 dev.off()
 
+#------------------------------------------
 # schematic diagram
 pdf("./Results/schematic_diagram.pdf",width=8,height=8)
 op<-par(mar=c(5,5,2,2))
