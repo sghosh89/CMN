@@ -255,8 +255,8 @@ Plotter<-function(resloc,figname,figformat){
     f<-0.3
     u<-0.4
     kc<-5.0
-    M    <- seq(from=1,to=3,by=0.1)
-    N    <- seq(from=0,to=3,by=0.1)
+    M    <- seq(from=0,to=100,by=2)
+    N    <- seq(from=0,to=100,by=2)
     PUfun <- function(M,N){(M/(M+kc))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
     PU    <- outer(M,N, FUN="PUfun")
     
