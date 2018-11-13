@@ -90,9 +90,9 @@ Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc,figformat){
   
   if(figformat=="eps"){
     setEPS()
-    postscript(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
+    postscript(paste(resloc,nametag,"_vs_t.eps",sep=""),width=8,height=8)
   }else if(figformat=="jpeg"){
-    jpeg(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=640,height=640)
+    jpeg(paste(resloc,nametag,"_vs_t.jpeg",sep=""),width=640,height=640)
   }else if(figformat=="pdf"){
     pdf(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
   }else{
@@ -268,10 +268,16 @@ Plotter<-function(resloc,figname,figformat){
     if(figformat=="eps"){
       setEPS()
       postscript(paste(resloc,"schematic_diagram.eps",sep=""),width=8,height=8)
+      linepos<- -35
+      linepos2 <- -11.5
     }else if(figformat=="jpeg"){
       jpeg(paste(resloc,"schematic_diagram.jpeg",sep=""),width=640,height=640)
+      linepos<- -40
+      linepos2<- -13.5
     }else if(figformat=="pdf"){
       pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
+      linepos<- -35
+      linepos2<- -11.5
     }else{
       print("----------Error : figformat is not specified---------")
     }
@@ -284,9 +290,9 @@ Plotter<-function(resloc,figname,figformat){
            bty = "n") 
     mtext(adj=0.65,line=-15,(bquote("C"[cM]^"*"~"= C"[aM]^"*")),cex=1.5)
     mtext(adj=0.7,line=-18,(bquote("C"[cN]^"*"~"= (1-f)C"[aN]^"*")),cex=1.5)
-    mtext(adj=0.7,line=-35,(bquote("C"[cM]^"*")),cex=1.5)
-    mtext(adj=0.4,line=-35,(bquote("C"[cN]^"*")),cex=1.5)
-    mtext(adj=-0.08,line=-11.5,(bquote("C"[aM]^"*")),cex=1.5)
+    mtext(adj=0.7,line=linepos,(bquote("C"[cM]^"*")),cex=1.5)
+    mtext(adj=0.4,line=linepos,(bquote("C"[cN]^"*")),cex=1.5)
+    mtext(adj=-0.08,line=linepos2,(bquote("C"[aM]^"*")),cex=1.5)
     mtext(adj=-0.08,line=-2.6,(bquote("C"[aN]^"*")),cex=1.5)
     par(op)
     dev.off()
