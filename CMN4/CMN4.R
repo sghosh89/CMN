@@ -29,37 +29,37 @@ Plotter_CMN4<-function(f,x1,x2,axlim,n=500,resloc,figformat){
     print("----------Error : figformat is not specified---------")
   }
   
-  op<-par(mar=c(5,5,2,2))
+  op<-par(mar=c(6,6,2,2))
   
-  plot(NA,xlim=axlim,ylim=axlim,xlab="Construction C",ylab="Allocated C",cex.lab=2,cex.axis=2)
+  plot(NA,xlim=axlim,ylim=axlim,xlab="Construction C",ylab="Allocated C",cex.lab=2.5,cex.axis=2)
   #lines(x = c(0,max(a1,a2)+20),y=c(0,max(a1,a2)+20),col="green")
-  abline(a=a1,b=-1,col="red")
-  abline(a =a2 , b=-1/(1-f),col="blue")
+  abline(a=a1,b=-1,col="red",lwd=2)
+  abline(a =a2 , b=-1/(1-f),col="blue",lwd=2)
   legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
-         cex = 1.5, lty = c(1, 1), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,
+         cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,
          bty = "n") 
   lines(x=axlim,y=c(0,0),col="dimgrey",lty="dotted")
   #grid()
   
   colnames(x1)<-c("time","C_alloc","C_cons")
   colnames(x2)<-colnames(x1)
-  lines(x1$C_cons,x1$C_alloc,col="green4",lty="dashed")
-  lines(x2$C_cons,x2$C_alloc,col="black",lty="dashed")
+  lines(x1$C_cons,x1$C_alloc,col="green4",lty="dashed",lwd=2)
+  lines(x2$C_cons,x2$C_alloc,col="black",lty="dashed",lwd=2)
   
   arrows(x1$C_cons[which(1:nrow(x1) %% n == 0)-0.1], x1$C_alloc[which(1:nrow(x1) %% n == 0)-0.5], 
          x1$C_cons[1:nrow(x1) %% n == 0], x1$C_alloc[1:nrow(x1) %% n == 0] - 0.01, angle=40,
-         length=0.1, col="green4")
+         length=0.1, col="green4",lwd=2)
   
   arrows(x2$C_cons[which(1:nrow(x2) %% n == 0)-0.1], x2$C_alloc[which(1:nrow(x2) %% n == 0)-0.5], 
          x2$C_cons[1:nrow(x2) %% n == 0], x2$C_alloc[1:nrow(x2) %% n == 0] - 0.01, angle=40,
-         length=0.1, col="black")
+         length=0.1, col="black",lwd=2)
   par(op)
   dev.off()
 }
 #----------------------------------------
 # call the function
 f<-0.2
-axlim<-c(0,165)
+axlim<-c(0,175)
 x1<-read.delim("CMN4_tCaCc_f_0.2_phi_5.dat",sep="")
 x2<-read.delim("CMN4_tCaCc_f_0.2_phi_5.dat",sep="")
 Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc="./Results/pdf_fig/",figformat = "pdf")
@@ -68,7 +68,7 @@ Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc="./Results/eps_fig/",figformat =
 
 # call the function
 f<-0.3
-axlim<-c(0,165)
+axlim<-c(0,175)
 x1<-read.delim("CMN4_tCaCc_f_0.3_phi_5.dat",sep="")
 x2<-read.delim("CMN4_tCaCc_f_0.3_phi_25.dat",sep="")
 Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc="./Results/pdf_fig/",figformat = "pdf")
@@ -77,7 +77,7 @@ Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc="./Results/eps_fig/",figformat =
 
 # call the function
 f<-0.4
-axlim<-c(0,165)
+axlim<-c(0,175)
 x1<-read.delim("CMN4_tCaCc_f_0.4_phi_5.dat",sep="")
 x2<-read.delim("CMN4_tCaCc_f_0.4_phi_25.dat",sep="")
 Plotter_CMN4(f=f,x1=x1,x2=x2,axlim=axlim,resloc="./Results/pdf_fig/",figformat = "pdf")
@@ -99,11 +99,11 @@ Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc,figformat){
     print("----------Error : figformat is not specified---------")
   }
   
-  op<-par(mar=c(5,5,2,2))
-  plot(x1[,1],x1[,2],xlab="time",ylab="",cex.lab=2,cex.axis=2,col="darkgreen",type="l",ylim=axlim)
-  lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed")
+  op<-par(mar=c(6,6,2,2))
+  plot(x1[,1],x1[,2],xlab="time",ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",ylim=axlim,lwd=2)
+  lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
   legend("topright", taglegend, col = c("darkgreen", "darkmagenta"),
-         cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,
+         cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,
          bty = "n") 
   par(op)
   dev.off()
@@ -229,12 +229,13 @@ Plotter<-function(resloc,figname,figformat){
       print("----------Error : figformat is not specified---------")
     }
     x1<-read.delim("CMN4_phiCrSr.dat",sep="")
-    op<-par(mar=c(5,5,2,2))
-    plot(x1[,1],x1[,2],xlab=expression(phi),ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",ylim=c(0,max(x1[,2],x1[,3])))
-    lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed")
+    op<-par(mar=c(6,6,2,2))
+    plot(x1[,1],x1[,2],xlab=expression(phi),ylab="",cex.lab=3,cex.axis=2,col="darkgreen",type="l",
+         ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
+    lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
     abline(h=1,col="black",lty="dotted")
     legend("topleft", c("Construction C / Allocated C", "Non-mutualist / Mutualist"), col = c("darkgreen", "darkmagenta"),
-           cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
+           cex = 2.3, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
            bty = "n") 
     par(op)
     dev.off()
@@ -251,7 +252,7 @@ Plotter<-function(resloc,figname,figformat){
     }else{
       print("----------Error : figformat is not specified---------")
     }
-    op<-par(mar=c(5,5,2,2))
+    op<-par(mar=c(6,6,2,2))
     f<-0.3
     u<-0.4
     kc<-5.0
@@ -260,7 +261,10 @@ Plotter<-function(resloc,figname,figformat){
     PUfun <- function(M,N){(M/(M+kc))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
     PU    <- outer(M,N, FUN="PUfun")
     
-    persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",ylab="Non-mutualist (N)",zlab="P-uptake via AMF (F)",cex.lab=1.5,cex.axis=1.5)
+    persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",
+          ylab="Non-mutualist (N)",
+          zlab="P-uptake via AMF (F)",
+          cex.lab=1.5,cex.axis=1.5)
     par(op)
     dev.off()
   }else if(figname=="schematic_diagram"){
@@ -276,17 +280,18 @@ Plotter<-function(resloc,figname,figformat){
       linepos2<- -13.5
     }else if(figformat=="pdf"){
       pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
-      linepos<- -35
+      linepos<- -34
       linepos2<- -11.5
     }else{
       print("----------Error : figformat is not specified---------")
     }
-    op<-par(mar=c(5,5,2,2))
-    plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="Construction carbon", ylab="Allocated carbon",xaxt="n",yaxt="n",cex.lab=1.5)
-    abline(a=0.5,b=-1)
-    abline(a=0.7,b=-2.5,lty="dashed")
+    op<-par(mar=c(6,6,2,2))
+    plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="Construction carbon", ylab="Allocated carbon",
+         xaxt="n",yaxt="n",cex.lab=1.8)
+    abline(a=0.5,b=-1,lwd=2)
+    abline(a=0.7,b=-2.5,lty="dashed",lwd=2)
     legend("topright", c("Mutualist : slope = -1","Non-mutualist : slope = -1/(1-f)"), 
-           cex = 1.5, lty = c(1, 2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
+           cex = 1.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,
            bty = "n") 
     mtext(adj=0.65,line=-15,(bquote("C"[cM]^"*"~"= C"[aM]^"*")),cex=1.5)
     mtext(adj=0.7,line=-18,(bquote("C"[cN]^"*"~"= (1-f)C"[aN]^"*")),cex=1.5)
