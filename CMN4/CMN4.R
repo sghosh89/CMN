@@ -55,10 +55,10 @@ Plotter_CMN4<-function(f,x1,x2,axlim,n=500,resloc,figformat,tagon){
          length=0.1, col="black",lwd=2)
   
   if(tagon==T){
-    legend("topleft", c(expression(paste(phi, " = ", 5)),expression(paste(phi, " = ", 25))),
+    legend("topleft", c(expression(paste("C"[c]^0, " = ", 5)),expression(paste("C"[c]^0, " = ", 25))),
            col = c("green4", "black"),
            cex = 2.5, lty = c(2, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),
-           y.intersp = 0.8,x.intersp = 0.2,
+           y.intersp = 1.3,x.intersp = 0.1,
            bty = "n") 
   }
   par(op)
@@ -111,7 +111,7 @@ Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc,figformat,phi0){
   plot(x1[,1],x1[,2],xlab="time",ylab="",cex.lab=2.5,cex.axis=2,
        col="darkgreen",type="l",
        ylim=axlim,lwd=2)
-  title(main=bquote(phi == .(phi0)),cex.main=2.5,line=-8,adj=0.8)
+  title(main=bquote(C[c]^0 == .(phi0)),cex.main=2.5,line=-8,adj=0.8)
   lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
   legend("topright", taglegend, col = c("darkgreen", "darkmagenta"),
          cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.2,
@@ -239,11 +239,11 @@ Plotter<-function(resloc,figname,figformat){
       print("----------Error : figformat is not specified---------")
     }
     x1<-read.delim("CMN4_phiCrSr.dat",sep="")
-    op<-par(mar=c(6,6,2,2))
-    plot(x1[,1],x1[,2],xlab=expression(phi),ylab="",cex.lab=3,cex.axis=2,col="darkgreen",type="l",
+    op<-par(mar=c(6,6,2,2),mgp=c(4,1,0))
+    plot(x1[,1],x1[,2],xlab=expression("C"[c]^0),ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",
          ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
     lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
-    abline(h=1,col="black",lty="dotted")
+    abline(h=1,col="black",lty="dotted",lwd=2)
     legend("topleft", c("Construction C / Allocated C", "Non-mutualist / Mutualist"), col = c("darkgreen", "darkmagenta"),
            cex = 2.3, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
            bty = "n") 
