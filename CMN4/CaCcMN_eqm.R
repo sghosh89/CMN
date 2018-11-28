@@ -20,6 +20,8 @@ CaCcMN_eqm<-function(km=10,kn=30,kc=5,d,bmax,s,f,phi,g,ps,u){
   
   return(res)
 }
+#---------------------------------------------------------------------------------------------
+# Plot equilibrium values of Ca, Cc, M, N against fidelity (f)
 
 # call the function 
 km<- 10 # half saturation constant for mutualist 
@@ -32,7 +34,7 @@ s<- 0.3 # cost of mutualism
 phi <- 5 # constant resource value for construction carbon
 g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 ps <- 0.3 # P-availability in the soil
-u<-0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
+u<- 0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
 #CaCcMN_eqm(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u) # you can check the numerical M, N equilibria value with this analytical finding
 
@@ -50,18 +52,41 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
-op<-par(mfrow=c(2,2))
-plot(df$f,df$Caeq,type="b",xlab="f",ylab="Ca_eqm")
-abline(h=0,col="grey")
-plot(df$f,df$Cceq,type="b",xlab="f",ylab="Cc_eqm")
-abline(h=0,col="grey")
-plot(df$f,df$Meq,type="b",xlab="f",ylab="M_eqm")
-abline(h=0,col="grey")
-plot(df$f,df$Neq,type="b",xlab="f",ylab="N_eqm")
+df<-na.omit(df)
+df<-df[which(df$Caeq>0),]
+
+pdf("./Results/pdf_fig/Ca_eqm_vs_f.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$f,df$Caeq,type="b",xlab="f",ylab=expression(hat(C[a])),cex.lab=1.8,ylim=c(0,max(df$Caeq)))
 abline(h=0,col="grey")
 par(op)
+dev.off()
 
-#----------------------------------
+pdf("./Results/pdf_fig/Cc_eqm_vs_f.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$f,df$Cceq,type="b",xlab="f",ylab=expression(hat(C[c])),cex.lab=1.8,ylim=c(0,max(df$Cceq)))
+abline(h=0,col="grey")
+par(op)
+dev.off()
+
+pdf("./Results/pdf_fig/M_eqm_vs_f.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$f,df$Meq,type="b",xlab="f",ylab=expression(hat(M)),cex.lab=1.8,ylim=c(0,max(df$Meq)))
+abline(h=0,col="grey")
+par(op)
+dev.off()
+
+pdf("./Results/pdf_fig/N_eqm_vs_f.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$f,df$Neq,type="b",xlab="f",ylab=expression(hat(N)),cex.lab=1.8,ylim=c(0,max(df$Neq)))
+abline(h=0,col="grey")
+par(op)
+dev.off()
+
+
+#----------------------------------------------------------------------------------------------
+# Plot equilibrium values of Ca, Cc, M, N against soil Phosphorous availability (ps)
+
 # call the function 
 km<- 10 # half saturation constant for mutualist 
 kn<- 30 # half saturation constant for non-mutualist
@@ -89,16 +114,30 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
-op<-par(mfrow=c(2,2))
-plot(df$ps,df$Caeq,type="b",xlab="Ps",ylab="Ca_eqm")
-abline(h=0,col="grey")
-plot(df$ps,df$Cceq,type="b",xlab="Ps",ylab="Cc_eqm")
-abline(h=0,col="grey")
-plot(df$ps,df$Meq,type="b",xlab="Ps",ylab="M_eqm")
-abline(h=0,col="grey")
-plot(df$ps,df$Neq,type="b",xlab="Ps",ylab="N_eqm")
-abline(h=0,col="grey")
+pdf("./Results/pdf_fig/Ca_eqm_vs_ps.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$ps,df$Caeq,type="l",xlab=expression(P[s]),ylab=expression(hat(C[a])),cex.lab=1.8)
+#abline(h=0,col="grey")
 par(op)
+dev.off()
+
+pdf("./Results/pdf_fig/Cc_eqm_vs_ps.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$ps,df$Cceq,type="l",xlab=expression(P[s]),ylab=expression(hat(C[c])),cex.lab=1.8)
+#abline(h=0,col="grey")
+dev.off()
+
+pdf("./Results/pdf_fig/M_eqm_vs_ps.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$ps,df$Meq,type="l",xlab=expression(P[s]),ylab=expression(hat(M)),cex.lab=1.8)
+#abline(h=0,col="grey")
+dev.off()
+
+pdf("./Results/pdf_fig/N_eqm_vs_ps.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2))
+plot(df$ps,df$Neq,type="l",xlab=expression(P[s]),ylab=expression(hat(N)),cex.lab=1.8)
+#abline(h=0,col="grey")
+dev.off()
 
 
 
