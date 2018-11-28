@@ -54,6 +54,7 @@ for(i in seq_along(mylist)){
 
 df<-na.omit(df)
 df<-df[which(df$Caeq>0),]
+range(df$f)
 
 pdf("./Results/pdf_fig/Ca_eqm_vs_f.pdf",width=8,height=8)
 op<-par(mar=c(6,6,2,2))
