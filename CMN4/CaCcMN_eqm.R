@@ -131,9 +131,9 @@ pdf("./Results/pdf_fig/CaCc_eqm_vs_ps.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
 ylm<-max(df$Caeq,df$Cceq,na.rm = T)
 plot(df$ps,df$Caeq,type="l",xlab=expression(P[s]),ylab="",
-     cex.lab=2.5,cex.axis=2,
+     cex.lab=2.5,cex.axis=2,lwd=2,
      ylim=c(ylm-5,ylm+5))
-lines(df$ps,df$Cceq,cex.lab=2.5,cex.axis=2,lty="dashed")
+lines(df$ps,df$Cceq,cex.lab=2.5,cex.axis=2,lty="dashed",lwd=2)
 legend("topright", c(expression(hat(C[a])),expression(hat(C[c]))), 
        cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
        bty = "n")
@@ -148,9 +148,9 @@ pdf("./Results/pdf_fig/MN_eqm_vs_ps.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
 ylm<-max(df$Meq,df$Neq,na.rm = T)
 plot(df$ps,df$Meq,type="l",xlab=expression(P[s]),ylab="",
-     cex.lab=2.5,cex.axis=2,
+     cex.lab=2.5,cex.axis=2,lwd=2,
      ylim=c(0,ylm+0.2))
-lines(df$ps,df$Neq,cex.lab=2.5,cex.axis=2,lty="dashed")
+lines(df$ps,df$Neq,cex.lab=2.5,cex.axis=2,lty="dashed",lwd=2)
 legend("topright", c(expression(hat(M)),expression(hat(N))), 
        cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
        bty = "n")
