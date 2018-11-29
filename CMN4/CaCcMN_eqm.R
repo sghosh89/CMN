@@ -13,6 +13,16 @@ CaCcMN_eqm<-function(km=10,kn=30,kc=5,d,bmax,s,f,phi,g,ps,u){
   Meq<- (-alp2 + sqrt((alp2^2)-(4*alp1*alp3)))/(2*alp1)
   Neq<- beta-Meq
   
+ # if((is.finite(Meq)&(Meq<0))==T){
+ #   Meq<-0
+ #   Neq<- beta-Meq
+ # }
+  
+  if((is.finite(Neq)&(Neq<0))==T){
+    Neq<-0
+  }
+  
+  
   Caeq<- ((Meq+(Neq*(1-f)))*(Meq+kc)*(1-ps))/(u*(Meq^2))
   Cceq<- phi/(g*(Meq+Neq))
   
@@ -44,6 +54,7 @@ colnames(df)<-c("f","Caeq","Cceq","Meq","Neq")
 df<-as.data.frame(df)
 for(i in seq_along(mylist)){
   f<-mylist[i]
+  cat("i=",i,"\n")
   res<-CaCcMN_eqm(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u)
   df$f[i]<-f
   df$Caeq[i]<-res$Caeq
@@ -56,6 +67,7 @@ df<-na.omit(df)
 df<-df[which(df$Caeq>0),]
 range(df$f)
 
+#-----------------
 pdf("./Results/pdf_fig/Ca_eqm_vs_f.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
 plot(df$f,df$Caeq,type="b",xlab="f",ylab=expression(hat(C[a])),cex.lab=2.5,cex.axis=2,ylim=c(0,max(df$Caeq)))
@@ -115,30 +127,41 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
-pdf("./Results/pdf_fig/Ca_eqm_vs_ps.pdf",width=8,height=8)
+pdf("./Results/pdf_fig/CaCc_eqm_vs_ps.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
-plot(df$ps,df$Caeq,type="l",xlab=expression(P[s]),ylab=expression(hat(C[a])),cex.lab=2.5,cex.axis=2)
-#abline(h=0,col="grey")
+ylm<-max(df$Caeq,df$Cceq,na.rm = T)
+plot(df$ps,df$Caeq,type="l",xlab=expression(P[s]),ylab="",
+     cex.lab=2.5,cex.axis=2,
+     ylim=c(ylm-5,ylm+5))
+lines(df$ps,df$Cceq,cex.lab=2.5,cex.axis=2,lty="dashed")
+legend("topright", c(expression(hat(C[a])),expression(hat(C[c]))), 
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
+       bty = "n")
+
+legend("topleft", expression(paste("C"[c]^0, " = ", 5)),
+        cex = 2.5, horiz = F, inset = c(0,0),
+              bty = "n") 
 par(op)
 dev.off()
 
-pdf("./Results/pdf_fig/Cc_eqm_vs_ps.pdf",width=8,height=8)
+pdf("./Results/pdf_fig/MN_eqm_vs_ps.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
-plot(df$ps,df$Cceq,type="l",xlab=expression(P[s]),ylab=expression(hat(C[c])),cex.lab=2.5,cex.axis=2)
-#abline(h=0,col="grey")
+ylm<-max(df$Meq,df$Neq,na.rm = T)
+plot(df$ps,df$Meq,type="l",xlab=expression(P[s]),ylab="",
+     cex.lab=2.5,cex.axis=2,
+     ylim=c(0,ylm+0.2))
+lines(df$ps,df$Neq,cex.lab=2.5,cex.axis=2,lty="dashed")
+legend("topright", c(expression(hat(M)),expression(hat(N))), 
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+       bty = "n")
+
+legend("topleft", expression(paste("C"[c]^0, " = ", 5)),
+       cex = 2.5, horiz = F, inset = c(0,0),
+       bty = "n") 
+par(op)
 dev.off()
 
-pdf("./Results/pdf_fig/M_eqm_vs_ps.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2))
-plot(df$ps,df$Meq,type="l",xlab=expression(P[s]),ylab=expression(hat(M)),cex.lab=2.5,cex.axis=2)
-#abline(h=0,col="grey")
-dev.off()
 
-pdf("./Results/pdf_fig/N_eqm_vs_ps.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2))
-plot(df$ps,df$Neq,type="l",xlab=expression(P[s]),ylab=expression(hat(N)),cex.lab=2.5,cex.axis=2)
-#abline(h=0,col="grey")
-dev.off()
 
 
 
