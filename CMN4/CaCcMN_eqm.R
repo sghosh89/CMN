@@ -1,8 +1,8 @@
 # This function returns the equlibrium value for mutualist and non-mutualist
-CaCcMN_eqm<-function(km=10,kn=30,kc=5,d,bmax,s,f,phi,g,ps,u){
+CaCcMN_eqm<-function(km,kn,kc,d,bmax,s,f,phi,g,ps,u){
   
   beta1<- -(phi*f)/(g*(1-f))
-  beta2<- (km/((bmax*(1-s))-d)) - (kn/((bmax-d)*((1-f)^2)))
+  beta2<- (km/((bmax*(1-s))-d)) - (kn/((bmax-d)*((1-f))))
   beta<-beta1/(d*beta2)
   
   alp1<- (km*d*u*beta)/((bmax*(1-s))-d)
@@ -35,11 +35,11 @@ CaCcMN_eqm<-function(km=10,kn=30,kc=5,d,bmax,s,f,phi,g,ps,u){
 
 # call the function 
 km<- 10 # half saturation constant for mutualist 
-kn<- 30 # half saturation constant for non-mutualist
+kn<- 10 # half saturation constant for non-mutualist
 kc<- 5 # half saturation constant for allocated carbon
 d<- 0.5 # death rate of mutualist and non-mutualist
 bmax<- 0.8 # maximum growth rate of symbionts
-s<- 0.3 # cost of mutualism
+s<- 0.1 # cost of mutualism
 #f<-0.3 # fidelity
 phi <- 5 # constant resource value for construction carbon
 g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
@@ -63,7 +63,7 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
-df<-na.omit(df)
+#df<-na.omit(df)
 df<-df[which(df$Caeq>0),]
 range(df$f)
 
@@ -102,18 +102,18 @@ dev.off()
 
 # call the function 
 km<- 10 # half saturation constant for mutualist 
-kn<- 30 # half saturation constant for non-mutualist
+kn<- 10 # half saturation constant for non-mutualist
 kc<- 5 # half saturation constant for allocated carbon
 d<- 0.5 # death rate of mutualist and non-mutualist
 bmax<- 0.8 # maximum growth rate of symbionts
-s<- 0.3 # cost of mutualism
+s<- 0.1 # cost of mutualism
 f<-0.3 # fidelity
 phi <- 5 # constant resource value for construction carbon
 g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 #ps <- 0.3 # P-availability in the soil
 u<-0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
-mylist<-seq(from=0,to=1,by=0.01)
+mylist<-seq(from=0,to=0.99,by=0.01)
 df<-matrix(NA,nrow=length(mylist),ncol=5)
 colnames(df)<-c("ps","Caeq","Cceq","Meq","Neq")
 df<-as.data.frame(df)
@@ -132,13 +132,13 @@ op<-par(mar=c(6,6.2,2,2))
 ylm<-max(df$Caeq,df$Cceq,na.rm = T)
 plot(df$ps,df$Caeq,type="l",xlab=expression(P[s]),ylab="",
      cex.lab=2.5,cex.axis=2,lwd=2,
-     ylim=c(ylm-5,ylm+5))
+     ylim=c(0,ylm+7))
 lines(df$ps,df$Cceq,cex.lab=2.5,cex.axis=2,lty="dashed",lwd=2)
-legend("topright", c(expression(hat(C[a])),expression(hat(C[c]))), 
+legend("topleft", c(expression(hat(C[a])),expression(hat(C[c]))), 
        cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
        bty = "n")
 
-legend("topleft", expression(paste("C"[c]^0, " = ", 5)),
+legend("topright", expression(paste("C"[c]^0, " = ", 5)),
         cex = 2.5, horiz = F, inset = c(0,0),
               bty = "n") 
 par(op)
@@ -149,13 +149,13 @@ op<-par(mar=c(6,6.2,2,2))
 ylm<-max(df$Meq,df$Neq,na.rm = T)
 plot(df$ps,df$Meq,type="l",xlab=expression(P[s]),ylab="",
      cex.lab=2.5,cex.axis=2,lwd=2,
-     ylim=c(0,ylm+0.2))
+     ylim=c(0,ylm+1))
 lines(df$ps,df$Neq,cex.lab=2.5,cex.axis=2,lty="dashed",lwd=2)
-legend("topright", c(expression(hat(M)),expression(hat(N))), 
+legend("topleft", c(expression(hat(M)),expression(hat(N))), 
        cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
        bty = "n")
 
-legend("topleft", expression(paste("C"[c]^0, " = ", 5)),
+legend("topright", expression(paste("C"[c]^0, " = ", 5)),
        cex = 2.5, horiz = F, inset = c(0,0),
        bty = "n") 
 par(op)
