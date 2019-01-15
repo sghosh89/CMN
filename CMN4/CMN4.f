@@ -24,8 +24,8 @@
                                 
              read(10,*)ps,akc,u,af
              read(10,*)bmax,as,d,akm
-             !read(10,*)akn,phi,g
-             read(10,*)akn,g
+             read(10,*)akn,phi,g
+             !read(10,*)akn,g
              read(10,*)hh,kk
              read(10,*)x0,y0,z0,v0,t0
             
@@ -36,11 +36,11 @@
               print *,"Can*/Cam*=",Can/Cam
               print *,"1/(1-f)=",1/(1.0-af)
           
-          phi0=0.1
+          !phi0=0.1
           
-          do ip=0,499
-             phi=phi0+(0.1*ip)
-             print *,"----------phi=",phi,"--------------"
+          !do ip=0,499
+          !   phi=phi0+(0.1*ip)
+          !   print *,"----------phi=",phi,"--------------"
      
           do i=1,kk
             
@@ -102,11 +102,11 @@
              print *,"Meq=",y
              print *,"Neq=",z
 
-           Cr=v/x
-           Sr=z/y
-           write(60,*)phi,Cr,Sr
+           !Cr=v/x
+           !Sr=z/y
+           !write(60,*)phi,Cr,Sr
             
-          end do
+          !end do
 
              stop
              end

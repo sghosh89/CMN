@@ -18,9 +18,9 @@ CaCcMN_eqm<-function(km,kn,kc,d,bmax,s,f,phi,g,ps,u){
  #   Neq<- beta-Meq
  # }
   
-  if((is.finite(Neq)&(Neq<0))==T){
-    Neq<-0
-  }
+  #if((is.finite(Neq)&(Neq<0))==T){
+  #  Neq<-0
+  #}
   
   
   Caeq<- ((Meq+(Neq*(1-f)))*(Meq+kc)*(1-ps))/(u*(Meq^2))
