@@ -29,11 +29,10 @@
              read(10,*)hh,kk
              read(10,*)x0,y0,z0,v0,t0
             
-             as_max=(1.0-(d/bmax))                              !condtion for coexistence 
-             print *, "as_max=",as_max
-             print *,"as=",as
+             ccoex=(as*bmax)/(bmax-d)
+             print *,"s*bmax/(bmax-d)=",ccoex,"should be < f(=",af,")"
               Cam=(akm*d)/((bmax*(1.0-as))-d)
-              Can=(akn*d)/((bmax-d)*((1.0-af)**2.0))
+              Can=(akn*d)/((bmax-d)*(1.0-af))
               print *,"Can*/Cam*=",Can/Cam
               print *,"1/(1-f)=",1/(1.0-af)
           
@@ -98,10 +97,10 @@
 
              end do
 
-             print *,"Ca=",x
-             print *,"Cc=",v
-             print *,"M=",y
-             print *,"N=",z
+             print *,"Caeq=",x
+             print *,"Cceq=",v
+             print *,"Meq=",y
+             print *,"Neq=",z
 
          !  Cr=v/x
          !  Sr=z/y
@@ -109,7 +108,7 @@
             
 !          end do
 
-!             stop
+             stop
              end
 
 !----------------------------------------------------------------------------------------------------------
@@ -171,8 +170,8 @@
                 common/par10/phi  !construction C
                 common/par11/g  !construction C decay rate
                
-           f3=bmax*(1.0-af)*((x*(1.0-af))+v)
-           f3=(f3/(akn+((1.0-af)*((x*(1.0-af))+v))))-d
+           f3=bmax*((x*(1.0-af))+v)
+           f3=(f3/(akn+(v+((1.0-af)*x))))-d
            f3=(f3*z)
             
                return
