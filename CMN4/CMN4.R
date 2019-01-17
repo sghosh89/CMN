@@ -305,8 +305,8 @@ Plotter<-function(resloc,figname,figformat){
     legend("topright", c("Mutualist : slope = -1","Non-mutualist : slope = -1/(1-f)"), 
            cex = 1.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
            bty = "n") 
-    mtext(adj=0.65,line=-15,(bquote("C"[cM]^"*"~"= C"[aM]^"*")),cex=1.5)
-    mtext(adj=0.7,line=-18,(bquote("C"[cN]^"*"~"= (1-f)C"[aN]^"*")),cex=1.5)
+    mtext(adj=0.65,line=-15,(bquote("C"[aM]^"*"~"= C"[cM]^"*")),cex=1.5)
+    mtext(adj=0.7,line=-18,(bquote("C"[aN]^"*"~"= C"[cN]^"*"~"/(1-f)")),cex=1.5)
     mtext(adj=0.7,line=linepos,(bquote("C"[cM]^"*")),cex=1.5)
     mtext(adj=0.4,line=linepos,(bquote("C"[cN]^"*")),cex=1.5)
     mtext(adj=-0.08,line=linepos2,(bquote("C"[aM]^"*")),cex=1.5)
