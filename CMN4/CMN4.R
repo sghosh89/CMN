@@ -7,24 +7,24 @@
 #     n=500 default values to add arrows in the trajectories
 #     resloc = folder name to save the plot
 #     figformat = default value "pdf" (other options : "eps", "jpeg")
-Plotter_CMN4<-function(f,x1,x2,xlm,ylm,n,resloc,figformat,tagon){
+Plotter_CMN4<-function(f,km,kn,x1,x2,xlm,ylm,n,resloc,figformat,tagon){
   # specify the other parameters
-  k_m<- 10# half saturation constant for mutualist 
-  k_n<- 10 # half saturation constant for non-mutualist
+  #k_m<- 10# half saturation constant for mutualist 
+  #k_n<- 10 # half saturation constant for non-mutualist
   d<- 0.5 # death rate of mutualist and non-mutualist
   bmax<- 0.8 #maximum growth rate of symbionts
   s<- 0.1 # cost of mutualism
   
-  a1 <-((k_m*d)/((bmax*(1-s))-d)) #intercept for mutualist
-  a2<-(k_n*d)/((bmax-d)*(1-f)) #intercept for non-mutualist
+  a1 <-((km*d)/((bmax*(1-s))-d)) #intercept for mutualist
+  a2<-(kn*d)/((bmax-d)*(1-f)) #intercept for non-mutualist
   
   if(figformat=="eps"){
     setEPS()
-    postscript(paste(resloc,"f_",f,"_Ca_vs_Cc.eps",sep=""),width=8,height=8)
+    postscript(paste(resloc,"f_",f,"_km_",km,"_kn_",kn,"_Ca_vs_Cc.eps",sep=""),width=8,height=8)
   }else if(figformat=="jpeg"){
-    jpeg(paste(resloc,"f_",f,"_Ca_vs_Cc.jpeg",sep=""),width=640,height=640)
+    jpeg(paste(resloc,"f_",f,"_km_",km,"_kn_",kn,"_Ca_vs_Cc.jpeg",sep=""),width=640,height=640)
   }else if(figformat=="pdf"){
-    pdf(paste(resloc,"f_",f,"_Ca_vs_Cc.pdf",sep=""),width=8,height=8)
+    pdf(paste(resloc,"f_",f,"_km_",km,"_kn_",kn,"_Ca_vs_Cc.pdf",sep=""),width=8,height=8)
   }else{
     print("----------Error : figformat is not specified---------")
   }
@@ -69,21 +69,32 @@ Plotter_CMN4<-function(f,x1,x2,xlm,ylm,n,resloc,figformat,tagon){
 f<-0.2
 xlm<-c(0,30)
 ylm<-c(0,55)
-x1<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0.dat",sep="")
-x2<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0.dat",sep="")
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = F)
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = F)
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/eps_fig/",figformat = "eps",tagon = F)
+x1<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
+x2<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = F)
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = F)
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/eps_fig/",figformat = "eps",tagon = F)
 
 # call the function
 f<-0.3
 xlm<-c(0,30)
 ylm<-c(0,55)
-x1<-read.delim("CMN4_tCaCc_f_0.3_phi_0.5.dat",sep="")
-x2<-read.delim("CMN4_tCaCc_f_0.3_phi_5.0.dat",sep="")
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = T)
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = T)
-Plotter_CMN4(f=f,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/eps_fig/",figformat = "eps",tagon = T)
+x1<-read.delim("CMN4_tCaCc_f_0.3_phi_0.5_km_10.0_kn_10.0.dat",sep="")
+x2<-read.delim("CMN4_tCaCc_f_0.3_phi_5.0_km_10.0_kn_10.0.dat",sep="")
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = T)
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = T)
+Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/eps_fig/",figformat = "eps",tagon = T)
+
+# call the function
+f<-0.7
+xlm<-c(0,30)
+ylm<-c(0,55)
+x1<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="")
+x2<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = T)
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = T)
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/eps_fig/",figformat = "eps",tagon = T)
+
 
 #--------------------------------------------------------------------
 # plotter function to plot variables (Ca,Cc or M,N) against time
@@ -116,64 +127,104 @@ Plotter_CMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc,figformat,phi0){
 
 #------------------------------
 # for f=0.2
-x5C<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0.dat",sep="")
-x5S<-read.delim("CMN4_tMN_f_0.2_phi_5.0.dat",sep="")
+x5C<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
+x5S<-read.delim("CMN4_tMN_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
 
 axlim<-c(-5,10000)
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 #-----------------------------
 
 # for f=0.3, phi=0.5
-x5C<-read.delim("CMN4_tCaCc_f_0.3_phi_0.5.dat",sep="") # for allocated and construction C
-x5S<-read.delim("CMN4_tMN_f_0.3_phi_0.5.dat",sep="") # for both symbionts
+x0.5C<-read.delim("CMN4_tCaCc_f_0.3_phi_0.5_km_10.0_kn_10.0.dat",sep="") # for allocated and construction C
+x0.5S<-read.delim("CMN4_tMN_f_0.3_phi_0.5_km_10.0_kn_10.0.dat",sep="") # for both symbionts
 
 # for f=0.3, phi=5.0
-x25C<-read.delim("CMN4_tCaCc_f_0.3_phi_5.0.dat",sep="")
-x25S<-read.delim("CMN4_tMN_f_0.3_phi_5.0.dat",sep="")
+x5C<-read.delim("CMN4_tCaCc_f_0.3_phi_5.0_km_10.0_kn_10.0.dat",sep="")
+x5S<-read.delim("CMN4_tMN_f_0.3_phi_5.0_km_10.0_kn_10.0.dat",sep="")
 
-axlim<-c(0,max(x5C[,2],x5C[,3],x25C[,2],x25C[,3]))
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_0.5_CaCc",taglegend=c("Allocated C","Construction C"),
+axlim<-c(0,max(x0.5C[,2],x0.5C[,3],x5C[,2],x5C[,3]))
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25C,axlim=axlim,nametag="f_0.3_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_0.5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25C,axlim=axlim,nametag="f_0.3_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_0.5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25C,axlim=axlim,nametag="f_0.3_phi_5_CaCc",taglegend=c("Allocated C","Construction C"),
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
-axlim<-c(0,max(x5S[,2],x5S[,3],x25S[,2],x25S[,3]))
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_MN",taglegend=c("Mutualist","Non-mutualist"),
+axlim<-c(0,max(x5S[,2],x5S[,3],x5S[,2],x5S[,3]))
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25S,axlim=axlim,nametag="f_0.3_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25S,axlim=axlim,nametag="f_0.3_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x25S,axlim=axlim,nametag="f_0.3_phi_5_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
+#-----------------------------------------------------------------------------
+# for f=0.7, phi=0.5
+x0.5C<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="") # for allocated and construction C
+x0.5S<-read.delim("CMN4_tMN_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="") # for both symbionts
+
+# for f=0.7, phi=5.0
+x5C<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
+x5S<-read.delim("CMN4_tMN_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
+
+axlim<-c(0,max(x0.5C[,2],x0.5C[,3],x5C[,2],x5C[,3]))
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
+
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
+
+Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
+                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
+
+axlim<-c(0,max(x5S[,2],x5S[,3],x5S[,2],x5S[,3]))
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
+
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
+
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
+Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
 #--------------------------------------
@@ -281,4 +332,16 @@ Plotter(resloc = "./Results/jpeg_fig/", figname = "schematic_diagram", figformat
 
 
 #test lines
+
+
+
+
+
+
+
+
+
+
+
+
 
