@@ -29,8 +29,9 @@
              read(10,*)hh,kk
              read(10,*)x0,y0,z0,v0,t0
             
-             ccoex=(as*bmax)/(bmax-d)
-             print *,"s*bmax/(bmax-d)=",ccoex,"should be < f(=",af,")"
+             ccoex=(akn/akm)*(((bmax*(1.0-as))-d)/(bmax-d))
+             ccoex=1.0-ccoex
+             print *,"fmin=",ccoex,"should be < f(=",af,")"
               Cam=(akm*d)/((bmax*(1.0-as))-d)
               Can=(akn*d)/((bmax-d)*(1.0-af))
               print *,"Can*/Cam*=",Can/Cam
