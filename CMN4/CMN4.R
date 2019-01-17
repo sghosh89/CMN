@@ -38,7 +38,7 @@ Plotter_CMN4<-function(f,km,kn,x1,x2,xlm,ylm,n,resloc,figformat,tagon){
   legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
          cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
          bty = "n") 
-  lines(x=axlim,y=c(0,0),col="dimgrey",lty="dotted")
+  abline(h=0,col="dimgrey",lty="dotted")
   #grid()
   
   colnames(x1)<-c("time","C_alloc","C_cons")
@@ -89,11 +89,12 @@ Plotter_CMN4(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Resul
 f<-0.7
 xlm<-c(0,30)
 ylm<-c(0,55)
-x1<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="")
+#x1<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="")
+x1<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
 x2<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
-Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = T)
-Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon = T)
-Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/eps_fig/",figformat = "eps",tagon = T)
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = F)
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/jpeg_fig/",figformat = "jpeg",tagon =F)
+Plotter_CMN4(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/eps_fig/",figformat = "eps",tagon = F)
 
 
 #--------------------------------------------------------------------
