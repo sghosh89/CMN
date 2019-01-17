@@ -173,17 +173,17 @@ Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",t
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
 axlim<-c(0,max(x5S[,2],x5S[,3],x5S[,2],x5S[,3]))
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
@@ -212,18 +212,18 @@ Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc
 Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
-axlim<-c(0,max(x5S[,2],x5S[,3],x5S[,2],x5S[,3]))
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+axlim<-c(0,max(x0.5S[,2],x0.5S[,3],x5S[,2],x5S[,3]))
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
+Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
