@@ -162,6 +162,7 @@ for(i in c(1:nrow(df))){
 }
 
 df_max_eigenval<-df_max_eigenval[-1,] # because there was no construction C at eqm
+
 pdf("./Results/pdf_fig/max_eigenval_vs_f_with_km_10_kn_6.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
 plot(df_max_eigenval$f,df_max_eigenval$max_eigenval,xlab="f",ylab="max(eigenvalues)",
@@ -210,6 +211,105 @@ for(i in c(1:nrow(df))){
 }
 
 pdf("./Results/pdf_fig/max_eigenval_vs_ps_with_km_10_kn_6.pdf",width=8,height=8)
+op<-par(mar=c(6,6.2,2,2))
+plot(df_max_eigenval$ps,df_max_eigenval$max_eigenval,xlab=expression(P[s]),ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df_max_eigenval$max_eigenval,0)))
+abline(h=0,col="grey",lwd=2)
+par(op)
+dev.off()
+#----------------------------------------------------------------------------------------------------------------
+
+#=======================================================================================
+
+#-----------------------------------------------------------------------------------------
+# Now call the functions to see eigen value variation against fidelity 
+
+#---------when km and kn are equal---------------------
+km<- 10 # half saturation constant for mutualist 
+kn<- 10 # half saturation constant for non-mutualist
+kc<- 5 # half saturation constant for allocated carbon
+d<- 0.5 # death rate of mutualist and non-mutualist
+bmax<- 0.8 # maximum growth rate of symbionts
+s<- 0.1 # cost of mutualism
+#f<-0.3 # fidelity
+phi <- 5 # constant resource value for construction carbon
+g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
+ps <- 0.3 # P-availability in the soil
+u<- 0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
+
+
+mylist<-seq(from=0,to=1,by=0.01)
+df<-matrix(NA,nrow=length(mylist),ncol=5)
+colnames(df)<-c("f","Caeq","Cceq","Meq","Neq")
+df<-as.data.frame(df)
+
+for(i in seq_along(mylist)){
+  f<-mylist[i]
+  cat("i=",i,"\n")
+  res<-CaCcMN_eqm(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u)
+  df$f[i]<-f
+  df$Caeq[i]<-res$Caeq
+  df$Cceq[i]<-res$Cceq
+  df$Meq[i]<-res$Meq
+  df$Neq[i]<-res$Neq
+}
+df<-na.omit(df)
+
+df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
+for(i in c(1:nrow(df))){
+  f<-df$f[i]
+  ans<-get_eigenvalues(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u,eqmvals = df_eqm[i,])
+  df_max_eigenval$max_eigenval[i]<-max(ans)
+}
+
+pdf("./Results/pdf_fig/max_eigenval_vs_f_with_km_10_kn_10.pdf",width=8,height=8)
+op<-par(mar=c(6,6.2,2,2))
+plot(df_max_eigenval$f,df_max_eigenval$max_eigenval,xlab="f",ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df_max_eigenval$max_eigenval,0)))
+abline(h=0,col="grey",lwd=2)
+par(op)
+dev.off()
+
+
+# Now call the functions to see eigen value variation against soil P availability with km=10, kn=10
+km<- 10 # half saturation constant for mutualist 
+kn<- 10 # half saturation constant for non-mutualist
+kc<- 5 # half saturation constant for allocated carbon
+d<- 0.5 # death rate of mutualist and non-mutualist
+bmax<- 0.8 # maximum growth rate of symbionts
+s<- 0.1 # cost of mutualism
+f<-0.3 # fidelity
+phi <- 5 # constant resource value for construction carbon
+g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
+#ps <- 0.3 # P-availability in the soil
+u<- 0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
+
+mylist<-seq(from=0,to=1,by=0.01)
+df<-matrix(NA,nrow=length(mylist),ncol=5)
+colnames(df)<-c("ps","Caeq","Cceq","Meq","Neq")
+df<-as.data.frame(df)
+
+for(i in seq_along(mylist)){
+  ps<-mylist[i]
+  cat("i=",i,"\n")
+  res<-CaCcMN_eqm(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u)
+  df$ps[i]<-ps
+  df$Caeq[i]<-res$Caeq
+  df$Cceq[i]<-res$Cceq
+  df$Meq[i]<-res$Meq
+  df$Neq[i]<-res$Neq
+}
+df<-na.omit(df)
+df_eqm<-df[,-1]
+
+df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
+for(i in c(1:nrow(df))){
+  ps<-df$ps[i]
+  ans<-get_eigenvalues(km=km,kn=kn,kc=kc,d=d,bmax=bmax,s=s,f=f,phi=phi,g=g,ps=ps,u=u,eqmvals = df_eqm[i,])
+  df_max_eigenval$max_eigenval[i]<-max(ans)
+}
+
+pdf("./Results/pdf_fig/max_eigenval_vs_ps_with_km_10_kn_10.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2))
 plot(df_max_eigenval$ps,df_max_eigenval$max_eigenval,xlab=expression(P[s]),ylab="max(eigenvalues)",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df_max_eigenval$max_eigenval,0)))
