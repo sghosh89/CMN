@@ -254,6 +254,7 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 df<-na.omit(df)
+df_eqm<-df[,-1]
 
 df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
 for(i in c(1:nrow(df))){
