@@ -18,9 +18,9 @@ CaCcMN_eqm<-function(km,kn,kc,d,bmax,s,f,phi,g,ps,u){
  #   Neq<- beta-Meq
  # }
   
-  if((is.finite(Neq)&(Neq<0))==T){
-    Neq<-0
-  }
+ # if((is.finite(Neq)&(Neq<0))==T){
+#    Neq<-0
+#  }
   
   
   Caeq<- ((Meq+(Neq*(1-f)))*(Meq+kc)*(1-ps))/(u*(Meq^2))
@@ -65,8 +65,10 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
+
 #df<-na.omit(df)
-df<-df[which(df$Caeq>0),]
+#df<-df[which(df$Caeq>0),]
 df$pMNeq<-df$Meq/(df$Meq+df$Neq) #proportion of Mutualism at equilibrium
 range(df$f)
 
@@ -144,10 +146,9 @@ for(i in seq_along(mylist)){
   df$Neq[i]<-res$Neq
 }
 
-#df<-na.omit(df)
-df<-df[which(df$Caeq>0),]
-df<-df[-1,] # to get rid of diverging values
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
 df$pMNeq<-df$Meq/(df$Meq+df$Neq) #proportion of Mutualism at equilibrium
+df<-df[-1,] # to get rid of diverging values
 range(df$f)
 
 #-----------------
@@ -213,7 +214,7 @@ g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 #ps <- 0.3 # P-availability in the soil
 u<-0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
-mylist<-seq(from=0,to=0.99,by=0.01)
+mylist<-seq(from=0,to=1,by=0.01)
 df<-matrix(NA,nrow=length(mylist),ncol=5)
 colnames(df)<-c("ps","Caeq","Cceq","Meq","Neq")
 df<-as.data.frame(df)
@@ -226,6 +227,8 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
+
 df$pMNeq<-df$Meq/(df$Meq+df$Neq) #proportion of Mutualism at equilibrium
 
 pdf("./Results/pdf_fig/CaCc_eqm_vs_ps_km_10_kn_10_f_0.3.pdf",width=8,height=8)
@@ -295,7 +298,7 @@ g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 #ps <- 0.3 # P-availability in the soil
 u<-0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
-mylist<-seq(from=0,to=0.99,by=0.01)
+mylist<-seq(from=0,to=1,by=0.01)
 df<-matrix(NA,nrow=length(mylist),ncol=5)
 colnames(df)<-c("ps","Caeq","Cceq","Meq","Neq")
 df<-as.data.frame(df)
@@ -308,6 +311,7 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
 df$pMNeq<-df$Meq/(df$Meq+df$Neq) #proportion of Mutualism at equilibrium
 
 pdf("./Results/pdf_fig/CaCc_eqm_vs_ps_km_10_kn_6_f_0.7.pdf",width=8,height=8)

@@ -19,9 +19,9 @@ CaCcMN_eqm<-function(km,kn,kc,d,bmax,s,f,phi,g,ps,u){
   #   Neq<- beta-Meq
   # }
   
-  if((is.finite(Neq)&(Neq<0))==T){
-    Neq<-0
-  }
+  #if((is.finite(Neq)&(Neq<0))==T){
+  #  Neq<-0
+  #}
   
   
   Caeq<- ((Meq+(Neq*(1-f)))*(Meq+kc)*(1-ps))/(u*(Meq^2))
@@ -151,9 +151,10 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
-df<-na.omit(df)
-df_eqm<-df[,-1]
 
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
+
+df_eqm<-df 
 df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
 for(i in c(1:nrow(df))){
   f<-df$f[i]
@@ -200,8 +201,9 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
-df<-na.omit(df)
-df_eqm<-df[,-1]
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
+
+df_eqm<-df
 
 df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
 for(i in c(1:nrow(df))){
@@ -253,9 +255,9 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
-df<-na.omit(df)
-df_eqm<-df[,-1]
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
 
+df_eqm<-df
 df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
 for(i in c(1:nrow(df))){
   f<-df$f[i]
@@ -300,9 +302,9 @@ for(i in seq_along(mylist)){
   df$Meq[i]<-res$Meq
   df$Neq[i]<-res$Neq
 }
-df<-na.omit(df)
-df_eqm<-df[,-1]
+df<-df[which(df$Meq>0 & df$Neq>0),] # co-existence
 
+df_eqm<-df
 df_max_eigenval<-as.data.frame(cbind(df,"max_eigenval"=NA))
 for(i in c(1:nrow(df))){
   ps<-df$ps[i]
@@ -342,14 +344,6 @@ dev.off()
 #y<-3
 
 #eval(fn_d1)
-
-
-
-
-
-
-
-
 
 
 

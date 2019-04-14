@@ -252,7 +252,7 @@ sink()
 
 saveRDS(stable_eqm,"./Results/pdf_fig/eigen_res/km_kn_kc_1_20_f_ps_vary.RDS")
 
-any(stable_eqm==F) # it should be False
+any(stable_eqm==FALSE) # it should be False
 
 
 
