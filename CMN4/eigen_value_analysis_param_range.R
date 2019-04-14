@@ -227,14 +227,14 @@ g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 u<- 0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
 # initialize
-kmvary<-seq(from=5,to=15,by=1)
-knvary<-seq(from=5,to=15,by=1)
-kcvary<-seq(from=5,to=15,by=1)
+kmvary<-seq(from=2,to=50,by=1)
+knvary<-seq(from=2,to=50,by=1)
+kcvary<-seq(from=2,to=50,by=1)
 
 fvary<-seq(from=0,to=1,by=0.01)
 psvary<-seq(from=0,to=1,by=0.01)
 
-sink("./Results/km_kn_kc_f_ps_vary.txt", append=TRUE, split=TRUE)
+sink("./Results/pdf_fig/eigen_res/km_kn_kc_f_ps_vary.txt", append=TRUE, split=TRUE)
 stable_eqm<-c()  
 for(i_km in c(1:length(kmvary))){
   for(i_kn in c(1:length(knvary))){
@@ -250,7 +250,7 @@ for(i_km in c(1:length(kmvary))){
 }
 sink()
 
-
+saveRDS(stable_eqm,"./Results/pdf_fig/eigen_res/km_kn_kc_2_50_f_ps_vary.RDS")
 
 
 
