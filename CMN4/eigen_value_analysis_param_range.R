@@ -19,9 +19,9 @@ CaCcMN_eqm<-function(km,kn,kc,d,bmax,s,f,phi,g,ps,u){
   #   Neq<- beta-Meq
   # }
   
-  if((is.finite(Neq)&(Neq<0))==T){
-    Neq<-0
-  }
+  #if((is.finite(Neq)&(Neq<0))==T){
+  #  Neq<-0
+  #}
   
   
   Caeq<- ((Meq+(Neq*(1-f)))*(Meq+kc)*(1-ps))/(u*(Meq^2))
@@ -227,9 +227,9 @@ g<- 0.2 # Rate at which construction carbon is allocated to both symbionts
 u<- 0.4 # Phosphorous uptake per unit of preferentially allocated carbon received by mutualists
 
 # initialize
-kmvary<-seq(from=2,to=50,by=1)
-knvary<-seq(from=2,to=50,by=1)
-kcvary<-seq(from=2,to=50,by=1)
+kmvary<-seq(from=1,to=20,by=1)
+knvary<-seq(from=1,to=20,by=1)
+kcvary<-seq(from=1,to=20,by=1)
 
 fvary<-seq(from=0,to=1,by=0.01)
 psvary<-seq(from=0,to=1,by=0.01)
@@ -250,9 +250,9 @@ for(i_km in c(1:length(kmvary))){
 }
 sink()
 
-saveRDS(stable_eqm,"./Results/pdf_fig/eigen_res/km_kn_kc_2_50_f_ps_vary.RDS")
+saveRDS(stable_eqm,"./Results/pdf_fig/eigen_res/km_kn_kc_1_20_f_ps_vary.RDS")
 
-
+any(stable_eqm==F) # it should be False
 
 
 
