@@ -5,15 +5,14 @@ ARMN_model<-function(t,states,params){
    
     pM<- M/(M+N) #proportion of mutualist
     F_MN<- u*(M/(KA+M))*(pM/(1-f+(f*pM))) #saturating function
-    #CM<- (eM*aM*R*M) + ((pM/(1-f+(f*pM)))*A) #carbon consumed by M
-    CM<- (eM*aM*R) + ((A/(M+N))/(1-f+(f*pM))) #carbon consumed by M
-    CN<- (eN*aN*R) + (((A*(1-f))/(M+N))/(1-f+(f*pM))) #carbon consumed by N
+    CM<- (eM*aM*R) + (A/((M+N)*(1-f+(f*pM)))) #carbon consumed by M
+    CN<- (eN*aN*R) + ((A*(1-f))/((M+N))*(1-f+(f*pM))) #carbon consumed by N
     
     #rate of change
     dA<- 1-ps-(A*F_MN)
     dR<- D-(aM*R*M)-(aN*R*N)
-    dM<- (M*bmax*(1-s)*(CM/(KM+CM)))-(d*M)
-    dN<- (N*bmax*(CN/(KN+CN)))-(d*N)
+    dM<- (((bmax*(1-s)*CM)/(KM+CM))- d)*M
+    dN<- (((bmax*CN)/(KN+CN))-d)*N
    
     #return the change
     list(c(dA,dR,dM,dN))
@@ -33,7 +32,7 @@ t<-seq(from=0,to=800,by=0.01) # times for simulation
 params<-c(ps=0.3,  #concentration of soil phosphorous available for plant
           u=0.4,  #phosphorous uptake per unit of A ??unit
           KA=5, # half saturation constant for A
-          f=0.65,  # fidelity of plant allocation to mutualist
+          f=0.6,  # fidelity of plant allocation to mutualist
           D=5,  # base root growth rate
           aM=0.5, # colonization rate of new roots by M
           aN=0.6, # colonization rate of new roots by N
