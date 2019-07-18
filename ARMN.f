@@ -6,7 +6,7 @@
                 common/par2/u      !phosphorous uptake per unit of A ??unit
                 common/par3/aKA    !half saturation constant for A
                 common/par4/af     ! fidelity of plant allocation to mutualist
-          	common/par5/rD     ! base root growth rate
+          	common/par5/phi     ! base root growth rate
           	common/par6/aM     ! colonization rate of new roots by M
           	common/par7/aN     ! colonization rate of new roots by N
           	common/par8/eM     ! plant's efficiency to give resources to mutualist
@@ -18,7 +18,7 @@
           	common/par14/aKN     ! half saturation constant for N
                 
                 double precision ps,u,aKA,af
-                double precision rD,aM,aN,eM
+                double precision phi,aM,aN,eM
                 double precision eN,bmax,s,aKM
                 double precision d,aKN
              
@@ -27,11 +27,16 @@
              open(50,file='ARMN_tMN.dat',status='unknown')
                                              
              read(10,*)ps,u,aKA,af
-             read(10,*)rD,aM,aN
+             read(10,*)phi,aM,aN
              read(10,*)eM,eN,bmax,d
              read(10,*)s,aKM,aKN
              read(10,*)hh,kk
              read(10,*)x0,y0,z0,v0,t0
+
+             af_min=1.0-((aKN/aKM)*(((bmax*(1.0-s))-d)/(bmax-d)))
+
+             print *,"----------given f=",af,"--------------"
+             print *,"----------f_min=",af_min,"--------------"
             
             
           !phi0=0.1
@@ -118,7 +123,7 @@
                 common/par2/u      !phosphorous uptake per unit of A ??unit
                 common/par3/aKA    !half saturation constant for A
                 common/par4/af     ! fidelity of plant allocation to mutualist
-          	common/par5/rD     ! base root growth rate
+          	common/par5/phi     ! base root growth rate
           	common/par6/aM     ! colonization rate of new roots by M
           	common/par7/aN     ! colonization rate of new roots by N
           	common/par8/eM     ! plant's efficiency to give resources to mutualist
@@ -145,7 +150,7 @@
                 common/par2/u      !phosphorous uptake per unit of A ??unit
                 common/par3/aKA    !half saturation constant for A
                 common/par4/af     ! fidelity of plant allocation to mutualist
-          	common/par5/rD     ! base root growth rate
+          	common/par5/phi     ! base root growth rate
           	common/par6/aM     ! colonization rate of new roots by M
           	common/par7/aN     ! colonization rate of new roots by N
           	common/par8/eM     ! plant's efficiency to give resources to mutualist
@@ -173,7 +178,7 @@
                 common/par2/u      !phosphorous uptake per unit of A ??unit
                 common/par3/aKA    !half saturation constant for A
                 common/par4/af     ! fidelity of plant allocation to mutualist
-          	common/par5/rD     ! base root growth rate
+          	common/par5/phi     ! base root growth rate
           	common/par6/aM     ! colonization rate of new roots by M
           	common/par7/aN     ! colonization rate of new roots by N
           	common/par8/eM     ! plant's efficiency to give resources to mutualist
@@ -201,7 +206,7 @@
                 common/par2/u      !phosphorous uptake per unit of A ??unit
                 common/par3/aKA    !half saturation constant for A
                 common/par4/af     ! fidelity of plant allocation to mutualist
-          	common/par5/rD     ! base root growth rate
+          	common/par5/phi     ! base root growth rate
           	common/par6/aM     ! colonization rate of new roots by M
           	common/par7/aN     ! colonization rate of new roots by N
           	common/par8/eM     ! plant's efficiency to give resources to mutualist
@@ -213,7 +218,7 @@
           	common/par14/aKN     ! half saturation constant for N
                 
                
-               f4=rD-(aM*v*y)-(aN*v*z)
+               f4=phi-(aM*v*y)-(aN*v*z)
                return
                end
 
