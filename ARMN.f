@@ -28,12 +28,12 @@
              open(60,file='ARMN_phiCrSr.dat',status='unknown') ! see variation of R/A, N/M at eqm against phi
              !open(70,file='ARMN_psAR.dat',status='unknown') ! see variation of A,R at eqm against soil phosphorous
              !open(71,file='ARMN_psMN.dat',status='unknown') ! see variation of M,N at eqm against soil phosphorous
-             open(80,file='ARMN_fAR.dat',status='unknown') ! see variation of A,R at eqm against fidelity
-             open(81,file='ARMN_fMN.dat',status='unknown') ! see variation of M,N at eqm against fidelity
+            !open(80,file='ARMN_fAR.dat',status='unknown') ! see variation of A,R at eqm against fidelity
+            !open(81,file='ARMN_fMN.dat',status='unknown') ! see variation of M,N at eqm against fidelity
 
                                              
-             read(10,*)ps,u,aKA
-!            read(10,*)ps,u,aKA,af
+!             read(10,*)ps,u,aKA
+            read(10,*)ps,u,aKA,af
              read(10,*)phi,aM,aN
 !             read(10,*)aM,aN
              read(10,*)eM,eN,bmax,d
@@ -43,14 +43,14 @@
 
              af_min=1.0-((aKN/aKM)*(((bmax*(1.0-s))-d)/(bmax-d)))
 
-!             print *,"----------given f=",af,"--------------"
-!             print *,"----------f_min=",af_min,"--------------"
+             print *,"----------given f=",af,"--------------"
+             print *,"----------f_min=",af_min,"--------------"
             
             
                  
-          do ip=0,40
-             af=af_min+(0.01*ip)
-             print *,"----------f=",af,"--------------"
+!          do ip=0,40
+!             af=af_min+(0.01*ip)
+!             print *,"----------f=",af,"--------------"
      
           do i=1,kk
             
@@ -116,11 +116,11 @@
          !  Sr=z/y
          !  write(70,*)ps,x,v
          !  write(71,*)ps,y,z
-           write(80,*)af,x,v
-           write(81,*)af,y,z
+         !  write(80,*)af,x,v
+         !  write(81,*)af,y,z
 
             
-          end do
+         ! end do
 
              stop
              end
