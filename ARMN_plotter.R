@@ -207,6 +207,92 @@ Plotter_ARMN_vs_t(x1=xC,axlim=c(0,100),nametag="phi_5_f_0.9_KM_10_KN_10_AR",
 Plotter_ARMN_vs_t(x1=xS,axlim=c(0,1),nametag="phi_5_f_0.9_KM_10_KN_6_MN",
                   taglegend=c("M","N"),resloc)
 
+#==============================================================================================
+# plotter fn to get plots of (A,R) or (M,N) vs. ps and f
+
+plot_ARMN_vs_ps_f<-function(x1,resloc,nametag,xlb,taglegend,axlim){
+  
+  pdf(paste(resloc,nametag,".pdf",sep=""),width=8,height=8)
+  
+  op<-par(mar=c(6,6,2,2),pty="s")
+  plot(x1[,1],x1[,2],xlab=xlb,ylab="",cex.lab=2.5,cex.axis=2,
+       col="darkgrey",type="l",
+       ylim=axlim,lwd=2)
+  
+  lines(x1[,1],x1[,3],col="black",lty="dashed",lwd=2)
+  legend("topright", taglegend, col = c("darkgrey", "black"),
+         cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+         bty = "n")
+  
+  par(op)
+  dev.off()
+}
+
+# ------------------ call the function for --------------- KM = KN ---------------
+resloc<-"./ARMN_Results/"
+
+#-------- variation against fidelity ---------------  
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_10_phi_5.dat",sep="")
+nametag<-"AR_vs_f_ps_0.3_KM_10_KN_10_phi_5"
+xlb<-"f"
+taglegend<-c(expression(hat(A)),expression(hat(R)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_10_phi_5.dat",sep="")
+nametag<-"MN_vs_f_ps_0.3_KM_10_KN_10_phi_5"
+xlb<-"f"
+taglegend<-c(expression(hat(M)),expression(hat(N)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+# --------------- variation against Ps -----------------------------
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+nametag<-"AR_vs_ps_f_0.3_KM_10_KN_10_phi_5"
+xlb<-expression(P[s])
+taglegend<-c(expression(hat(A)),expression(hat(R)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+nametag<-"MN_vs_ps_f_0.3_KM_10_KN_10_phi_5"
+xlb<-expression(P[s])
+taglegend<-c(expression(hat(M)),expression(hat(N)))
+axlim<-c(0,3)
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+# ------------------ call the function for --------------- KM is not equal to KN ---------------
+
+#-------- variation against fidelity ---------------  
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_6_phi_5.dat",sep="")
+nametag<-"AR_vs_f_ps_0.3_KM_10_KN_6_phi_5"
+xlb<-"f"
+taglegend<-c(expression(hat(A)),expression(hat(R)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_6_phi_5.dat",sep="")
+nametag<-"MN_vs_f_ps_0.3_KM_10_KN_6_phi_5"
+xlb<-"f"
+taglegend<-c(expression(hat(M)),expression(hat(N)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+# --------------- variation against Ps -----------------------------
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+nametag<-"AR_vs_ps_f_0.6_KM_10_KN_6_phi_5"
+xlb<-expression(P[s])
+taglegend<-c(expression(hat(A)),expression(hat(R)))
+axlim<-range(c(x1[,2],x1[,3]))
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+nametag<-"MN_vs_ps_f_0.6_KM_10_KN_6_phi_5"
+xlb<-expression(P[s])
+taglegend<-c(expression(hat(M)),expression(hat(N)))
+axlim<-c(0,3)
+plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+
 
 # ==================================================================================================
 multi_plotter<-function(resloc,figname){
