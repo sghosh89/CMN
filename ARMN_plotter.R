@@ -4,12 +4,13 @@
 #     f = fidelity of plant C allocation to mutualist (M)
 #     KM,KN = half saturation constant for M, N
 #     Meq,Neq = eqm. values for M, N
-#     x1,x2 = data files generated from CMN4_tCaCc.dat for different phi
+#     x1 = data files generated which has A,R values with time
 #     xlm,ylm = x and y axes-limit in the plot
 #     n=500 default values to add arrows in the trajectories
 #     resloc = folder name to save the plot
+#     nametag = additional info to file name
 
-Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,x2,xlm,ylm,n,resloc,tagon){
+Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag){
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
@@ -19,9 +20,9 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,
   sM<- -(eM*aM*alpha) #slope for mutualist
   sN<- -(eN*aN*alpha)/(1-f) #slope for non-mutualist
   
-  pdf(paste(resloc,"f_",f,"_KM_",KM,"_KN_",KN,"_A_vs_R.pdf",sep=""),width=8,height=8)
+  pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_vs_R.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,6,2,2))
+  op<-par(mar=c(6,6,2,2),pty="s")
   
   plot(NA,xlim=xlm,ylim=ylm,xlab="R",ylab="A",cex.lab=2.5,cex.axis=2)
   
@@ -31,58 +32,103 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,
          cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
          bty = "n") 
   abline(h=0,col="dimgrey",lty="dotted")
+  abline(v=0,col="dimgrey",lty="dotted")
   #grid()
   
   colnames(x1)<-c("time","A","R")
-  colnames(x2)<-colnames(x1)
-  lines(x1$R,x1$A,col="green4",lty="dashed",lwd=2)
-  lines(x2$R,x2$A,col="black",lty="dashed",lwd=2)
+  lines(x1$R,x1$A,col="black",lty="dashed",lwd=2)
+ 
   
-  arrows(x1$R[which(1:nrow(x1) %% n == 0)-0.1], x1$A[which(1:nrow(x1) %% n == 0)-0.5], 
-         x1$R[1:nrow(x1) %% n == 0], x1$A[1:nrow(x1) %% n == 0] - 0.01, angle=45, 
-         length=0.1, col="green4",lwd=2)
-  
-  arrows(x2$R[which(1:nrow(x2) %% n == 0)-0.1], x2$A[which(1:nrow(x2) %% n == 0)-0.5], 
-         x2$R[1:nrow(x2) %% n == 0], x2$A[1:nrow(x2) %% n == 0] - 0.01, angle=45,
-         length=0.1, col="black",lwd=2)
-  
-  if(tagon==T){
-    legend(x=-2.5,y=ylm[2]+4, c("D = 0.5","D = 5"),
-           col = c("green4", "black"),
-           cex = 2.5, lty = c(2, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),
-           y.intersp = 1.3,x.intersp = 0.1,
-           bty = "n") 
-  }
+  #arrows(x1$R[which(1:nrow(x1) %% n == 0)-0.1], x1$A[which(1:nrow(x1) %% n == 0)-0.5], 
+  #       x1$R[1:nrow(x1) %% n == 0], x1$A[1:nrow(x1) %% n == 0] - 0.01, angle=45, 
+  #       length=0.1, col="black",lwd=2)
+
   par(op)
   dev.off()
 }
 #----------------------------------------
-# call the function
+resloc<-"./ARMN_Results/"
+
+# ------------------ call the function for --------------- KM=KN ---------------
+
+# ----------------- when f < fmin ----------
 f<-0.2
-xlm<-c(0,30)
-ylm<-c(0,55)
-x1<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
-x2<-read.delim("CMN4_tCaCc_f_0.2_phi_5.0_km_10.0_kn_10.0.dat",sep="")
-Plotter_AR(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=300,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = F)
+xlm<-c(0,600)
+ylm<-c(0,1000)
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.2_km_10_kn_10_phi_5.dat",sep="")
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.2_km_10_kn_10_phi_5.dat",sep="")
+colnames(x)<-c("t","M","N")
+Meq<-x$M
+Meq<-tail(Meq,1)
+Neq<-x$N
+Neq<-tail(Neq,1)
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
 
-# call the function
+# ----------------- when fmin < f < fmax ----------
 f<-0.3
-xlm<-c(0,30)
-ylm<-c(0,55)
-x1<-read.delim("CMN4_tCaCc_f_0.3_phi_0.5_km_10.0_kn_10.0.dat",sep="")
-x2<-read.delim("CMN4_tCaCc_f_0.3_phi_5.0_km_10.0_kn_10.0.dat",sep="")
-Plotter_AR(f=f,km=10,kn=10,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = T)
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_0.5.dat",sep="")
+xlm<-c(0,200)
+ylm<-c(0,50)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_0.5.dat",sep="")
+colnames(x)<-c("t","M","N")
+Meq<-x$M
+Meq<-tail(Meq,1)
+Neq<-x$N
+Neq<-tail(Neq,1)
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_0.5_")
 
-# call the function
-f<-0.7
-xlm<-c(0,30)
-ylm<-c(0,55)
-#x1<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="")
-x1<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
-x2<-read.delim("CMN4_tCaCc_f_0.7_phi_5.0_km_10.0_kn_6.0.dat",sep="")
-Plotter_AR(f=f,km=10,kn=6,x1=x1,x2=x2,xlm=xlm,ylm=ylm,n=10000,resloc="./Results/pdf_fig/",figformat = "pdf",tagon = F)
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+xlm<-c(0,200)
+ylm<-c(0,50)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+colnames(x)<-c("t","M","N")
+Meq<-x$M
+Meq<-tail(Meq,1)
+Neq<-x$N
+Neq<-tail(Neq,1)
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
 
-#--------------------------------------------------------------------
+# ----------------- when f > fmax ----------
+f<-0.6
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_10_phi_5.dat",sep="")
+xlm<-c(0,200)
+ylm<-c(0,50)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_10_phi_5.dat",sep="")
+colnames(x)<-c("t","M","N")
+Meq<-x$M
+Meq<-tail(Meq,1)
+Neq<-x$N
+Neq<-tail(Neq,1)
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
+
+# ------------------ call the function for --------------- KM is not equal to KN ---------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#======================================================================================================
+
 # plotter function to plot variables (A,R or M,N) against time
 Plotter_ARMN_vs_t<-function(x1,axlim,nametag,taglegend,resloc,phi0){
   
@@ -114,15 +160,7 @@ Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc"
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("M","N"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.2_phi_5.0_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 #-----------------------------
 
 # for f=0.3, phi=0.5
@@ -139,15 +177,6 @@ Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaC
 Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
-
-Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
 axlim<-c(0,max(x5S[,2],x5S[,3],x5S[,2],x5S[,3]))
 Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
@@ -155,15 +184,7 @@ Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN"
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
 
-Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim,nametag="f_0.3_phi_0.5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.3_phi_5_km_10.0_kn_10.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 #-----------------------------------------------------------------------------
 # for f=0.7, phi=0.5
 x0.5C<-read.delim("CMN4_tCaCc_f_0.7_phi_0.5_km_10.0_kn_6.0.dat",sep="") # for allocated and construction C
@@ -179,15 +200,6 @@ Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc
 Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
-
-Plotter_CMN_vs_t(x1=x0.5C,axlim=axlim,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5C,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_CaCc",taglegend=c("Allocated C","Construction C"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
 axlim<-c(0,max(x0.5S[,2],x0.5S[,3],x5S[,2],x5S[,3]))
 Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
@@ -195,29 +207,13 @@ Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN
 Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
                  resloc="./Results/pdf_fig/",figformat = "pdf",phi0=5)
 
-Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/eps_fig/",figformat = "eps",phi0=5)
-
-Plotter_CMN_vs_t(x1=x0.5S,axlim=axlim/3,nametag="f_0.7_phi_0.5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=0.5)
-Plotter_CMN_vs_t(x1=x5S,axlim=axlim,nametag="f_0.7_phi_5_km_10.0_kn_6.0_MN",taglegend=c("Mutualist","Non-mutualist"),
-                 resloc="./Results/jpeg_fig/",figformat = "jpeg",phi0=5)
 
 #--------------------------------------
-Plotter<-function(resloc,figname,figformat){
+Plotter<-function(resloc,figname){
   if(figname=="CrSr_vs_phi"){
-    if(figformat=="eps"){
-      setEPS()
-      postscript(paste(resloc,"CrSr_vs_phi.eps",sep=""),width=8,height=8)
-    }else if(figformat=="jpeg"){
-      jpeg(paste(resloc,"CrSr_vs_phi.jpeg",sep=""),width=640,height=640)
-    }else if(figformat=="pdf"){
-      pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
-    }else{
-      print("----------Error : figformat is not specified---------")
-    }
+   
+    pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
+   
     x1<-read.delim("CMN4_phiCrSr_f_0.3.dat",sep="")
     op<-par(mar=c(6,6,2,2),mgp=c(4,1,0))
     plot(x1[,1],x1[,2],xlab=expression("C"[c]^0),ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",
@@ -232,16 +228,9 @@ Plotter<-function(resloc,figname,figformat){
   }else if(figname=="Puptake_vs_M_N"){
     # Plotting P uptake function by AMF
     # 3D figure
-    if(figformat=="eps"){
-      setEPS()
-      postscript(paste(resloc,"Puptake_vs_M_N.eps",sep=""),width=8,height=8)
-    }else if(figformat=="jpeg"){
-      jpeg(paste(resloc,"Puptake_vs_M_N.jpeg",sep=""),width=640,height=640)
-    }else if(figformat=="pdf"){
-      pdf(paste(resloc,"Puptake_vs_M_N.pdf",sep=""),width=8,height=8)
-    }else{
-      print("----------Error : figformat is not specified---------")
-    }
+    
+    pdf(paste(resloc,"Puptake_vs_M_N.pdf",sep=""),width=8,height=8)
+   
     op<-par(mar=c(6,6,2,2))
     f<-0.3
     u<-0.4
@@ -259,22 +248,11 @@ Plotter<-function(resloc,figname,figformat){
     dev.off()
   }else if(figname=="schematic_diagram"){
     # schematic diagram
-    if(figformat=="eps"){
-      setEPS()
-      postscript(paste(resloc,"schematic_diagram.eps",sep=""),width=8,height=8)
-      linepos<- -35
-      linepos2 <- -11.5
-    }else if(figformat=="jpeg"){
-      jpeg(paste(resloc,"schematic_diagram.jpeg",sep=""),width=640,height=640)
-      linepos<- -40
-      linepos2<- -13.5
-    }else if(figformat=="pdf"){
-      pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
-      linepos<- -34
-      linepos2<- -11.5
-    }else{
-      print("----------Error : figformat is not specified---------")
-    }
+    
+    pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
+    linepos<- -34
+    linepos2<- -11.5
+   
     op<-par(mar=c(6,6,2,2))
     plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="Construction carbon", ylab="Allocated carbon",
          xaxt="n",yaxt="n",cex.lab=1.8)
@@ -297,19 +275,8 @@ Plotter<-function(resloc,figname,figformat){
 #------------------------------------------
 # Now call the plotter function
 Plotter(resloc = "./Results/pdf_fig/", figname = "CrSr_vs_phi", figformat = "pdf")
-Plotter(resloc = "./Results/eps_fig/", figname = "CrSr_vs_phi", figformat = "eps")
-Plotter(resloc = "./Results/jpeg_fig/", figname = "CrSr_vs_phi", figformat = "jpeg")
-
 Plotter(resloc = "./Results/pdf_fig/", figname = "Puptake_vs_M_N", figformat = "pdf")
-Plotter(resloc = "./Results/eps_fig/", figname = "Puptake_vs_M_N", figformat = "eps")
-Plotter(resloc = "./Results/jpeg_fig/", figname = "Puptake_vs_M_N", figformat = "jpeg")
-
 Plotter(resloc = "./Results/pdf_fig/", figname = "schematic_diagram", figformat = "pdf")
-Plotter(resloc = "./Results/eps_fig/", figname = "schematic_diagram", figformat = "eps")
-Plotter(resloc = "./Results/jpeg_fig/", figname = "schematic_diagram", figformat = "jpeg")
-
-
-#test lines
 
 
 
