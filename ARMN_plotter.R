@@ -320,10 +320,10 @@ multi_plotter<-function(resloc,figname){
     op<-par(mar=c(6,6,2,2),pty="s")
     f<-0.3
     u<-0.4
-    kc<-5.0
+    KA<-5
     M    <- seq(from=0,to=100,by=2)
     N    <- seq(from=0,to=100,by=2)
-    PUfun <- function(M,N){(M/(M+kc))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
+    PUfun <- function(M,N){(M/(M+KA))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
     PU    <- outer(M,N, FUN="PUfun")
     
     persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",
