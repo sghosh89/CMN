@@ -10,7 +10,7 @@
 #     resloc = folder name to save the plot
 #     nametag = additional info to file name
 
-Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag){
+Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag){
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
@@ -62,7 +62,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=5000,resloc=resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=5000,resloc=resloc,nametag="phi_5_")
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
@@ -75,7 +75,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_0.5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_0.5_")
 
 x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
 xlm<-c(0,450)
@@ -86,7 +86,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
 
 # ----------------- when f > fmax ----------
 f<-0.6
@@ -99,7 +99,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
 
 # ------------------ call the function for --------------- KM is not equal to KN ---------------
 
@@ -114,7 +114,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
 
 
 # ----------------- when f > fmax ----------
@@ -129,7 +129,7 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
 
 #======================================================================================================
 
@@ -251,7 +251,7 @@ x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",s
 nametag<-"AR_vs_ps_f_0.3_KM_10_KN_10_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-range(c(x1[,2],x1[,3]))
+axlim<-c(0,60)#range(c(0,x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
@@ -283,7 +283,7 @@ x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",se
 nametag<-"AR_vs_ps_f_0.6_KM_10_KN_6_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-range(c(x1[,2],x1[,3]))
+axlim<-c(0,60)#range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="")
