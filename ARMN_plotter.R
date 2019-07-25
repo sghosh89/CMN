@@ -328,7 +328,7 @@ multi_plotter<-function(resloc,figname){
     
     persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",
           ylab="Non-mutualist (N)",
-          zlab="P-uptake via AMF (F)",
+          zlab="P-uptake via AMF (F)",ticktype = "detailed",
           cex.lab=1.5,cex.axis=1.5)
     par(op)
     dev.off()
