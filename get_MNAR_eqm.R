@@ -34,7 +34,8 @@ get_MNAR_eqm<-function(x,KM,KN,f,ps,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s=0.1,phi=
 }
 
 # test the function 
-#ans<-nleqslv(x=c(0.5,0.1,0.1,0.5),fn=get_MN_eqm,KM=10,KN=10,f=0.6,ps=0.3)
+#set.seed(101)
+#ans<-nleqslv(x=c(0.1,0.1,0.5,0.5),fn=get_MNAR_eqm,KM=10,KN=10,f=0.8,ps=0.98,method="Newton")
 #ans$x
 
 #---- These values we get from solving 4 ODEs ----------
