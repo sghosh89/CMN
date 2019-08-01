@@ -30,10 +30,15 @@
              !open(71,file='ARMN_psMN.dat',status='unknown') ! see variation of M,N at eqm against soil phosphorous
             !open(80,file='ARMN_fAR.dat',status='unknown') ! see variation of A,R at eqm against fidelity
             !open(81,file='ARMN_fMN.dat',status='unknown') ! see variation of M,N at eqm against fidelity
+            open(90,file='ARMN_fpsAR.dat',status='unknown') ! see variation of A,R at eqm against fidelity and soil P
+            open(91,file='ARMN_fpsMN.dat',status='unknown') ! see variation of M,N at eqm against fidelity and soil P
+            open(92,file='ARMN_fpsPM.dat',status='unknown') ! see variation of PM(proportion of mutualist) at eqm against fidelity and soil P
+
 
                                              
 !             read(10,*)ps,u,aKA
-            read(10,*)ps,u,aKA,af
+             read(10,*)u,aKA
+!             read(10,*)ps,u,aKA,af
              read(10,*)phi,aM,aN
 !             read(10,*)aM,aN
              read(10,*)eM,eN,bmax,d
@@ -42,17 +47,23 @@
              read(10,*)x0,y0,z0,v0,t0
 
              af_min=1.0-((aKN/aKM)*(((bmax*(1.0-s))-d)/(bmax-d)))
+             ps0=0
+      
 
-             print *,"----------given f=",af,"--------------"
-             print *,"----------f_min=",af_min,"--------------"
+             !print *,"----------given f=",af,"--------------"
+             !print *,"----------f_min=",af_min,"--------------"
             
             
                  
-!          do ip=0,40
-!             af=af_min+(0.01*ip)
-!             print *,"----------f=",af,"--------------"
+          do iaf=0,75
+             af=af_min+(0.01*iaf)
+           do ip=0,100
+             ps=ps0+(0.01*ip)
+             print *,"-----f=",af,"-----ps =",ps,"----"
+         
+
      
-          do i=1,kk
+            do i=1,kk
             
               ak1f1=hh*f1(x0,y0,z0,t0)
               ak1f2=hh*f2(x0,y0,z0,v0,t0)
@@ -119,8 +130,16 @@
          !  write(80,*)af,x,v
          !  write(81,*)af,y,z
 
+          prop_y=y/(y+z) !proportion of mutualist
+
+
+           write(90,*)af,ps,x,v
+           write(91,*)af,ps,y,z
+           write(92,*)af,ps,prop_y
+
             
-         ! end do
+         end do
+        end do
 
              stop
              end
