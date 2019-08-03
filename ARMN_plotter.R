@@ -55,8 +55,8 @@ resloc<-"./ARMN_Results/"
 f<-0.2
 xlm<-c(0,600)
 ylm<-c(0,1000)
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.2_km_10_kn_10_phi_5.dat",sep="")
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.2_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.2_km_10_kn_10_phi_5.dat",sep="",header = F)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.2_km_10_kn_10_phi_5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -66,10 +66,10 @@ Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_0.5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_0.5.dat",sep="",header = F)
 xlm<-c(0,450)
 ylm<-c(0,50)
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_0.5.dat",sep="")
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_0.5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -77,10 +77,10 @@ Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_0.5_")
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 xlm<-c(0,450)
 ylm<-c(0,50)
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -90,10 +90,10 @@ Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=
 
 # ----------------- when f > fmax ----------
 f<-0.6
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_10_phi_5.dat",sep="",header = F)
 xlm<-c(0,450)
 ylm<-c(0,50)
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_10_phi_5.dat",sep="")
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_10_phi_5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -107,8 +107,8 @@ Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=
 f<-0.6
 xlm<-c(0,450)
 ylm<-c(0,50)
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_6_phi_5.dat",sep="")
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -122,8 +122,8 @@ Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0
 f<-0.9
 xlm<-c(0,450)
 ylm<-c(0,100)
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.9_km_10_kn_6_phi_5.dat",sep="")
-x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.9_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.9_km_10_kn_6_phi_5.dat",sep="",header = F)
+x<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.9_km_10_kn_6_phi_5.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
 Meq<-tail(Meq,1)
@@ -158,8 +158,8 @@ resloc<-"./ARMN_Results/"
 
 # ------------------ call the function for --------------- KM = KN ---------------
 # ----- for f < fmin ------
-xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.2_km_10_kn_10_phi_5.dat",sep="")
-xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.2_km_10_kn_10_phi_5.dat",sep="")
+xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.2_km_10_kn_10_phi_5.dat",sep="",header = F)
+xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.2_km_10_kn_10_phi_5.dat",sep="",header = F)
 
 Plotter_ARMN_vs_t(x1=xC,axlim=c(0,800),nametag="phi_5_f_0.2_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
@@ -168,8 +168,8 @@ Plotter_ARMN_vs_t(x1=xS,axlim=c(0,50),nametag="phi_5_f_0.2_KM_10_KN_10_MN",
 
 #----------for fmin < f < fmax ---------
 
-xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
-xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
+xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 
 Plotter_ARMN_vs_t(x1=xC,axlim=c(0,60),nametag="phi_5_f_0.3_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
@@ -178,8 +178,8 @@ Plotter_ARMN_vs_t(x1=xS,axlim=c(0,3),nametag="phi_5_f_0.3_KM_10_KN_10_MN",
 
 #----------for f > fmax ---------
 
-xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_10_phi_5.dat",sep="")
-xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_10_phi_5.dat",sep="")
+xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_10_phi_5.dat",sep="",header = F)
+xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_10_phi_5.dat",sep="",header = F)
 
 Plotter_ARMN_vs_t(x1=xC,axlim=c(0,100),nametag="phi_5_f_0.6_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
@@ -189,8 +189,8 @@ Plotter_ARMN_vs_t(x1=xS,axlim=c(0,1),nametag="phi_5_f_0.6_KM_10_KN_10_MN",
 # ------------------ call the function for --------------- KM not equal to KN ---------------
 
 # ----- for fmin < f < fmax ------
-xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_6_phi_5.dat",sep="")
-xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
+xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
 
 Plotter_ARMN_vs_t(x1=xC,axlim=c(0,60),nametag="phi_5_f_0.6_KM_10_KN_6_AR",
                   taglegend=c("A","R"), resloc)
@@ -199,8 +199,8 @@ Plotter_ARMN_vs_t(x1=xS,axlim=c(0,3),nametag="phi_5_f_0.6_KM_10_KN_6_MN",
 
 #----------for f > fmax ---------
 
-xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.9_km_10_kn_6_phi_5.dat",sep="")
-xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.9_km_10_kn_6_phi_5.dat",sep="")
+xC<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tAR_f_0.9_km_10_kn_6_phi_5.dat",sep="",header = F)
+xS<-read.delim("./ARMN_Results/ARMN_dat/ARMN_tMN_f_0.9_km_10_kn_6_phi_5.dat",sep="",header = F)
 
 Plotter_ARMN_vs_t(x1=xC,axlim=c(0,100),nametag="phi_5_f_0.9_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
@@ -232,14 +232,14 @@ plot_ARMN_vs_ps_f<-function(x1,resloc,nametag,xlb,taglegend,axlim){
 resloc<-"./ARMN_Results/"
 
 #-------- variation against fidelity ---------------  
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 nametag<-"AR_vs_f_ps_0.3_KM_10_KN_10_phi_5"
 xlb<-"f"
 taglegend<-c(expression(hat(A)),expression(hat(R)))
 axlim<-range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 nametag<-"MN_vs_f_ps_0.3_KM_10_KN_10_phi_5"
 xlb<-"f"
 taglegend<-c(expression(hat(M)),expression(hat(N)))
@@ -247,14 +247,14 @@ axlim<-range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 # --------------- variation against Ps -----------------------------
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 nametag<-"AR_vs_ps_f_0.3_KM_10_KN_10_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(A)),expression(hat(R)))
 axlim<-c(0,60)#range(c(0,x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F)
 nametag<-"MN_vs_ps_f_0.3_KM_10_KN_10_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(M)),expression(hat(N)))
@@ -264,14 +264,14 @@ plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 # ------------------ call the function for --------------- KM is not equal to KN ---------------
 
 #-------- variation against fidelity ---------------  
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header = F)
 nametag<-"AR_vs_f_ps_0.3_KM_10_KN_6_phi_5"
 xlb<-"f"
 taglegend<-c(expression(hat(A)),expression(hat(R)))
 axlim<-range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header = F)
 nametag<-"MN_vs_f_ps_0.3_KM_10_KN_6_phi_5"
 xlb<-"f"
 taglegend<-c(expression(hat(M)),expression(hat(N)))
@@ -279,14 +279,14 @@ axlim<-range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 # --------------- variation against Ps -----------------------------
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
 nametag<-"AR_vs_ps_f_0.6_KM_10_KN_6_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(A)),expression(hat(R)))
 axlim<-c(0,60)#range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="")
+x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F)
 nametag<-"MN_vs_ps_f_0.6_KM_10_KN_6_phi_5"
 xlb<-expression(P[s])
 taglegend<-c(expression(hat(M)),expression(hat(N)))
@@ -300,7 +300,7 @@ multi_plotter<-function(resloc,figname){
    
     pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
    
-    x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phiCrSr_f_0.3_km_10_kn_10.dat",sep="")
+    x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phiCrSr_f_0.3_km_10_kn_10.dat",sep="",header = F)
     op<-par(mar=c(6,6,2,2),mgp=c(4,1,0),pty="s")
     plot(x1[,1],x1[,2],xlab="D",ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",xlim=c(0,50),
          ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
