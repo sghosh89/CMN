@@ -120,39 +120,31 @@ d<-0.5
 tempo<-((bmax*(1-s))-d)/(bmax-d)
 fmin<-1-((KN/KM)*(tempo))
 
-mylist<-seq(from=fmin,to=1,by=0.01)
-df<-matrix(NA,nrow=length(mylist),ncol=6)
-colnames(df)<-c("f","Aeq","Req","Meq","Neq","maxeg")
-df<-as.data.frame(df)
+# read data file from fortran code output
+fAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
+fMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
+fMNAR<-cbind(fMN,fAR[,c(2:3)])
+colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
+fMNAR<-as.data.frame(fMNAR)
+fMNAR<-subset(fMNAR,f<1)
+#fMNAR<-as.matrix(fMNAR)
+fMNAR$maxeg<-NA
 
-df$f<-mylist
-
-for(i in c(1:length(mylist))){
-  f<-df$f[i]
-  ans<-nleqslv(x=c(1,1,1,1),fn=get_MNAR_eqm,KM=KM,KN=KN,f=f,ps=0.3)
-  eqmvals<-ans$x
-  
-  df$Meq[i]<-eqmvals[1]
-  df$Neq[i]<-eqmvals[2]
-  df$Aeq[i]<-eqmvals[3]
-  df$Req[i]<-eqmvals[4]
-  
-  if(all(eqmvals>0)){
-    eg<-get_eigenvalues(KM=KM,KN=KN,f=f,ps=0.3,eqmvals=eqmvals)
-    maxeg<-max(eg)
-    df$maxeg[i]<-maxeg
-  }else{
-    cat("no co-existence with given parameters \n")
-  }
+for(i in c(1:nrow(fMNAR))){
+  f<-fMNAR$f[i]
+  eqmvals<-fMNAR[i,c(2:5)]
+  eqmvals<-as.matrix(unname(eqmvals))
+  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)
+  fMNAR$maxeg[i]<-max(eg)
 }
 
-df<-na.omit(df)
-
+#=============================
 pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_10.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(df$f,df$maxeg,xlab="f",ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df$maxeg,0)))
+plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="b",
+     xlim=c(fMNAR$f[1],0.496),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -160,39 +152,30 @@ dev.off()
 
 # Now call the functions to see eigen value variation against soil P availability 
 
-mylist<-seq(from=0,to=1,by=0.01)
-df<-matrix(NA,nrow=length(mylist),ncol=6)
-colnames(df)<-c("ps","Aeq","Req","Meq","Neq","maxeg")
-df<-as.data.frame(df)
+# read data file from fortran code output
+psAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
+psMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
+psMNAR<-cbind(psMN,psAR[,c(2:3)])
+colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
+psMNAR<-as.data.frame(psMNAR)
 
-df$ps<-mylist
+psMNAR$maxeg<-NA
 
-for(i in c(1:length(mylist))){
-  ps<-df$ps[i]
-  ans<-nleqslv(x=c(1,1,1,1),fn=get_MNAR_eqm,KM=KM,KN=KN,f=0.3,ps=ps)
-  eqmvals<-ans$x
-  
-  df$Meq[i]<-eqmvals[1]
-  df$Neq[i]<-eqmvals[2]
-  df$Aeq[i]<-eqmvals[3]
-  df$Req[i]<-eqmvals[4]
-  
-  if(all(eqmvals>0)){
-    eg<-get_eigenvalues(KM=KM,KN=KN,f=0.3,ps=ps,eqmvals=eqmvals)
-    maxeg<-max(eg)
-    df$maxeg[i]<-maxeg
-  }else{
-    cat("no co-existence with given parameters \n")
-  }
+for(i in c(1:nrow(psMNAR))){
+  ps<-psMNAR$ps[i]
+  eqmvals<-psMNAR[i,c(2:5)]
+  eqmvals<-as.matrix(unname(eqmvals))
+  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.3,ps=ps,eqmvals=eqmvals)
+  psMNAR$maxeg[i]<-max(eg)
 }
 
-df<-na.omit(df)
-
+#=============================
 pdf("./ARMN_Results/max_eigenval_vs_ps_with_KM_10_KN_10.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(df$ps,df$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df$maxeg,0)))
+plot(psMNAR$ps,psMNAR$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
+     xlim=c(0,1),ylim=c(range(psMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -210,39 +193,31 @@ d<-0.5
 tempo<-((bmax*(1-s))-d)/(bmax-d)
 fmin<-1-((KN/KM)*(tempo))
 
-mylist<-seq(from=fmin,to=1,by=0.01)
-df<-matrix(NA,nrow=length(mylist),ncol=6)
-colnames(df)<-c("f","Aeq","Req","Meq","Neq","maxeg")
-df<-as.data.frame(df)
+# read data file from fortran code output
+fAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
+fMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
+fMNAR<-cbind(fMN,fAR[,c(2:3)])
+colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
+fMNAR<-as.data.frame(fMNAR)
+fMNAR<-subset(fMNAR,f<1)
+#fMNAR<-as.matrix(fMNAR)
+fMNAR$maxeg<-NA
 
-df$f<-mylist
-
-for(i in c(1:length(mylist))){
-  f<-df$f[i]
-  ans<-nleqslv(x=c(1,1,1,1),fn=get_MNAR_eqm,KM=KM,KN=KN,f=f,ps=0.3)
-  eqmvals<-ans$x
-  
-  df$Meq[i]<-eqmvals[1]
-  df$Neq[i]<-eqmvals[2]
-  df$Aeq[i]<-eqmvals[3]
-  df$Req[i]<-eqmvals[4]
-  
-  if(all(eqmvals>0)){
-    eg<-get_eigenvalues(KM=KM,KN=KN,f=f,ps=0.3,eqmvals=eqmvals)
-    maxeg<-max(eg)
-    df$maxeg[i]<-maxeg
-  }else{
-    cat("no co-existence with given parameters \n")
-  }
+for(i in c(1:nrow(fMNAR))){
+  f<-fMNAR$f[i]
+  eqmvals<-fMNAR[i,c(2:5)]
+  eqmvals<-as.matrix(unname(eqmvals))
+  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)
+  fMNAR$maxeg[i]<-max(eg)
 }
 
-df<-na.omit(df)
-
+#=============================
 pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_6.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(df$f,df$maxeg,xlab="f",ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df$maxeg,0)))
+plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="b",
+     xlim=c(fMNAR$f[1],0.84),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -250,42 +225,32 @@ dev.off()
 
 # Now call the functions to see eigen value variation against soil P availability 
 
-mylist<-seq(from=0,to=1,by=0.01)
-df<-matrix(NA,nrow=length(mylist),ncol=6)
-colnames(df)<-c("ps","Aeq","Req","Meq","Neq","maxeg")
-df<-as.data.frame(df)
+# read data file from fortran code output
+psAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
+psMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
+psMNAR<-cbind(psMN,psAR[,c(2:3)])
+colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
+psMNAR<-as.data.frame(psMNAR)
 
-df$ps<-mylist
+psMNAR$maxeg<-NA
 
-for(i in c(1:length(mylist))){
-  ps<-df$ps[i]
-  ans<-nleqslv(x=c(1,1,1,1),fn=get_MNAR_eqm,KM=KM,KN=KN,f=0.6,ps=ps)
-  eqmvals<-ans$x
-  
-  df$Meq[i]<-eqmvals[1]
-  df$Neq[i]<-eqmvals[2]
-  df$Aeq[i]<-eqmvals[3]
-  df$Req[i]<-eqmvals[4]
-  
-  if(all(eqmvals>0)){
-    eg<-get_eigenvalues(KM=KM,KN=KN,f=0.6,ps=ps,eqmvals=eqmvals)
-    maxeg<-max(eg)
-    df$maxeg[i]<-maxeg
-  }else{
-    cat("no co-existence with given parameters \n")
-  }
+for(i in c(1:nrow(psMNAR))){
+  ps<-psMNAR$ps[i]
+  eqmvals<-psMNAR[i,c(2:5)]
+  eqmvals<-as.matrix(unname(eqmvals))
+  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.6,ps=ps,eqmvals=eqmvals)
+  psMNAR$maxeg[i]<-max(eg)
 }
 
-df<-na.omit(df)
-
+#=============================
 pdf("./ARMN_Results/max_eigenval_vs_ps_with_KM_10_KN_6.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(df$ps,df$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",ylim=c(range(df$maxeg,0)))
+plot(psMNAR$ps,psMNAR$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
+     xlim=c(0,1),ylim=c(range(psMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
 dev.off()
-
 
