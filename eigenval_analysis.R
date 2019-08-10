@@ -121,12 +121,12 @@ tempo<-((bmax*(1-s))-d)/(bmax-d)
 fmin<-1-((KN/KM)*(tempo))
 
 # read data file from fortran code output
-fAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
-fMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_10_phi_5.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
+fAR<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
+fMN<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
 fMNAR<-cbind(fMN,fAR[,c(2:3)])
 colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
 fMNAR<-as.data.frame(fMNAR)
-fMNAR<-subset(fMNAR,f<1)
+fMNAR<-subset(fMNAR,f<=1)
 #fMNAR<-as.matrix(fMNAR)
 fMNAR$maxeg<-NA
 
@@ -143,8 +143,8 @@ pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_10.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
 plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="b",
-     xlim=c(fMNAR$f[1],0.496),ylim=c(range(fMNAR$maxeg,0)))
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
+     xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -153,8 +153,8 @@ dev.off()
 # Now call the functions to see eigen value variation against soil P availability 
 
 # read data file from fortran code output
-psAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.3_km_10_kn_10_phi_5.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
-psMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.3_km_10_kn_10_phi_5.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
+psAR<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
+psMN<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
 psMNAR<-cbind(psMN,psAR[,c(2:3)])
 colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
 psMNAR<-as.data.frame(psMNAR)
@@ -194,12 +194,12 @@ tempo<-((bmax*(1-s))-d)/(bmax-d)
 fmin<-1-((KN/KM)*(tempo))
 
 # read data file from fortran code output
-fAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fAR_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
-fMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_fMN_ps_0.3_km_10_kn_6_phi_5.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
+fAR<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
+fMN<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
 fMNAR<-cbind(fMN,fAR[,c(2:3)])
 colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
 fMNAR<-as.data.frame(fMNAR)
-fMNAR<-subset(fMNAR,f<1)
+fMNAR<-subset(fMNAR,f<=1)
 #fMNAR<-as.matrix(fMNAR)
 fMNAR$maxeg<-NA
 
@@ -217,7 +217,7 @@ op<-par(mar=c(6,6.2,2,2),pty="s")
 
 plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
      cex.lab=2.5,cex.axis=2,lwd=2,type="b",
-     xlim=c(fMNAR$f[1],0.84),ylim=c(range(fMNAR$maxeg,0)))
+     xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -226,8 +226,8 @@ dev.off()
 # Now call the functions to see eigen value variation against soil P availability 
 
 # read data file from fortran code output
-psAR<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psAR_f_0.6_km_10_kn_6_phi_5.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
-psMN<-read.delim("./ARMN_Results/ARMN_dat/ARMN_psMN_f_0.6_km_10_kn_6_phi_5.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
+psAR<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
+psMN<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
 psMNAR<-cbind(psMN,psAR[,c(2:3)])
 colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
 psMNAR<-as.data.frame(psMNAR)
@@ -253,4 +253,9 @@ abline(h=0,col="grey",lwd=2)
 
 par(op)
 dev.off()
+
+#=======================================
+
+
+
 
