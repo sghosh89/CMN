@@ -258,73 +258,73 @@ plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 
 # ==================================================================================================
-multi_plotter<-function(resloc,figname){
-  if(figname=="CrSr_vs_phi"){
-   
-    pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
-   
-    x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phiCrSr_f_0.3_km_10_kn_10.dat",sep="",header = F)
-    op<-par(mar=c(6,6,2,2),mgp=c(4,1,0),pty="s")
-    plot(x1[,1],x1[,2],xlab="D",ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",xlim=c(0,50),
-         ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
-    lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
-    abline(h=1,col="black",lty="dotted",lwd=2)
-    legend("topleft", c("R / A", "N / M"), col = c("darkgreen", "darkmagenta"),
-           cex = 2.3, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
-           bty = "n") 
-    par(op)
-    dev.off()
-  }else if(figname=="Puptake_vs_M_N"){
-    # Plotting P uptake function by AMF
-    # 3D figure
-    
-    pdf(paste(resloc,"Puptake_vs_M_N.pdf",sep=""),width=8,height=8)
-   
-    op<-par(mar=c(6,6,2,2),pty="s")
-    f<-0.3
-    u<-0.4
-    KA<-5
-    M    <- seq(from=0,to=100,by=2)
-    N    <- seq(from=0,to=100,by=2)
-    PUfun <- function(M,N){(M/(M+KA))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
-    PU    <- outer(M,N, FUN="PUfun")
-    
-    persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",
-          ylab="Non-mutualist (N)",
-          zlab="P-uptake via AMF (F)",ticktype = "detailed",
-          cex.lab=1.5,cex.axis=1.5)
-    par(op)
-    dev.off()
-  }else if(figname=="schematic_diagram"){
-    # schematic diagram
-    
-    pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
-    linepos<- -34
-    linepos2<- -11.5
-   
-    op<-par(mar=c(6,6,2,2),pty="s")
-    plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="R", ylab="A",
-         xaxt="n",yaxt="n",cex.lab=1.8)
-    abline(a=0.5,b=-1,lwd=2)
-    abline(a=0.7,b=-2.5,lty="dashed",lwd=2)
-    legend("topright", c("Mutualist","Non-mutualist"), 
-           cex = 1.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
-           bty = "n") 
-   # mtext(adj=0.65,line=-15,(bquote("A"[M]^"*"~"= C"[cM]^"*")),cex=1.5)
-  #  mtext(adj=0.7,line=-18,(bquote("A"[N]^"*"~"= C"[cN]^"*"~"/(1-f)")),cex=1.5)
-    mtext(adj=0.7,line=linepos,(bquote("R"[M]^"*")),cex=1.5)
-    mtext(adj=0.4,line=linepos,(bquote("R"[N]^"*")),cex=1.5)
-    mtext(adj=-0.08,line=linepos2,(bquote("A"[M]^"*")),cex=1.5)
-    mtext(adj=-0.08,line=-2.6,(bquote("A"[N]^"*")),cex=1.5)
-    par(op)
-    dev.off()
+  multi_plotter<-function(resloc,figname){
+    if(figname=="CrSr_vs_phi"){
+     
+      pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
+     
+      x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phiCrSr_f_0.3_km_10_kn_10.dat",sep="",header = F)
+      op<-par(mar=c(6,6,2,2),mgp=c(4,1,0),pty="s")
+      plot(x1[,1],x1[,2],xlab="D",ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",xlim=c(0,50),
+           ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
+      lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
+      abline(h=1,col="black",lty="dotted",lwd=2)
+      legend("topleft", c("R / A", "N / M"), col = c("darkgreen", "darkmagenta"),
+             cex = 2.3, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
+             bty = "n") 
+      par(op)
+      dev.off()
+    }else if(figname=="Puptake_vs_M_N"){
+      # Plotting P uptake function by AMF
+      # 3D figure
+      
+      pdf(paste(resloc,"Puptake_vs_M_N.pdf",sep=""),width=8,height=8)
+     
+      op<-par(mar=c(6,6,2,2),pty="s")
+      f<-0.3
+      u<-0.4
+      KA<-5
+      M    <- seq(from=0,to=100,by=2)
+      N    <- seq(from=0,to=100,by=2)
+      PUfun <- function(M,N){(M/(M+KA))*u*((M/(M+N))/(1-f+(f*(M/(M+N)))))}
+      PU    <- outer(M,N, FUN="PUfun")
+      
+      persp(M,N,PU,theta = -45, phi = 25,col = "grey",xlab="Mutualist (M)",
+            ylab="Non-mutualist (N)",
+            zlab="P-uptake via AMF (F)",ticktype = "detailed",
+            cex.lab=1.5,cex.axis=1.5)
+      par(op)
+      dev.off()
+    }else if(figname=="schematic_diagram"){
+      # schematic diagram
+      
+      pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
+      linepos<- -34
+      linepos2<- -11.5
+     
+      op<-par(mar=c(6,6,2,2),pty="s")
+      plot(-1,-2,xlim=c(0,0.8),ylim=c(0,0.8),xlab="R", ylab="A",
+           xaxt="n",yaxt="n",cex.lab=1.8)
+      abline(a=0.5,b=-0.7,lwd=2)
+      abline(a=0.7,b=-2.5,lty="dashed",lwd=2)
+      legend("topright", c("Mutualist","Non-mutualist"), 
+             cex = 1.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
+             bty = "n") 
+     # mtext(adj=0.65,line=-15,(bquote("A"[M]^"*"~"= C"[cM]^"*")),cex=1.5)
+    #  mtext(adj=0.7,line=-18,(bquote("A"[N]^"*"~"= C"[cN]^"*"~"/(1-f)")),cex=1.5)
+      mtext(adj=0.96,line=linepos,(bquote("R"[M]^"*")),cex=1.5)
+      mtext(adj=0.4,line=linepos,(bquote("R"[N]^"*")),cex=1.5)
+      mtext(adj=-0.08,line=linepos2,(bquote("A"[M]^"*")),cex=1.5)
+      mtext(adj=-0.08,line=-2.6,(bquote("A"[N]^"*")),cex=1.5)
+      par(op)
+      dev.off()
+    }
   }
-}
-
-#------------------------------------------
-# Now call the plotter function
-
-resloc <- "./ARMN_Results/"
+  
+  #------------------------------------------
+  # Now call the plotter function
+  
+  resloc <- "./ARMN_Results/"
 #multi_plotter(resloc, figname = "CrSr_vs_phi")
 multi_plotter(resloc, figname = "Puptake_vs_M_N")
 multi_plotter(resloc, figname = "schematic_diagram")
