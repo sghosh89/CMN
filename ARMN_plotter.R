@@ -196,7 +196,7 @@ resloc<-"./ARMN_Results/"
 
 #-------- variation against fidelity ---------------  
 x1<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header = F)
-nametag<-"fAR_after_t20000_ps_0.3_KM_10_KN_10_phi_5"
+nametag<-"AR_vs_f_ps_0.3_KM_10_KN_10_phi_5" 
 xlb<-"f"
 taglegend<-c(expression(hat(A)),expression(hat(R)))
 axlim<-c(0,500)#range(c(x1[,2],x1[,3]))
