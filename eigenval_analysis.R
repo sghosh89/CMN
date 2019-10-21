@@ -146,6 +146,8 @@ plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",
      xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
+abline(v=fMNAR$f[1],col="grey",lwd=2)
+abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
 
 par(op)
 dev.off()
@@ -216,9 +218,11 @@ pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_6.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
 plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="b",
+     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
      xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
+abline(v=fMNAR$f[1],col="grey",lwd=2)
+abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
 
 par(op)
 dev.off()
