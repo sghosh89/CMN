@@ -39,13 +39,14 @@
              ps0=0.0
       
           
-             af_incr=(1.0-af_min)/20.0 
-             ps_incr=(1.0-ps0)/20.0
+             af_incr=(1.0-af_min)/50.0 
+             ps_incr=(1.0-ps0)/50.0
 
-          do iaf=0,20
+          do iaf=0,50
              af=af_min+(af_incr*iaf)
+             print *,"-----f=",af
              
-           do ip=0,20
+           do ip=0,50
              ps=ps0+(ps_incr*ip)
              
              !print *,"-----f=",af,"-----ps =",ps,"----"
