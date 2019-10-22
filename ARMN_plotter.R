@@ -112,11 +112,11 @@ Plotter_ARMN_vs_t<-function(x1,xlm,ylm,nametag,taglegend,resloc){
   
   op<-par(mar=c(6,6,2,2),pty="s")
   plot(x1[,1],x1[,2],xlab="time",ylab="",cex.lab=2.5,cex.axis=2,
-       col="darkgrey",type="l",xlim=xlm,
+       col="black",type="l",xlim=xlm,
        ylim=ylm,lwd=2)
   #title(main=bquote(C[c]^0 == .(phi0)),cex.main=2.5,line=-8,adj=0.8)
   lines(x1[,1],x1[,3],col="black",lty="dashed",lwd=2)
-  legend("topright", taglegend, col = c("darkgrey", "black"),
+  legend("topright", taglegend, col = c("black", "black"),
          cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.2,
          bty = "n")
   
@@ -178,12 +178,12 @@ plot_ARMN_vs_ps_f<-function(x1,resloc,nametag,xlb,taglegend,axlim){
   
   op<-par(mar=c(6,6,2,2),pty="s")
   plot(x1[,1],x1[,2],xlab=xlb,ylab="",cex.lab=2.5,cex.axis=2,
-       col="darkgrey",type="l",
+       col="black",type="l",
        ylim=axlim,lwd=2)
   
   lines(x1[,1],x1[,3],col="black",lty="dashed",lwd=2)
   abline(h=0,col="red")
-  legend("topright", taglegend, col = c("darkgrey", "black"),
+  legend("topright", taglegend, col = c("black", "black"),
          cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
          bty = "n")
   
