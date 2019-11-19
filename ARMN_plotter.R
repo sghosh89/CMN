@@ -259,19 +259,18 @@ plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 # ==================================================================================================
   multi_plotter<-function(resloc,figname){
-    if(figname=="CrSr_vs_phi"){
+    if(figname=="M_by_N_eqm_vs_phi"){
      
-      pdf(paste(resloc,"CrSr_vs_phi.pdf",sep=""),width=8,height=8)
+      pdf(paste(resloc,"M_by_N_eqm_vs_phi.pdf",sep=""),width=8,height=8)
      
-      x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phiCrSr_f_0.3_km_10_kn_10.dat",sep="",header = F)
-      op<-par(mar=c(6,6,2,2),mgp=c(4,1,0),pty="s")
-      plot(x1[,1],x1[,2],xlab="D",ylab="",cex.lab=2.5,cex.axis=2,col="darkgreen",type="l",xlim=c(0,50),
-           ylim=c(0,2+max(x1[,2],x1[,3])),lwd=2)
-      lines(x1[,1],x1[,3],col="darkmagenta",lty="dashed",lwd=2)
+      x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phi_vary_km_10_kn_10_f_0.3_ps_0.3.dat",sep="",header = F)
+      op<-par(mar=c(6,6,2,2),mgp=c(3,1,0),pty="s")
+      plot(x1[,1],x1[,2],xlab="D",ylab=c(expression(hat(M)/hat(N))),cex.lab=2.5,cex.axis=2,col="black",type="l",xlim=c(1,10),
+           ylim=c(0,7),lwd=2)
       abline(h=1,col="black",lty="dotted",lwd=2)
-      legend("topleft", c("R / A", "N / M"), col = c("darkgreen", "darkmagenta"),
-             cex = 2.3, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
-             bty = "n") 
+      #legend("topright", c(expression(hat(M)/hat(N))), 
+      #       cex = 2.3, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.2,
+      #       bty = "n")  
       par(op)
       dev.off()
     }else if(figname=="Puptake_vs_M_N"){
@@ -325,7 +324,7 @@ plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
   # Now call the plotter function
   
   resloc <- "./ARMN_Results/"
-#multi_plotter(resloc, figname = "CrSr_vs_phi")
+multi_plotter(resloc, figname = "M_by_N_eqm_vs_phi")
 multi_plotter(resloc, figname = "Puptake_vs_M_N")
 multi_plotter(resloc, figname = "schematic_diagram")
 
