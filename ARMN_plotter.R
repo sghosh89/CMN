@@ -14,12 +14,20 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
-  iM<-(KM*d*alpha)/((bmax*(1-s))-d) #intercept for mutualist
-  iN<-(KN*d*alpha)/((bmax-d)*(1-f)) #intercept for non-mutualist
+  iM0<-(KM*d)/((bmax*(1-s))-d) #intercept for mutualist when plot A/alpha vs. R
+  iN0<-(KN*d)/((bmax-d)*(1-f)) #intercept for non-mutualist when plot A/alpha vs. R
   
-  sM<- -(eM*aM*alpha) #slope for mutualist
-  sN<- -(eN*aN*alpha)/(1-f) #slope for non-mutualist
+  sM0<- -(eM*aM) #slope for mutualist when plot A/alpha vs. R
+  sN0<- -(eN*aN)/(1-f) #slope for non-mutualist when plot A/alpha vs. R
   
+  
+  iM<- iM0*alpha #intercept for mutualist when plot A vs. R
+  iN<- iN0*alpha #intercept for non-mutualist when plot A vs. R
+  
+  sM<- sM0*alpha #slope for mutualist when plot A vs. R
+  sN<- sN0*alpha #slope for non-mutualist when plot A vs. R
+  
+  #------------------------- A vs. R plot -------------------------------------------------
   pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_vs_R.pdf",sep=""),width=8,height=8)
   
   op<-par(mar=c(6,6,2,2),pty="s")
@@ -45,6 +53,37 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
 
   par(op)
   dev.off()
+  
+  #------------------------------ A/alpha vs. R plot -----------------------------------------------
+  
+  pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_by_alpha_vs_R.pdf",sep=""),width=8,height=8)
+  
+  op<-par(mar=c(6,6,2,2),pty="s")
+  
+  plot(NA,xlim=xlm,ylim=ylm/alpha,xlab="R",ylab=expression(A/bar(alpha)),cex.lab=2.5,cex.axis=2)
+  
+  abline(a=iM0, b=sM0,col="red",lwd=2)
+  abline(a =iN0, b=sN0,col="blue",lwd=2)
+  legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
+         cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+         bty = "n") 
+  abline(h=0,col="dimgrey",lty="dotted")
+  abline(v=0,col="dimgrey",lty="dotted")
+  #grid()
+  
+  colnames(x1)<-c("time","A","R")
+  x1$A_by_alpha<- x1$A/alpha
+  lines(x1$R,x1$A_by_alpha,col="black",lty="dashed",lwd=2)
+  
+  
+  #arrows(x1$R[which(1:nrow(x1) %% n == 0)-0.1], x1$A[which(1:nrow(x1) %% n == 0)-0.5], 
+  #       x1$R[1:nrow(x1) %% n == 0], x1$A[1:nrow(x1) %% n == 0] - 0.01, angle=40, 
+  #       length=0.1, col="black",lwd=2)
+  
+  par(op)
+  dev.off()
+  
+  #-------------------------------------------------------
 }
 #----------------------------------------
 resloc<-"./ARMN_Results/"
@@ -63,7 +102,7 @@ Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm=c(0,500),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_")
 
 # ----------------- when fmin < f < fmax ----------
-
+f<-0.3
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xlm<-c(0,450)
 ylm<-c(0,50)
