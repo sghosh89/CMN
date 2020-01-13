@@ -24,16 +24,22 @@ myfun<-function(f){
   Req2<-(1/((1-f)*(bmax-d))) - (1/((bmax*(1-s))-d))
   Req<-Req1*Req2
   
-  
+  #get Meq
   yeq<- (K*d)/((bmax*(1-s))-d)-(e*aM*Req)
   tempo<-(1-ps)/(u*yeq)
   
   Meq<-0.5*(tempo+sqrt((tempo^2)+(4*tempo*KA)))
   
-  # solve the equantion when Neq = 0 for f=fmax
+  # get Neq
   Neq<-((phi/Req) -(aM*Meq))/aN
   
-  return(list(Req=Req,
+  #get Aeq
+  PMeq<-Meq/(Meq+Neq)
+  alphaeq<-(Meq+Neq)*(1-f+(f*PMeq))
+  Aeq<-yeq*alphaeq
+  
+  return(list(Aeq=Aeq,
+              Req=Req,
               Meq=Meq,
               Neq=Neq))
   #return(Neq) # to get uniroot solution
@@ -50,9 +56,11 @@ uniroot(myfun, c(0.4,0.8)) #0.4947031
 
 
 ans<-myfun(f=0.3)
+(Aeq<-ans$Aeq)
+(Req<-ans$Req)
 (Meq<-ans$Meq)
 (Neq<-ans$Neq)
-(Req<-ans$Req)
+
 
 Meqs<-c()
 Neqs<-c()
