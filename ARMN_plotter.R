@@ -58,9 +58,10 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
   
   pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_by_alpha_vs_R.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,6,2,2),pty="s")
+  op<-par(mar=c(6,7,2,2),pty="s",mgp=c(3.5,1,0))
   
-  plot(NA,xlim=xlm,ylim=ylm/alpha,xlab="R",ylab=expression(A/bar(alpha)),cex.lab=2.5,cex.axis=2)
+  plot(NA,xlim=xlm,ylim=ylm/alpha,xlab=expression(hat(R)),ylab=bquote(I == hat(A)/hat(alpha)),cex.lab=2.5,cex.axis=2)
+  #plot(NA,xlim=xlm,ylim=ylm/alpha,xlab="R",ylab=expression(hat(A)/hat(alpha)),cex.lab=2.5,cex.axis=2)
   
   abline(a=iM0, b=sM0,col="red",lwd=2)
   abline(a =iN0, b=sN0,col="blue",lwd=2)
