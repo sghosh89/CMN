@@ -286,7 +286,7 @@ x1<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_10.dat"
 nametag<-"MN_vs_f_ps_0.3_KM_10_KN_10_phi_5"
 xlb<-"f"
 taglegend<-c(expression(hat(M)),expression(hat(N)))
-axlim<-c(0,20)#range(c(x1[,2],x1[,3]))
+axlim<-c(0,7)#range(c(x1[,2],x1[,3]))
 plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
 
 # --------------- variation against Ps -----------------------------
