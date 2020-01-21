@@ -9,8 +9,9 @@
 #     n=500 default values to add arrows in the trajectories
 #     resloc = folder name to save the plot
 #     nametag = additional info to file name
+#     plot_MZNGI,plot_NZNGI = logical 
 
-Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag){
+Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag,plot_MZNGI,plot_NZNGI){
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
@@ -34,11 +35,29 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
   
   plot(NA,xlim=xlm,ylim=ylm,xlab="R",ylab="A",cex.lab=2.5,cex.axis=2)
   
-  abline(a=iM, b=sM,col="red",lwd=2)
-  abline(a =iN, b=sN,col="blue",lwd=2)
-  legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
-         cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
-         bty = "n") 
+  if(plot_MZNGI==T & plot_NZNGI==T){
+    abline(a=iM, b=sM,col="red",lwd=2)
+    abline(a =iN, b=sN,col="blue",lwd=2)
+    legend("topright", c("Mutualist ZNGI","Non-mutualist ZNGI"), col = c("red", "blue"),
+           cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+
+  if(plot_MZNGI==T){
+    abline(a=iM, b=sM,col="red",lwd=2)
+    legend("topright", c("Mutualist ZNGI"), col = c("red"),
+           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+  
+  if(plot_NZNGI==T){
+    abline(a =iN, b=sN,col="blue",lwd=2)
+    legend("topright", c("Non-mutualist ZNGI"), col = c("blue"),
+           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+  
+  
   abline(h=0,col="dimgrey",lty="dotted")
   abline(v=0,col="dimgrey",lty="dotted")
   #grid()
@@ -63,11 +82,28 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
   plot(NA,xlim=xlm,ylim=ylm/alpha,xlab=expression(hat(R)),ylab=bquote(I == hat(A)/hat(alpha)),cex.lab=2.5,cex.axis=2)
   #plot(NA,xlim=xlm,ylim=ylm/alpha,xlab="R",ylab=expression(hat(A)/hat(alpha)),cex.lab=2.5,cex.axis=2)
   
-  abline(a=iM0, b=sM0,col="red",lwd=2)
-  abline(a =iN0, b=sN0,col="blue",lwd=2)
-  legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
-         cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
-         bty = "n") 
+  if(plot_MZNGI==T & plot_NZNGI==T){
+    abline(a=iM0, b=sM0,col="red",lwd=2)
+    abline(a =iN0, b=sN0,col="blue",lwd=2)
+    legend("topright", c("Mutualist","Non-mutualist"), col = c("red", "blue"),
+           cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+  
+  if(plot_MZNGI==T){
+    abline(a=iM0, b=sM0,col="red",lwd=2)
+    legend("topright", c("Mutualist ZNGI"), col = c("red"),
+           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+  
+  if(plot_NZNGI==T){
+    abline(a =iN0, b=sN0,col="blue",lwd=2)
+    legend("topright", c("Non-mutualist ZNGI"), col = c("blue"),
+           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           bty = "n") 
+  }
+  
   abline(h=0,col="dimgrey",lty="dotted")
   abline(v=0,col="dimgrey",lty="dotted")
   #grid()
@@ -100,7 +136,8 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm=c(0,500),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
+           x1,xlm=c(0,500),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = F, plot_NZNGI = T)
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
@@ -113,7 +150,8 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
+           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
 # ----------------- when f > fmax ----------
 f<-0.6
@@ -126,7 +164,8 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=200,resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
+           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = F)
 
 # ------------------ call the function for --------------- KM is not equal to KN ---------------
 
@@ -141,7 +180,8 @@ Meq<-x$M
 Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
-Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_")
+Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
+           x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
 #======================================================================================================
 
