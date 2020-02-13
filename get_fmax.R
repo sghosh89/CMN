@@ -4,15 +4,15 @@
 library(rootSolve)
 #library(nleqslv)
 
-myfun<-function(f){
+myfun<-function(f,s=0.1,aM=0.1,aN=0.2){
   
   # defining parameters
   phi<-5
-  aM<-0.1
-  aN<-0.2
+  #aM<-0.1 
+  #aN<-0.2
   d<-0.5
   bmax<-0.8
-  s<-0.1
+  #s<-0.1
   e<-0.5
   u<-0.4
   ps<-0.3
@@ -38,23 +38,47 @@ myfun<-function(f){
   alphaeq<-(Meq+Neq)*(1-f+(f*PMeq))
   Aeq<-yeq*alphaeq
   
-  return(list(Aeq=Aeq,
-              Req=Req,
-              Meq=Meq,
-              Neq=Neq))
-  #return(Neq) # to get uniroot solution
+  #return(list(Aeq=Aeq,
+  #            Req=Req,
+  #            Meq=Meq,
+  #            Neq=Neq))
+  
+  return(Neq) # to get uniroot solution
 }
 
+#===============================
+# Now, call the function
 d<-0.5
 bmax<-0.8
+
 s<-0.1
 fmin<-(s*bmax)/(bmax-d)
-fmin
-curve(myfun, xlim=c(fmin,1), lwd=2, lty=2, ylab='Neq',xlab='f',ylim=c(-0.1,1))
-abline(h=0)
-uniroot(myfun, c(0.4,0.8)) #0.4947031
+#fmin
+#curve(myfun, xlim=c(fmin,1), lwd=2, lty=2, ylab='Neq',xlab='f',ylim=c(-0.1,1))
+#abline(h=0)
+myfmax<-uniroot(myfun, interval=c(fmin,0.9)) 
+fmax<-myfmax$root
+cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+(fmax-fmin)
 
+#when aN=aM=0.1, s=0.1
+s<-0.1
+fmin<-(s*bmax)/(bmax-d)
+myfmax<-uniroot(myfun, interval=c(fmin,0.9), s=s, aM=0.1, aN=0.1) #fmax=0.3146655
+fmax<-myfmax$root
+cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+(fmax-fmin)
 
+# when s=0, aN>aM 
+s<-0
+fmin<-(s*bmax)/(bmax-d)
+myfmax<-uniroot(myfun, interval=c(fmin,0.9), s=s, aM=0.1, aN=0.2) #fmax=0.2103166
+fmax<-myfmax$root
+cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+(fmax-fmin)
+
+#======================================================================================================
+# To see plot comment the uniroot return line in the myfun and uncomment the other return statement
 ans<-myfun(f=fmin)
 (Aeq<-ans$Aeq)
 (Req<-ans$Req)
