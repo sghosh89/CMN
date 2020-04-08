@@ -72,8 +72,10 @@ get_eigenvalues<-function(KM,KN,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s
   tJ<-sum(diag(J_mat)) #trace of J_mat
   dJ<-det(J_mat) #det of J_Mat
   
-  xx<-sqrt((tJ^2)-(4*dJ))
+  #xximg<-(tJ^2) - (4*dJ)
   
+#  xx<-sqrt((tJ^2)-(4*dJ))
+
   if(tJ<0){
     print("stable")
   }else if (tJ>0){
@@ -82,29 +84,25 @@ get_eigenvalues<-function(KM,KN,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s
     print("imaginary eigen values")
   }
   
-  if(xx>0){
-    print("node")
-  }else if(xx<0){
-    print("spiral")
-  }else{
-    print("star")
-  }
+# This is valid only for 2 by 2 matrix for two eigen values  
+#  lamda1<-0.5*(tJ+xx)
+#  lamda2<-0.5*(tJ-xx)
   
-  lamda1<-0.5*(tJ+xx)
-  lamda2<-0.5*(tJ-xx)
+ # eigenvalues<-c(lamda1,lamda2)
   
-  eigenvalues<-c(lamda1,lamda2)
+  max_re_part<-max(Re(eigen(J_mat,symmetric=FALSE,only.values=TRUE)$values))
   
-  return(eigenvalues)
+  return(list(J_mat=J_mat,
+              max_re_part=max_re_part))
+  #return(J_mat)
 }
 
 # test the function 
 #ans<-nleqslv(x=c(0.5,0.1,0.1,0.5),fn=get_MNAR_eqm,KM=10,KN=10,f=0.3,ps=0.3)
 #ans$x
 #if(all(ans$x>0)){
-#  eg<-get_eigenvalues(KM=10,KN=10,f=0.6,ps=0.3,eqmvals=ans$x)
-#  maxeg<-max(eg)
-#  maxeg
+#  eg<-get_eigenvalues(KM=10,KN=10,f=0.6,ps=0.3,eqmvals=ans$x)$max_re_part
+#  eg
 #}else{
 #  cat("no co-existence with given parameters")
 #}
@@ -134,8 +132,8 @@ for(i in c(1:nrow(fMNAR))){
   f<-fMNAR$f[i]
   eqmvals<-fMNAR[i,c(2:5)]
   eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)
-  fMNAR$maxeg[i]<-max(eg)
+  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)$max_re_part
+  fMNAR$maxeg[i]<-eg
 }
 
 #=============================
@@ -151,6 +149,8 @@ abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
 
 par(op)
 dev.off()
+write.csv(fMNAR,"./ARMN_Results/fMNARmaxeg_ateqm_KM_10_KN_10.csv",row.names = F)
+
 
 # Now call the functions to see eigen value variation against soil P availability 
 
@@ -167,9 +167,10 @@ for(i in c(1:nrow(psMNAR))){
   ps<-psMNAR$ps[i]
   eqmvals<-psMNAR[i,c(2:5)]
   eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.3,ps=ps,eqmvals=eqmvals)
-  psMNAR$maxeg[i]<-max(eg)
+  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.3,ps=ps,eqmvals=eqmvals)$max_re_part
+  psMNAR$maxeg[i]<-eg
 }
+write.csv(psMNAR,"./ARMN_Results/psMNARmaxeg_ateqm_KM_10_KN_10.csv",row.names = F)
 
 #=============================
 pdf("./ARMN_Results/max_eigenval_vs_ps_with_KM_10_KN_10.pdf",width=8,height=8)
@@ -209,8 +210,8 @@ for(i in c(1:nrow(fMNAR))){
   f<-fMNAR$f[i]
   eqmvals<-fMNAR[i,c(2:5)]
   eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)
-  fMNAR$maxeg[i]<-max(eg)
+  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)$max_re_part
+  fMNAR$maxeg[i]<-eg
 }
 
 #=============================
@@ -242,8 +243,8 @@ for(i in c(1:nrow(psMNAR))){
   ps<-psMNAR$ps[i]
   eqmvals<-psMNAR[i,c(2:5)]
   eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.6,ps=ps,eqmvals=eqmvals)
-  psMNAR$maxeg[i]<-max(eg)
+  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.6,ps=ps,eqmvals=eqmvals)$max_re_part
+  psMNAR$maxeg[i]<-eg
 }
 
 #=============================
