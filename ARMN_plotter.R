@@ -1,9 +1,17 @@
-# This plotter function genarates the plot for A vs. R for both symbionts 
+source("get_MNAR_eqm_analytical.R")
+library(rootSolve)
+#---------------------------------------------------------------------------------------------------
+
+# This plotter function genarates the plot for A vs. R for both symbionts (the ZNGIs for Eqn 8, 9) 
 
 # Input
 #     f = fidelity of plant C allocation to mutualist (M)
-#     KM,KN = half saturation constant for M, N
+#     KM,KN = half saturation constant for M, N; KM=KN
 #     Meq,Neq = eqm. values for M, N
+#     eM, eN = energy allocation rate by the plant to M, N; eM=eN
+#     aM, aN = colonization rate of M, N; aM<=aN
+#     bmax, d = per capita birth and death rate; bmax>d
+#     s = cost of mutualism; s>0
 #     x1 = data files generated which has A,R values with time
 #     xlm,ylm = x and y axes-limit in the plot
 #     n=500 default values to add arrows in the trajectories
@@ -11,7 +19,7 @@
 #     nametag = additional info to file name
 #     plot_MZNGI,plot_NZNGI = logical 
 
-Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag,plot_MZNGI,plot_NZNGI){
+Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag,plot_MZNGI,plot_NZNGI){
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
@@ -88,25 +96,26 @@ Plotter_AR<-function(f,KM,KN,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,
        cex.lab=2.5,cex.axis=2)
  
   
-  if(plot_MZNGI==T & plot_NZNGI==T){
+  if(plot_MZNGI==T && plot_NZNGI==T){
     abline(a=iM0, b=sM0,col="red",lwd=2)
     abline(a =iN0, b=sN0,col="blue",lwd=2)
-    legend("topright", c("Mutualist ZNGI (Eqn. 8)","Non-mutualist ZNGI (Eqn. 9)"), col = c("red", "blue"),
-           cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+    legend("topright", c("Eq. 8, from the mutualist model equation.","Eq. 9, from the non-mutualist model equation."), 
+           col = c("red", "blue"),
+           cex = 1.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.1,
            bty = "n") 
   }
   
-  if(plot_MZNGI==T){
+  if(plot_MZNGI==T && plot_NZNGI==F){
     abline(a=iM0, b=sM0,col="red",lwd=2)
     legend("topright", c("Mutualist ZNGI (Eqn. 8)"), col = c("red"),
-           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           cex = 2, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
            bty = "n") 
   }
   
-  if(plot_NZNGI==T){
+  if(plot_MZNGI==F && plot_NZNGI==T){
     abline(a =iN0, b=sN0,col="blue",lwd=2)
     legend("topright", c("Non-mutualist ZNGI (Eqn. 9)"), col = c("blue"),
-           cex = 2.5, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
+           cex = 2, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
            bty = "n") 
   }
   
@@ -143,12 +152,12 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm=c(0,500),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = F, plot_NZNGI = T)
+           x1,xlm=c(0,600),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
-xlm<-c(0,450)
+xlm<-c(0,600)
 ylm<-c(0,50)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
@@ -162,7 +171,7 @@ Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=
 # ----------------- when f > fmax ----------
 f<-0.6
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
-xlm<-c(0,450)
+xlm<-c(0,600)
 ylm<-c(0,50)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
@@ -171,27 +180,12 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = F)
+           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
-# ------------------ call the function for --------------- KM is not equal to KN ---------------
-
-# ----------------- when fmin < f < fmax ----------
-#f<-0.6
-#xlm<-c(0,450)
-#ylm<-c(0,50)
-#x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-#x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-#colnames(x)<-c("t","M","N")
-#Meq<-x$M
-#Meq<-tail(Meq,1)
-#Neq<-x$N
-#Neq<-tail(Neq,1)
-#Plotter_AR(f=f,KM=10,KN=6,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-#           x1,xlm,ylm,n=10000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
 #======================================================================================================
 
-# ================== plotter function to plot variables (A,R or M,N) against time ==================
+# ==== plotter function to plot variables (A,R or M,N) against time from numerical solution of 4 ODEs =========
 Plotter_ARMN_vs_t<-function(x1,xlm,ylm,nametag,taglegend,resloc){
   
   pdf(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
@@ -245,126 +239,172 @@ Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.6_KM_10_KN
 Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,1),nametag="phi_5_f_0.6_KM_10_KN_10_MN",
                   taglegend=c("M","N"),resloc)
 
-# ------------------ call the function for --------------- KM not equal to KN ---------------
-
-# ----- for fmin < f < fmax ------
-#xC<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-#xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-
-#Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,60),nametag="phi_5_f_0.6_KM_10_KN_6_AR",
-#                  taglegend=c("A","R"), resloc)
-#Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.6_KM_10_KN_6_MN",
-#                  taglegend=c("M","N"),resloc)
 
 #==============================================================================================
-# plotter fn to get plots of (A,R) or (M,N) vs. ps and f
 
-plot_ARMN_vs_ps_f<-function(x1,resloc,nametag,xlb,taglegend,axlim){
-  
-  pdf(paste(resloc,nametag,".pdf",sep=""),width=8,height=8)
-  
-  op<-par(mar=c(6,6,2,2),pty="s")
-  plot(x1[,1],x1[,2],xlab=xlb,ylab="",cex.lab=2.5,cex.axis=2,
-       col="black",type="l",
-       ylim=axlim,lwd=2)
-  
-  lines(x1[,1],x1[,3],col="black",lty="dashed",lwd=2)
-  abline(h=0,col="red")
-  legend("topright", taglegend, col = c("black", "black"),
-         cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
-         bty = "n")
-  
-  par(op)
-  dev.off()
+################################################################################################
+
+########## PLOT FROM ANALYTICAL RESULTS #########################
+
+################################################################################################
+
+# Now get analytical plot for eqm values vs. Ps (soil phosphorous)
+
+Aeqs<-c()
+Reqs<-c()
+Meqs<-c()
+Neqs<-c()
+
+f<-0.3
+aM<-0.1
+aN<-0.2
+phi<-5
+
+ps_range<-seq(from=0,to=1,by=0.01)
+
+for(ps in ps_range){
+  #cat("ps=",ps,"\n")
+  ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+  Aeqs<-c(Aeqs,ans$Aeq)
+  Reqs<-c(Reqs,ans$Req)
+  Meqs<-c(Meqs,ans$Meq)
+  Neqs<-c(Neqs,ans$Neq)
 }
 
-# ------------------ call the function for --------------- KM = KN ---------------
-resloc<-"./ARMN_Results/"
+pdf("./ARMN_Results/analytical_MNeqm_vs_ps_f_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2),pty="s")
+plot(ps_range,Meqs,type="l",ylab="",xlab=expression(P[s]),ylim=c(0,3),xlim=range(ps_range),lwd=2,cex.lab=2.5,cex.axis=2)
+lines(ps_range,Neqs,lty="dashed",lwd=2)
+abline(h=0,col="gray")
 
-#-------- variation against fidelity ---------------  
-x1<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header = F)
-nametag<-"AR_vs_f_ps_0.3_KM_10_KN_10_phi_5" 
-xlb<-"f"
-taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-c(0,500)#range(c(x1[,2],x1[,3]))
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+legend("topright", c(expression(hat(M)),expression(hat(N))), col = c("black", "black"),
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+       bty = "n")
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header = F)
-nametag<-"MN_vs_f_ps_0.3_KM_10_KN_10_phi_5"
-xlb<-"f"
-taglegend<-c(expression(hat(M)),expression(hat(N)))
-axlim<-c(0,7)#range(c(x1[,2],x1[,3]))
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+par(op)
+dev.off()
 
-# --------------- variation against Ps -----------------------------
-x1<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header = F)
-nametag<-"AR_vs_ps_f_0.3_KM_10_KN_10_phi_5"
-xlb<-expression(P[s])
-taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-c(0,60)#range(c(0,x1[,2],x1[,3]))
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+pdf("./ARMN_Results/analytical_AReqm_vs_ps_f_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2),pty="s")
+plot(ps_range,Aeqs,type="l",ylab="",xlab=expression(P[s]),ylim=c(0,60),xlim=range(ps_range),lwd=2,cex.lab=2.5,cex.axis=2)
+lines(ps_range,Reqs,lty="dashed",lwd=2)
+abline(h=0,col="gray")
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header = F)
-nametag<-"MN_vs_ps_f_0.3_KM_10_KN_10_phi_5"
-xlb<-expression(P[s])
-taglegend<-c(expression(hat(M)),expression(hat(N)))
-axlim<-c(0,3)
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+legend("topright", c(expression(hat(A)),expression(hat(R))), col = c("black", "black"),
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+       bty = "n")
 
-# ------------------ call the function for --------------- KM is not equal to KN ---------------
+par(op)
+dev.off()
 
-#-------- variation against fidelity ---------------  
-x1<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-nametag<-"AR_vs_f_ps_0.3_KM_10_KN_6_phi_5"
-xlb<-"f"
-taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-c(0,100)#range(c(x1[,2],x1[,3]))
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+#===============================================================================================
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header = F)
-nametag<-"MN_vs_f_ps_0.3_KM_10_KN_6_phi_5"
-xlb<-"f"
-taglegend<-c(expression(hat(M)),expression(hat(N)))
-axlim<-c(0,3)
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+# Analytical plot of eqm soln vs fidelity, f, ranging in between (fmin to fmax)
 
-# --------------- variation against Ps -----------------------------
-x1<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header = F)
-nametag<-"AR_vs_ps_f_0.6_KM_10_KN_6_phi_5"
-xlb<-expression(P[s])
-taglegend<-c(expression(hat(A)),expression(hat(R)))
-axlim<-c(0,60)#range(c(x1[,2],x1[,3]))
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+Aeqs<-c()
+Reqs<-c()
+Meqs<-c()
+Neqs<-c()
 
-x1<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header = F)
-nametag<-"MN_vs_ps_f_0.6_KM_10_KN_6_phi_5"
-xlb<-expression(P[s])
-taglegend<-c(expression(hat(M)),expression(hat(N)))
-axlim<-c(0,3)
-plot_ARMN_vs_ps_f(x1,resloc,nametag,xlb,taglegend,axlim)
+s<-0.1
+bmax<-0.8
+d<-0.5
+fmin<-(s*bmax)/(bmax-d)
+ps<-0.3
+aM<-0.1
+aN<-0.2
+phi<-5
+myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=ps,s=s,aM=aM,aN=aN,phi=phi,getalleqmval=F) #fmax=0.3146655
+fmax<-myfmax$root
 
+
+frange<-seq(from=fmin,to=fmax,by=0.01)
+
+for(f in frange){
+  #cat("f=",f,"\n")
+  ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=aM,aN=aN,phi=phi,getalleqmval=T)
+  Aeqs<-c(Aeqs,ans$Aeq)
+  Reqs<-c(Reqs,ans$Req)
+  Meqs<-c(Meqs,ans$Meq)
+  Neqs<-c(Neqs,ans$Neq)
+}
+
+pdf("./ARMN_Results/analytical_MNeqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2),pty="s")
+ylm<-round(max(Meqs,Neqs[-1]))
+plot(frange,Meqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
+lines(frange,Neqs,lty="dashed",lwd=2)
+abline(h=0,col="gray")
+#points(x=0.4947031,y=0,cex=1.5,pch=19) # this is the fmax
+
+legend("topright", c(expression(hat(M)),expression(hat(N))), col = c("black", "black"),
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+       bty = "n")
+
+par(op)
+dev.off()
+
+pdf("./ARMN_Results/analytical_AReqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
+op<-par(mar=c(6,6,2,2),pty="s")
+ylm<-round(max(Reqs,Aeqs[-1]))
+plot(frange,Aeqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
+lines(frange,Reqs,lty="dashed",lwd=2)# Beyond fmax~0.49, Reqm should be constant as D/aM*Meqm 
+# as Neqm goes to 0 then the expression for Reqm is not valid there.
+abline(h=0,col="gray")
+
+legend("topright", c(expression(hat(A)),expression(hat(R))), col = c("black", "black"),
+       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
+       bty = "n")
+
+par(op)
+dev.off()
+
+#==================================================================================================
+
+# Plot for PM=Meq/(Meq+Neq) vs. Ps (soil phosphorous) vs. fidelity,f 
+
+s<-0.1
+bmax<-0.8
+d<-0.5
+fmin<-(s*bmax)/(bmax-d)
+
+fstop<-0.9999999 # Upto this we varied f, because at f=1, Meq = 0, Req = NaN, Neq = NaN (see analytical expression)
+f_range<-seq(from=fmin,to=fstop,by=(fstop-fmin)/50)
+ps_range<-seq(from=0,to=1,by=1/50)
+len<-length(f_range)*length(ps_range)
+  
+f_ps_PM<-data.frame(f=NA*numeric(len),ps=NA*numeric(len),PM=NA*numeric(len))
+
+k<-1
+for(i in c(1:length(f_range))){
+  f<-f_range[i]
+  for(j in c(1:length(ps_range))){
+    
+    ps<-ps_range[j]
+    
+    ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+    PM<-ans$Meq/(ans$Meq+ans$Neq)
+    
+    f_ps_PM$f[k]<-f
+    f_ps_PM$ps[k]<-ps
+    f_ps_PM$PM[k]<-PM
+    cat("k=",k,"f=",f,"ps=",ps,"PM=",PM,"\n")
+    k<-k+1
+  }
+}
+
+#require(foreign)
+#write.dta(f_ps_PM,file="./ARMN_Results/f_ps_PM.dta")
+
+write.csv(f_ps_PM,"./ARMN_Results/f_ps_PM.csv", row.names = F)
 
 # ==================================================================================================
-source("./get_MNAR_eqm.R")
+
   multi_plotter<-function(resloc,figname){
+    
     if(figname=="M_by_N_eqm_vs_phi"){
       
       #------------------ analytical expression results -----------------------------------------------
-      x<-c(0.5,0.5,0.5,0.5)
-      KM<-10
-      KN<-10
-      f<-0.3
-      ps<-0.3
-      aM<-0.1
-      aN<-0.2
-      KA<-5
-      d<-0.5
-      bmax<-0.8
-      s<-0.1
-      #phi=5
-      u<-0.4
-      eM<-0.5
-      eN<-0.5
       
       phi_seq<-seq(from=1,to=10,by=0.1)
       
@@ -373,7 +413,7 @@ source("./get_MNAR_eqm.R")
       for(i in c(1:length(phi_seq))){
         phi<-phi_seq[i]
         #cat(phi,"\n")
-        ans<-get_MNAR_eqm_analytical(x=x,KM=KM,KN=KN,f=f,ps=ps,aM=aM,aN=aN,KA=KA,d=d,bmax=bmax,s=s,phi=phi,u=u,eM=eM,eN=eN)
+        ans<-get_MNAR_eqm_analytical(f=0.3,ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=phi,getalleqmval=T)
         Meq<-ans$Meq
         Neq<-ans$Neq
         x1$M_by_N_eqm[i]<-Meq/Neq
@@ -386,16 +426,10 @@ source("./get_MNAR_eqm.R")
       abline(h=1,col="black",lty="dotted",lwd=2)
       par(op)
       dev.off()
-     #------------- numeric ODE solution: from fortran output --------------------------------------
-      #pdf(paste(resloc,"M_by_N_eqm_vs_phi.pdf",sep=""),width=8,height=8)
-      #x1<-read.delim("./ARMN_Results/ARMN_dat/ARMN_phi_vary_km_10_kn_10_f_0.3_ps_0.3.dat",sep="",header = F)
-      #op<-par(mar=c(6,6,2,2),mgp=c(3,1,0),pty="s")
-      #plot(x1[,1],x1[,2],xlab="D",ylab=c(expression(hat(M)/hat(N))),cex.lab=2.5,cex.axis=2,col="black",type="l",xlim=c(1,10),
-      #     ylim=c(0,7),lwd=2)
-      #abline(h=1,col="black",lty="dotted",lwd=2)
-      #par(op)
-      #dev.off()
+    
     }else if(figname=="Puptake_vs_M_N"){
+      
+      # A schematic plot using expression 
       # Plotting P uptake function by AMF
       # 3D figure
       
@@ -417,7 +451,8 @@ source("./get_MNAR_eqm.R")
       par(op)
       dev.off()
     }else if(figname=="schematic_diagram"){
-      # schematic diagram
+      
+      # schematic diagram for nullclines(?)
       
       pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
       linepos<- -34
@@ -447,7 +482,7 @@ source("./get_MNAR_eqm.R")
   #------------------------------------------
   # Now call the plotter function
   
-  resloc <- "./ARMN_Results/"
+resloc <- "./ARMN_Results/"
 multi_plotter(resloc, figname = "M_by_N_eqm_vs_phi")
 multi_plotter(resloc, figname = "Puptake_vs_M_N")
 multi_plotter(resloc, figname = "schematic_diagram")

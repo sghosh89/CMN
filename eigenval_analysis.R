@@ -1,8 +1,10 @@
-source("./get_MNAR_eqm.R")
+#source("./get_MNAR_eqm_analytical.R")
 #--------------------------------- Function to get eigen values ------------------------
 
 # NOTE : the input eqmvals should be a vector containing M,N,A,R eqm values in order as we get same output from get_MNAR_eqm fn.
-get_eigenvalues<-function(KM,KN,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s=0.1,phi=5,u=0.4,eM=0.5,eN=0.5){
+get_eigenvalues<-function(KM=10,KN=10,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s=0.1,phi=5,u=0.4,eM=0.5,eN=0.5){
+  
+  # note: KM=KN=K, eM=eN=e
   
   jA<-expression(1-ps-(A*(u*(M/(KA+M))*((M/(M+N))/(1-f+(f*(M/(M+N))))))))
   
@@ -37,10 +39,10 @@ get_eigenvalues<-function(KM,KN,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s
   #----------------evaluate at eqm------------
   
   
-  M<-eqmvals[1]
-  N<-eqmvals[2]
-  A<-eqmvals[3]
-  R<-eqmvals[4]
+  M<-eqmvals$Meq
+  N<-eqmvals$Neq
+  A<-eqmvals$Aeq
+  R<-eqmvals$Req
   
   j11_eqm<-eval(j11)
   j12_eqm<-eval(j12)
@@ -108,77 +110,30 @@ get_eigenvalues<-function(KM,KN,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s
 #}
 
 #-----------------------------------------------------------------------------------------
-# Now call the functions to see eigen value variation against fidelity with KM=KN
-KM<- 10 # half saturation constant for mutualist 
-KN<- 10 # half saturation constant for non-mutualist
 
-bmax<-0.8
-s<-0.1
-d<-0.5
-tempo<-((bmax*(1-s))-d)/(bmax-d)
-fmin<-1-((KN/KM)*(tempo))
 
-# read data file from fortran code output
-fAR<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
-fMN<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_10.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
-fMNAR<-cbind(fMN,fAR[,c(2:3)])
-colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
-fMNAR<-as.data.frame(fMNAR)
-fMNAR<-subset(fMNAR,f<=1)
-#fMNAR<-as.matrix(fMNAR)
-fMNAR$maxeg<-NA
+#######################################################################################################
+#
+################### PLOT for eigen val. vs Ps (soil phosphorous) #########################
+#
+#######################################################################################################
 
-for(i in c(1:nrow(fMNAR))){
-  f<-fMNAR$f[i]
-  eqmvals<-fMNAR[i,c(2:5)]
-  eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)$max_re_part
-  fMNAR$maxeg[i]<-eg
+ps_range<-seq(from=0,to=1,by=0.01)
+ps_maxeg<-data.frame(ps=ps_range,maxeg=NA)
+
+for(i in c(1:nrow(ps_maxeg))){
+  ps<-ps_maxeg$ps[i]
+  eqmvals<-get_MNAR_eqm_analytical(f=0.3,ps=ps,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+  eg<-get_eigenvalues(KM=10,KN=10,f=0.3,ps=ps,eqmvals=eqmvals)$max_re_part
+  ps_maxeg$maxeg[i]<-eg
 }
 
-#=============================
-pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_10.pdf",width=8,height=8)
+pdf("./ARMN_Results/max_eigenval_vs_ps.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
+plot(ps_maxeg$ps,ps_maxeg$maxeg,xlab=expression(P[s]),ylab="Max[Re(eigenvalues)]",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",
-     xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
-abline(h=0,col="grey",lwd=2)
-abline(v=fMNAR$f[1],col="grey",lwd=2)
-abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
-
-par(op)
-dev.off()
-write.csv(fMNAR,"./ARMN_Results/fMNARmaxeg_ateqm_KM_10_KN_10.csv",row.names = F)
-
-
-# Now call the functions to see eigen value variation against soil P availability 
-
-# read data file from fortran code output
-psAR<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
-psMN<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.3_km_10_kn_10.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
-psMNAR<-cbind(psMN,psAR[,c(2:3)])
-colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
-psMNAR<-as.data.frame(psMNAR)
-
-psMNAR$maxeg<-NA
-
-for(i in c(1:nrow(psMNAR))){
-  ps<-psMNAR$ps[i]
-  eqmvals<-psMNAR[i,c(2:5)]
-  eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.3,ps=ps,eqmvals=eqmvals)$max_re_part
-  psMNAR$maxeg[i]<-eg
-}
-write.csv(psMNAR,"./ARMN_Results/psMNARmaxeg_ateqm_KM_10_KN_10.csv",row.names = F)
-
-#=============================
-pdf("./ARMN_Results/max_eigenval_vs_ps_with_KM_10_KN_10.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2),pty="s")
-
-plot(psMNAR$ps,psMNAR$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
-     xlim=c(0,1),ylim=c(range(psMNAR$maxeg,0)))
+     xlim=c(0,1),ylim=c(range(ps_maxeg$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
 
 par(op)
@@ -186,81 +141,40 @@ dev.off()
 
 #=======================================================================================
 
-# Now call the functions to see eigen value variation against fidelity with KM is not equal to KN
-KM<- 10 # half saturation constant for mutualist 
-KN<- 6 # half saturation constant for non-mutualist
-
-bmax<-0.8
+#######################################################################################################
+#
+################### PLOT for eigen val. vs fidelity, f (range= fmin to fmax) #########################
+#
+#######################################################################################################
 s<-0.1
+bmax<-0.8
 d<-0.5
-tempo<-((bmax*(1-s))-d)/(bmax-d)
-fmin<-1-((KN/KM)*(tempo))
+fmin<-(s*bmax)/(bmax-d)
+myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9),ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
+fmax<-myfmax$root
+f_init<-fmin+0.00000001 # at f=fmin Req =0, Neq=infinity, so we consider a limiting case
+f_range<-seq(from=f_init,to=fmax,by=(fmax-f_init)/30)
+f_maxeg<-data.frame(f=f_range,maxeg=NA)
 
-# read data file from fortran code output
-fAR<-read.delim("./ARMN_Results/ARMN_dat/fAR_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header = F) # read f, A_eqm, R_eqm for ps=0.3
-fMN<-read.delim("./ARMN_Results/ARMN_dat/fMN_after_t20000_ps_0.3_km_10_kn_6.dat",sep="",header=F) # read f, M_eqm, N_eqm for ps=0.3
-fMNAR<-cbind(fMN,fAR[,c(2:3)])
-colnames(fMNAR)<-c("f","Meq","Neq","Aeq","Req")
-fMNAR<-as.data.frame(fMNAR)
-fMNAR<-subset(fMNAR,f<=1)
-#fMNAR<-as.matrix(fMNAR)
-fMNAR$maxeg<-NA
-
-for(i in c(1:nrow(fMNAR))){
-  f<-fMNAR$f[i]
-  eqmvals<-fMNAR[i,c(2:5)]
-  eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,ps=0.3,f=f,eqmvals=eqmvals)$max_re_part
-  fMNAR$maxeg[i]<-eg
+for(i in c(1:nrow(f_maxeg))){
+  
+  f<-f_maxeg$f[i]
+  eqmvals<-get_MNAR_eqm_analytical(f=f,ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+  eg<-get_eigenvalues(KM=10,KN=10,f=f,ps=0.3,eqmvals=eqmvals)$max_re_part
+  f_maxeg$maxeg[i]<-eg
+  cat("f=",f,"\n")
 }
 
-#=============================
-pdf("./ARMN_Results/max_eigenval_vs_f_with_KM_10_KN_6.pdf",width=8,height=8)
+pdf("./ARMN_Results/max_eigenval_vs_f.pdf",width=8,height=8)
 op<-par(mar=c(6,6.2,2,2),pty="s")
 
-plot(fMNAR$f,fMNAR$maxeg,xlab="f",ylab="max(eigenvalues)",
+plot(f_maxeg$f,f_maxeg$maxeg,xlab="f",ylab="Max[Re(eigenvalues)]",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",
-     xlim=c(fMNAR$f[1],1),ylim=c(range(fMNAR$maxeg,0)))
+     xlim=range(f_range),ylim=c(range(f_maxeg$maxeg,0)))
 abline(h=0,col="grey",lwd=2)
-abline(v=fMNAR$f[1],col="grey",lwd=2)
-abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
+#abline(v=fMNAR$f[1],col="grey",lwd=2)
+#abline(v=fMNAR$f[which((fMNAR$Meq/fMNAR$Neq)>100)[1]],col="grey",lwd=2,lty=2)
 
 par(op)
 dev.off()
-
-# Now call the functions to see eigen value variation against soil P availability 
-
-# read data file from fortran code output
-psAR<-read.delim("./ARMN_Results/ARMN_dat/psAR_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header = F) # read ps, A_eqm, R_eqm for f=0.3
-psMN<-read.delim("./ARMN_Results/ARMN_dat/psMN_after_t20000_f_0.6_km_10_kn_6.dat",sep="",header=F) # read ps, M_eqm, N_eqm for f=0.3
-psMNAR<-cbind(psMN,psAR[,c(2:3)])
-colnames(psMNAR)<-c("ps","Meq","Neq","Aeq","Req")
-psMNAR<-as.data.frame(psMNAR)
-
-psMNAR$maxeg<-NA
-
-for(i in c(1:nrow(psMNAR))){
-  ps<-psMNAR$ps[i]
-  eqmvals<-psMNAR[i,c(2:5)]
-  eqmvals<-as.matrix(unname(eqmvals))
-  eg<-get_eigenvalues(KM=KM,KN=KN,f=0.6,ps=ps,eqmvals=eqmvals)$max_re_part
-  psMNAR$maxeg[i]<-eg
-}
-
-#=============================
-pdf("./ARMN_Results/max_eigenval_vs_ps_with_KM_10_KN_6.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2),pty="s")
-
-plot(psMNAR$ps,psMNAR$maxeg,xlab=expression(P[s]),ylab="max(eigenvalues)",
-     cex.lab=2.5,cex.axis=2,lwd=2,type="l",
-     xlim=c(0,1),ylim=c(range(psMNAR$maxeg,0)))
-abline(h=0,col="grey",lwd=2)
-
-par(op)
-dev.off()
-
-#=======================================
-
-
-
 

@@ -151,64 +151,7 @@ dev.off()
 
 
 #======================================================================================================
-# Analytical plot of eqm soln vs fidelity
-Aeqs<-c()
-Reqs<-c()
-Meqs<-c()
-Neqs<-c()
 
-s<-0.1
-bmax<-0.8
-d<-0.5
-fmin<-(s*bmax)/(bmax-d)
-ps<-0.3
-aM<-0.1
-aN<-0.2
-phi<-5
-myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=ps,s=s,aM=aM,aN=aN,phi=phi,getalleqmval=F) #fmax=0.3146655
-fmax<-myfmax$root
-
-
-frange<-seq(from=fmin,to=fmax,by=0.01)
-
-for(f in frange){
-  #cat("f=",f,"\n")
-  ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=aM,aN=aN,phi=phi,getalleqmval=T)
-  Aeqs<-c(Aeqs,ans$Aeq)
-  Reqs<-c(Reqs,ans$Req)
-  Meqs<-c(Meqs,ans$Meq)
-  Neqs<-c(Neqs,ans$Neq)
-}
-
-pdf("./ARMN_Results/analytical_MNeqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
-ylm<-round(max(Meqs,Neqs[-1]))
-plot(frange,Meqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
-lines(frange,Neqs,lty="dashed",lwd=2)
-abline(h=0,col="gray")
-#points(x=0.4947031,y=0,cex=1.5,pch=19) # this is the fmax
-
-legend("topright", c(expression(hat(M)),expression(hat(N))), col = c("black", "black"),
-       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
-       bty = "n")
-
-par(op)
-dev.off()
-
-pdf("./ARMN_Results/analytical_AReqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
-ylm<-round(max(Reqs,Aeqs[-1]))
-plot(frange,Aeqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
-lines(frange,Reqs,lty="dashed",lwd=2)# Beyond fmax~0.49, Reqm should be constant as D/aM*Meqm 
-                                    # as Neqm goes to 0 then the expression for Reqm is not valid there.
-abline(h=0,col="gray")
-
-legend("topright", c(expression(hat(A)),expression(hat(R))), col = c("black", "black"),
-       cex = 2.5, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1.2,x.intersp = 0.2,
-       bty = "n")
-
-par(op)
-dev.off()
 #==========================================================================
 
 
