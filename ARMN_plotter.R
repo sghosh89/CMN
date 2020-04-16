@@ -368,35 +368,63 @@ bmax<-0.8
 d<-0.5
 fmin<-(s*bmax)/(bmax-d)
 
-fstop<-0.9999999 # Upto this we varied f, because at f=1, Meq = 0, Req = NaN, Neq = NaN (see analytical expression)
-f_range<-seq(from=fmin,to=fstop,by=(fstop-fmin)/50)
 ps_range<-seq(from=0,to=1,by=1/50)
-len<-length(f_range)*length(ps_range)
-  
-f_ps_PM<-data.frame(f=NA*numeric(len),ps=NA*numeric(len),PM=NA*numeric(len))
 
-k<-1
-for(i in c(1:length(f_range))){
-  f<-f_range[i]
-  for(j in c(1:length(ps_range))){
-    
-    ps<-ps_range[j]
-    
-    ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
-    PM<-ans$Meq/(ans$Meq+ans$Neq)
-    
-    f_ps_PM$f[k]<-f
-    f_ps_PM$ps[k]<-ps
-    f_ps_PM$PM[k]<-PM
-    cat("k=",k,"f=",f,"ps=",ps,"PM=",PM,"\n")
-    k<-k+1
+ps_and_fmax<-data.frame(ps=ps_range,fmax=NA)
+
+for(i in 1:length(ps_range)){
+  ps<-ps_range[i]
+  cat("ps=",ps,"\n")
+  
+  myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,2),ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
+  fmax<-myfmax$root
+  
+  if(fmax>1){
+    stop("Stop code: fmax is not less that 1 for a given ps",call.=T)
   }
+  ps_and_fmax$fmax[i]<-fmax
 }
 
-#require(foreign)
-#write.dta(f_ps_PM,file="./ARMN_Results/f_ps_PM.dta")
+ps_and_fmax<-na.omit(ps_and_fmax) # this table has max limit for f for a given ps
 
-write.csv(f_ps_PM,"./ARMN_Results/f_ps_PM.csv", row.names = F)
+# Now make a table for all possible combo of ps, f for co-existence 
+# We varied f in between >= fmin to < fmax for a given ps
+
+len<-3000 # give it a big number
+
+ps_f_PM<-data.frame(ps=NA*numeric(len),
+                    f=NA*numeric(len),
+                    PM=NA*numeric(len))
+
+k<-1
+for(i in c(1:nrow(ps_and_fmax))){
+  ps<-ps_and_fmax$ps[i]
+  fmax<-ps_and_fmax$fmax[i]-0.0001 # it's a limiting case as f tends to fmax Neq goes to zero
+  
+  #cat("ps=",ps,"fmax=",fmax,"\n")
+    
+  f_range<-seq(from=fmin,to=fmax,by=(fmax-fmin)/50)
+    
+    for(j in c(1:length(f_range))){
+      
+      f<-f_range[j]
+      
+      ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+      PM<-ans$Meq/(ans$Meq+ans$Neq)
+      
+      ps_f_PM$f[k]<-f
+      ps_f_PM$ps[k]<-ps
+      ps_f_PM$PM[k]<-PM
+      cat("k=",k,"f=",f,"ps=",ps,"PM=",PM,"\n")
+      k<-k+1
+    }
+}
+
+ps_f_PM<-na.omit(ps_f_PM) # delete unnecessary blank rows
+dim(ps_f_PM)
+range(ps_f_PM$PM)
+
+write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
 
 # ==================================================================================================
 
