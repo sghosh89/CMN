@@ -1,7 +1,6 @@
-#source("./get_MNAR_eqm_analytical.R")
+source("./get_MNAR_eqm_analytical.R")
 #--------------------------------- Function to get eigen values ------------------------
 
-# NOTE : the input eqmvals should be a vector containing M,N,A,R eqm values in order as we get same output from get_MNAR_eqm fn.
 get_eigenvalues<-function(KM=10,KN=10,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax=0.8,s=0.1,phi=5,u=0.4,eM=0.5,eN=0.5){
   
   # note: KM=KN=K, eM=eN=e
@@ -73,10 +72,6 @@ get_eigenvalues<-function(KM=10,KN=10,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax
   
   tJ<-sum(diag(J_mat)) #trace of J_mat
   dJ<-det(J_mat) #det of J_Mat
-  
-  #xximg<-(tJ^2) - (4*dJ)
-  
-#  xx<-sqrt((tJ^2)-(4*dJ))
 
   if(tJ<0){
     print("stable")
@@ -86,28 +81,13 @@ get_eigenvalues<-function(KM=10,KN=10,f,ps,eqmvals,aM=0.1,aN=0.2,KA=5,d=0.5,bmax
     print("imaginary eigen values")
   }
   
-# This is valid only for 2 by 2 matrix for two eigen values  
-#  lamda1<-0.5*(tJ+xx)
-#  lamda2<-0.5*(tJ-xx)
-  
- # eigenvalues<-c(lamda1,lamda2)
-  
   max_re_part<-max(Re(eigen(J_mat,symmetric=FALSE,only.values=TRUE)$values))
   
   return(list(J_mat=J_mat,
               max_re_part=max_re_part))
-  #return(J_mat)
+
 }
 
-# test the function 
-#ans<-nleqslv(x=c(0.5,0.1,0.1,0.5),fn=get_MNAR_eqm,KM=10,KN=10,f=0.3,ps=0.3)
-#ans$x
-#if(all(ans$x>0)){
-#  eg<-get_eigenvalues(KM=10,KN=10,f=0.6,ps=0.3,eqmvals=ans$x)$max_re_part
-#  eg
-#}else{
-#  cat("no co-existence with given parameters")
-#}
 
 #-----------------------------------------------------------------------------------------
 
