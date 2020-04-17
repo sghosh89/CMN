@@ -88,7 +88,7 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   
   pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_by_alpha_vs_R.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,7,2,2),pty="s",mgp=c(3.5,1,0))
+  op<-par(mar=c(6,7,2,2),pty="s",mgp=c(3.5,1,0),family="serif")
   
   plot(NA,xlim=xlm,ylim=ylm/alpha,
        xlab="x",ylab="y",
@@ -190,7 +190,7 @@ Plotter_ARMN_vs_t<-function(x1,xlm,ylm,nametag,taglegend,resloc){
   
   pdf(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,6,2,2),pty="s")
+  op<-par(mar=c(6,6,2,2),pty="s",family="serif")
   plot(x1[,1],x1[,2],xlab="time",ylab="",cex.lab=2.5,cex.axis=2,
        col="black",type="l",xlim=xlm,
        ylim=ylm,lwd=2)
@@ -272,7 +272,7 @@ for(ps in ps_range){
 }
 
 pdf("./ARMN_Results/analytical_MNeqm_vs_ps_f_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 plot(ps_range,Meqs,type="l",ylab="",xlab=expression(P[s]),ylim=c(0,3),xlim=range(ps_range),lwd=2,cex.lab=2.5,cex.axis=2)
 lines(ps_range,Neqs,lty="dashed",lwd=2)
 abline(h=0,col="gray")
@@ -285,7 +285,7 @@ par(op)
 dev.off()
 
 pdf("./ARMN_Results/analytical_AReqm_vs_ps_f_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 plot(ps_range,Aeqs,type="l",ylab="",xlab=expression(P[s]),ylim=c(0,60),xlim=range(ps_range),lwd=2,cex.lab=2.5,cex.axis=2)
 lines(ps_range,Reqs,lty="dashed",lwd=2)
 abline(h=0,col="gray")
@@ -330,7 +330,7 @@ for(f in frange){
 }
 
 pdf("./ARMN_Results/analytical_MNeqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 ylm<-round(max(Meqs,Neqs[-1]))
 plot(frange,Meqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
 lines(frange,Neqs,lty="dashed",lwd=2)
@@ -345,7 +345,7 @@ par(op)
 dev.off()
 
 pdf("./ARMN_Results/analytical_AReqm_vs_f_ps_0.3_KM_10_KN_10_phi_5.pdf",width=8,height=8)
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 ylm<-round(max(Reqs,Aeqs[-1]))
 plot(frange,Aeqs,type="l",ylab="",xlab="f",ylim=c(-1,ylm),xlim=c(fmin,fmax),lwd=2,cex.lab=2.5,cex.axis=2)
 lines(frange,Reqs,lty="dashed",lwd=2)# Beyond fmax~0.49, Reqm should be constant as D/aM*Meqm 
@@ -448,7 +448,7 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
       }
       
       pdf(paste(resloc,"M_by_N_eqm_vs_phi.pdf",sep=""),width=8,height=8)
-      op<-par(mar=c(6,6,2,2),mgp=c(3,1,0),pty="s")
+      op<-par(mar=c(6,6,2,2),mgp=c(3,1,0),pty="s",family="serif")
       plot(x1[,1],x1[,2],xlab="D",ylab=c(expression(hat(M)/hat(N))),cex.lab=2.5,cex.axis=2,col="black",type="l",xlim=c(1,10),
            ylim=c(0,7),lwd=2)
       abline(h=1,col="black",lty="dotted",lwd=2)
@@ -463,7 +463,7 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
       
       pdf(paste(resloc,"Puptake_vs_M_N.pdf",sep=""),width=8,height=8)
      
-      op<-par(mar=c(2,2,2,2),mgp=c(3,0.5,0),pty="s")
+      op<-par(mar=c(2,2,2,2),mgp=c(3,0.5,0),pty="s",family="serif")
       f<-0.3
       u<-0.4
       KA<-5
@@ -486,7 +486,7 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
       linepos<- -34
       linepos2<- -11.5
      
-      op<-par(mar=c(3,3,2,2),mgp=c(1,1,0),pty="s")
+      op<-par(mar=c(3,3,2,2),mgp=c(1,1,0),pty="s",family="serif")
       plot(-1,-2,xlim=c(0,0.8),ylim=c(0,1),xlab="x", ylab="y",
            xaxt="n",yaxt="n",cex.lab=3)
       abline(a=0.5,b=-0.7,lwd=2)

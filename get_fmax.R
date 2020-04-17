@@ -71,7 +71,7 @@ while(s<=smax){
 resloc<-"./ARMN_Results/"
 pdf(paste(resloc,"range_of_fidelity_vs_s_aM_0.1_aN_0.2.pdf",sep=""),width=8,height=8)
 
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 
 plot(s_vec,fmins,ylim=c(0,1),type="l",lwd=2,ylab="",xlab="s",cex.lab=2.5,cex.axis=2)
 lines(s_vec,fmaxs_phi1_aM_0.1_aN_0.2,col="red",lwd=2)
@@ -126,7 +126,7 @@ while(s<=smax){
 resloc<-"./ARMN_Results/"
 pdf(paste(resloc,"range_of_fidelity_vs_s_aM_0.1_aN_0.1.pdf",sep=""),width=8,height=8)
 
-op<-par(mar=c(6,6,2,2),pty="s")
+op<-par(mar=c(6,6,2,2),pty="s",family="serif")
 
 plot(s_vec,fmins,ylim=c(0,1),type="l",lwd=2,ylab="",xlab="s",cex.lab=2.5,cex.axis=2)
 lines(s_vec,fmaxs_phi1_aM_0.1_aN_0.1,col="red",lwd=2)

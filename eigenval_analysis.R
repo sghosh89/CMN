@@ -109,7 +109,7 @@ for(i in c(1:nrow(ps_maxeg))){
 }
 
 pdf("./ARMN_Results/max_eigenval_vs_ps.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2),pty="s")
+op<-par(mar=c(6,6.2,2,2),pty="s",family="serif")
 
 plot(ps_maxeg$ps,ps_maxeg$maxeg,xlab=expression(P[s]),ylab="Max[Re(eigenvalues)]",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",
@@ -146,7 +146,7 @@ for(i in c(1:nrow(f_maxeg))){
 }
 
 pdf("./ARMN_Results/max_eigenval_vs_f.pdf",width=8,height=8)
-op<-par(mar=c(6,6.2,2,2),pty="s")
+op<-par(mar=c(6,6.2,2,2),pty="s",family="serif")
 
 plot(f_maxeg$f,f_maxeg$maxeg,xlab="f",ylab="Max[Re(eigenvalues)]",
      cex.lab=2.5,cex.axis=2,lwd=2,type="l",
