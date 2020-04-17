@@ -99,9 +99,11 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   if(plot_MZNGI==T && plot_NZNGI==T){
     abline(a=iM0, b=sM0,col="red",lwd=2)
     abline(a =iN0, b=sN0,col="blue",lwd=2)
-    legend("topright", c("Eq. 8, from the mutualist model equation.","Eq. 9, from the non-mutualist model equation."), 
-           col = c("red", "blue"),
-           cex = 1.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 1,x.intersp = 0.1,
+    legend("top", c("Eq. 8, from the \n mutualist model equation.",
+                         "Eq. 9, from the \n non-mutualist model equation."), 
+           col = c("red", "blue"),seg.len = c(0.8,0.8),
+           cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),
+           y.intersp = 2,x.intersp = 0.1,
            bty = "n") 
   }
   
@@ -144,6 +146,9 @@ resloc<-"./ARMN_Results/"
 
 # ----------------- when f < fmin ----------
 f<-0.2
+xlm<-c(0,600)
+ylm<-c(0,40000)
+#ylm=c(0,16000)
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
@@ -152,13 +157,13 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm=c(0,600),ylm=c(0,16000),n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
+           x1,xlm=xlm,ylm=ylm,n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xlm<-c(0,600)
-ylm<-c(0,50)
+ylm<-c(0,120)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
@@ -172,7 +177,7 @@ Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=
 f<-0.6
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xlm<-c(0,600)
-ylm<-c(0,50)
+ylm<-c(0,48)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 colnames(x)<-c("t","M","N")
 Meq<-x$M
@@ -216,7 +221,7 @@ xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.2_ps_0.3_km_10_kn_10.dat",sep=""
 
 Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.2_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
-Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,10),nametag="phi_5_f_0.2_KM_10_KN_10_MN",
+Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.2_KM_10_KN_10_MN",
                   taglegend=c("M","N"),resloc)
 
 #----------for fmin < f < fmax ---------
@@ -224,7 +229,7 @@ Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,10),nametag="phi_5_f_0.2_KM_10_KN_
 xC<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 
-Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,60),nametag="phi_5_f_0.3_KM_10_KN_10_AR",
+Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.3_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
 Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.3_KM_10_KN_10_MN",
                   taglegend=c("M","N"),resloc)
@@ -236,7 +241,7 @@ xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_10.dat",sep=""
 
 Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.6_KM_10_KN_10_AR",
                   taglegend=c("A","R"), resloc)
-Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,1),nametag="phi_5_f_0.6_KM_10_KN_10_MN",
+Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.6_KM_10_KN_10_MN",
                   taglegend=c("M","N"),resloc)
 
 
@@ -376,16 +381,22 @@ for(i in 1:length(ps_range)){
   ps<-ps_range[i]
   cat("ps=",ps,"\n")
   
-  myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,2),ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
-  fmax<-myfmax$root
-  
-  if(fmax>1){
-    stop("Stop code: fmax is not less that 1 for a given ps",call.=T)
+  if(ps<1){
+    myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,200), # ideally the interval we should look (fmin,1) 
+                    ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
+    fmax<-myfmax$root
+    
+    if(fmax>1){
+      fmax<-1 # force set fmax = 1 
+      #stop("Stop code: fmax is not less that 1 for a given ps",call.=T)
+    }
+  }else{ # because at ps=1, Neq never be zero, so no root finding 
+    fmax<-1
   }
+  
   ps_and_fmax$fmax[i]<-fmax
 }
 
-ps_and_fmax<-na.omit(ps_and_fmax) # this table has max limit for f for a given ps
 
 # Now make a table for all possible combo of ps, f for co-existence 
 # We varied f in between >= fmin to < fmax for a given ps
@@ -394,35 +405,58 @@ len<-3000 # give it a big number
 
 ps_f_PM<-data.frame(ps=NA*numeric(len),
                     f=NA*numeric(len),
-                    PM=NA*numeric(len))
+                    PM=NA*numeric(len),
+                    Aeq=NA*numeric(len),
+                    Req=NA*numeric(len),
+                    Meq=NA*numeric(len),
+                    Neq=NA*numeric(len))
 
 k<-1
 for(i in c(1:nrow(ps_and_fmax))){
   ps<-ps_and_fmax$ps[i]
-  fmax<-ps_and_fmax$fmax[i]-0.0001 # it's a limiting case as f tends to fmax Neq goes to zero
+  fmax<-ps_and_fmax$fmax[i] 
   
   #cat("ps=",ps,"fmax=",fmax,"\n")
-    
+  
   f_range<-seq(from=fmin,to=fmax,by=(fmax-fmin)/50)
+  
+  for(j in c(1:length(f_range))){
     
-    for(j in c(1:length(f_range))){
-      
-      f<-f_range[j]
-      
-      ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
-      PM<-ans$Meq/(ans$Meq+ans$Neq)
-      
-      ps_f_PM$f[k]<-f
-      ps_f_PM$ps[k]<-ps
-      ps_f_PM$PM[k]<-PM
-      cat("k=",k,"f=",f,"ps=",ps,"PM=",PM,"\n")
-      k<-k+1
-    }
+    f<-f_range[j]
+    
+    ans<-get_MNAR_eqm_analytical(f=f,ps=ps,s=s,aM=0.1,aN=0.2,phi=5,getalleqmval=T)
+    PM<-ans$Meq/(ans$Meq+ans$Neq)
+    
+    ps_f_PM$f[k]<-f
+    ps_f_PM$ps[k]<-ps
+    ps_f_PM$PM[k]<-PM
+    ps_f_PM$Aeq[k]<-ans$Aeq
+    ps_f_PM$Req[k]<-ans$Req
+    ps_f_PM$Meq[k]<-ans$Meq
+    ps_f_PM$Neq[k]<-ans$Neq
+    cat("k=",k,"f=",f,"ps=",ps,"PM=",PM,"\n")
+    k<-k+1
+  }
 }
 
-ps_f_PM<-na.omit(ps_f_PM) # delete unnecessary blank rows
+(z<-ps_f_PM[which(ps_f_PM$PM>1),]) # this table shows at f=fmax, PM should be 1 but instead it's slightly >1
+# I think, this is because uniroot function just finds the root (that could be 0,>0,<0)
+# but for meaningful biological variable Neq can't be negative, so we can consider 
+# Neq goes to zero and PM = 1 for given ps, f combination
+
+ind<-which(ps_f_PM$PM>1)
+ps_f_PM[ind,]$PM<-1
+
+# Now, at f=1, analytically Req = NaN, so we need to omit those rows: these are the ps, f combo for which
+# no fmax found within [fmin,1] in ps_and_fmax table.
+ind<-which(is.nan(ps_f_PM$PM))
+(ps_f_PM[ind,])
+
+ps_f_PM<-na.omit(ps_f_PM) # delete unnecessary rows
 dim(ps_f_PM)
 range(ps_f_PM$PM)
+
+ps_f_PM<-ps_f_PM[,c("ps","f","PM","Meq","Neq")]
 
 write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
 
