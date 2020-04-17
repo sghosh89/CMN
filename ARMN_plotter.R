@@ -447,7 +447,7 @@ for(i in c(1:nrow(ps_and_fmax))){
 ind<-which(ps_f_PM$PM>1)
 ps_f_PM[ind,]$PM<-1
 
-# Now, at f=1, analytically Req = NaN, so we need to omit those rows: these are the ps, f combo for which
+# Now, at f=1, analytically Req  = NaN, so we need to omit those rows: these are the ps, f combo for which
 # no fmax found within [fmin,1] in ps_and_fmax table.
 ind<-which(is.nan(ps_f_PM$PM))
 (ps_f_PM[ind,])
