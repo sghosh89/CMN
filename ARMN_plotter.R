@@ -526,9 +526,12 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F)
       abline(a=0.5,b=-0.7,lwd=2)
       abline(a=0.7,b=-2.5,lty="dashed",lwd=2)
       #text1<-bquote("-ea"[M])
-      legend("top", c(expression("Equation (8), from the mutualist model equation. Slope -ea"[M]*"."),
-                      expression("Equation (9), from the non-mutualist model equation. Slope -ea"[N]*"/(1-f).")), 
-             cex = 1.2, lty = c(1, 2), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 2,x.intersp = 0.2,
+      legend("top", c("Equation (8), from the \n mutualist model equation.",
+                      expression("Slope = -ea"[M]*"."),
+                      "Equation (9), from the \n non-mutualist model equation.",
+                      expression("Slope = -ea"[N]*"/(1-f).")), 
+             cex = 2, lty = c(1, NA, 2, NA), lwd=c(2,NA,2,NA), xpd = TRUE, horiz = F, inset = c(0,0,0,0),
+             y.intersp = c(2,1.4,2,1.8),x.intersp = 0.2,
              bty = "n") 
      # mtext(adj=0.65,line=-15,(bquote("A"[M]^"*"~"= C"[cM]^"*")),cex=1.5)
     #  mtext(adj=0.7,line=-18,(bquote("A"[N]^"*"~"= C"[cN]^"*"~"/(1-f)")),cex=1.5)
