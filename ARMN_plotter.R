@@ -1,5 +1,4 @@
 source("get_MNAR_eqm_analytical.R")
-library(rootSolve)
 #---------------------------------------------------------------------------------------------------
 
 # This plotter function genarates the plot for A vs. R for both symbionts (the ZNGIs for Eqn 8, 9) 
