@@ -1,41 +1,39 @@
 
-# https://rpubs.com/aaronsc32/newton-raphson-method
-
-library(rootSolve)
-#library(nleqslv)
-
 source("get_MNAR_eqm_analytical.R")
-#===============================
-# Now, call the function
-d<-0.5
-bmax<-0.8
+#===========================================
 
-s<-0.1
-fmin<-(s*bmax)/(bmax-d)
+#==========================================================================
+# Now, call the function
+#d<-0.5
+#bmax<-0.8
+
+#s<-0.1
+#fmin<-(s*bmax)/(bmax-d)
 #fmin
 #curve(get_MNAR_eqm_analytical, xlim=c(fmin,1), lwd=2, lty=2, ylab='Neq',xlab='f',ylim=c(-0.1,1))
 #abline(h=0)
-myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9),ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
-fmax<-myfmax$root #
-cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
-(fmax-fmin)
+#myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9),ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmval=F) 
+#fmax<-myfmax$root #
+#cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+#(fmax-fmin)
 
 #------------------ when aN=aM=0.1, s=0.1
-s<-0.1
-fmin<-(s*bmax)/(bmax-d)
-myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=0.3,s=0.1,aM=0.1,aN=0.1,phi=5,getalleqmval=F) #fmax=0.3146655
-fmax<-myfmax$root
-cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
-(fmax-fmin)
+#s<-0.1
+#fmin<-(s*bmax)/(bmax-d)
+#myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=0.3,s=0.1,aM=0.1,aN=0.1,phi=5,getalleqmval=F) #fmax=0.3146655
+#fmax<-myfmax$root
+#cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+#(fmax-fmin)
 
 #----------------- when s=0, aN>aM 
-s<-0
-fmin<-(s*bmax)/(bmax-d)
-myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=0.3, s=s, aM=0.1, aN=0.2, phi=5, getalleqmval=F) #fmax=0.2103166
-fmax<-myfmax$root
-cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
-(fmax-fmin)
+#s<-0
+#fmin<-(s*bmax)/(bmax-d)
+#myfmax<-uniroot(get_MNAR_eqm_analytical, interval=c(fmin,0.9), ps=0.3, s=s, aM=0.1, aN=0.2, phi=5, getalleqmval=F) #fmax=0.2103166
+#fmax<-myfmax$root
+#cat("range of fidelity for coexistence: (fmin,fmax)=(",fmin,",",fmax,")\n")
+#(fmax-fmin)
 
+#==========================================================================
 
 #========================== generate plot with variation of s, aM<aN, phi=5 and phi=1 ==================
 
@@ -151,51 +149,6 @@ dev.off()
 
 
 #======================================================================================================
-
-#==========================================================================
-
-
-
-# Now, get max N values when Meq=0
-
-# defining parameters
-f<-0.3
-phi<-5
-aM<-0.1
-aN<-0.2
-d<-0.5
-bmax<-0.8
-s<-0.1
-e<-0.5
-u<-0.4
-ps<-0.3
-K<-10
-KA<-5
-
-fmin<-(s*bmax)/(bmax-d)
-fmin
-
-# get Req
-Req1<-((1-f)*K*d)/(e*(aN-aM*(1-f)))
-Req2<-(1/((1-f)*(bmax-d))) - (1/((bmax*(1-s))-d))
-Req<-Req1*Req2
-
-(Neq_max<-(1/aN)*(phi/Req))
-
-#Neq_max<-((e*phi)/(aN*K*d))*((1-fmin)*(bmax-d)*(aN-(aM*(1-f))))/(f-fmin)
-#Neq_max
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
