@@ -400,7 +400,7 @@ for(i in 1:length(ps_range)){
 # Now make a table for all possible combo of ps, f for co-existence 
 # We varied f in between >= fmin to < fmax for a given ps
 
-len<-3000 # give it a big number
+len<-6000 # give it a big number
 
 ps_f_PM<-data.frame(ps=NA*numeric(len),
                     f=NA*numeric(len),
@@ -411,13 +411,15 @@ ps_f_PM<-data.frame(ps=NA*numeric(len),
                     Neq=NA*numeric(len))
 
 k<-1
+finit<-fmin#0
 for(i in c(1:nrow(ps_and_fmax))){
   ps<-ps_and_fmax$ps[i]
+  #fmax<-1
   fmax<-ps_and_fmax$fmax[i] 
   
   #cat("ps=",ps,"fmax=",fmax,"\n")
   
-  f_range<-seq(from=fmin,to=fmax,by=(fmax-fmin)/50)
+  f_range<-seq(from=finit,to=fmax,by=(fmax-finit)/50)
   
   for(j in c(1:length(f_range))){
     
