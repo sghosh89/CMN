@@ -1,0 +1,234 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage[left=2cm,top=2cm,right=2cm,bottom=2.5cm]{geometry}
+\usepackage{url}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{lineno}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{xr}
+
+\newcommand{\hA}{\hat{A}}
+\newcommand{\hR}{\hat{R}}
+\newcommand{\hM}{\hat{M}}
+\newcommand{\hN}{\hat{N}}
+\newcommand{\halph}{\hat{\alpha}}
+\newcommand{\bmax}{b_{\text{max}}}
+\newcommand{\fmin}{f_{\text{min}}}
+\newcommand{\fmax}{f_{\text{max}}}
+
+\title{Appendix for ``Symbiont coexistence is common in mutualisms because of negative physiological feedback in preferential allocation and resource partitioning''}
+
+\author{Shyamolina Ghosh, \and Daniel C. Reuman, \and James D. Bever}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Assumptions on model parameter values}\label{sect:assumptions}
+
+\noindent We adopt the following biologically reasonable assumptions:
+\begin{enumerate}
+\item $0<f<1$;
+\item $a_N \geq a_M > 0$;
+\item $s>0$;
+\item $\bmax-d>0$;
+\item $\bmax(1-s)-d>0$;
+\item $0<P_S<1$;
+\item $D>0$;
+\item $0<e<1$;
+\item $0<u<1$;
+\item $K_A>0$;
+\item $K>0$.
+\end{enumerate}
+These assumptions are referred to by number in the derivations that follow.
+%***DAN: make sure in the development below you always cite an assumption when you make one. So far you do not always do that.
+
+\section{Model equilibrium}\label{sect:equil}
+
+\noindent A positive equilibrium of the dynamical model, here denoted $\hA>0,\hR>0,\hM>0,\hN>0$, occurs if and only if
+a positive solution exists to the the system of equations obtained by setting the right sides of (1)-(4)
+%***DAN: note that references to the main text are not dynamic links
+in the main text to $0$. So we examine that system of equations. 
+Setting $\frac{dM}{dt}=0$ and $\frac{dN}{dt}=0$, substituting in the expressions for $C_M$ and $C_N$, and carrying out
+algebraic manipulations leads to
+\begin{align}
+\frac{\hA}{\halph} &= -ea_M \hR +\frac{Kd}{\bmax (1-s)-d} \\
+\frac{\hA}{\halph} &= \frac{-ea_N}{1-f}\hR +\frac{Kd}{(\bmax-d)(1-f)},
+\end{align}
+where
+\begin{equation}
+\halph=(\hM+\hN)\left[1-f+f\frac{\hM}{\hM+\hN} \right].
+\end{equation}
+Therefore we consider the two lines in $xy$-space given by
+\begin{align}
+y &= -ea_M x +\frac{Kd}{\bmax (1-s)-d} \label{Mline}\\
+y &= \frac{-ea_N}{1-f}x +\frac{Kd}{(\bmax-d)(1-f)}. \label{Nline}
+\end{align}
+The $x$-intercepts of these lines are $\frac{Kd}{ea_M(\bmax(1-s)-d)}$ and
+$\frac{Kd}{ea_N(\bmax-d)}$, respectively. By assumption 2 listed above, $\frac{a_N}{a_M}\geq1$, and by assumptions 3-5,
+$\frac{\bmax(1-s)-d}{\bmax-d}<1$. So therefore $\frac{a_N}{a_M}>\frac{\bmax(1-s)-d}{\bmax-d}$, and
+therefore $\frac{Kd}{ea_M(\bmax(1-s)-d)}>\frac{Kd}{ea_N(\bmax-d)}$, i.e. the $x$-intercept of (\ref{Mline})
+is strictly to the right of the $x$-intercept of (\ref{Nline}). Likewise, by assumption 1 and 2, the line given by
+(\ref{Nline}) is steeper (has a more-negative slope) than the line give by (\ref{Nline}). So the two lines have a
+positive intersection point if and only if the $y$-intercept of (\ref{Nline}) is strictly greater than the
+$y$-intercept of (\ref{Mline}), i.e.,
+\begin{equation}
+\frac{Kd}{\bmax(1-s)-d}<\frac{Kd}{(\bmax-d)(1-f)}.
+\end{equation}
+After some algebra, this becomes
+\begin{equation}
+f>\frac{\bmax s}{\bmax-d}.\label{FirstNecessaryCondition}
+\end{equation}
+The condition (\ref{FirstNecessaryCondition}) is our first necessary condition for the existence of a positive equilibrium to
+the model dynamical equations ((1)-(4) in the main text). We denote $\fmin=\frac{\bmax s}{\bmax-d}$. By assumption 5,
+$\bmax(1-s)-d>0$, so $d<\bmax(1-s)$, so $d<\bmax-\bmax s$, so $\bmax s < \bmax - d$, so $\fmin<1$. Thus no additional assumptions
+are needed to conclude that (\ref{FirstNecessaryCondition}) can be satisfied for some $0<f<1$.
+
+If the condition (\ref{FirstNecessaryCondition}) is satisfied, then there is a positive solution to (\ref{Mline})-(\ref{Nline}),
+giving us (after some algebra) the positive quantities
+\begin{align}
+\hR &= \frac{Kd(1-f)}{e(a_N-a_M (1-f))}\left[ \frac{1}{(\bmax-d)(1-f)}-\frac{1}{\bmax(1-s)-d} \right] \\
+&= \frac{Kd(f-\fmin)}{e(a_N-a_M(1-f))(\bmax-d)(1-\fmin)} \label{SecondhRExpression}\\
+\frac{\hA}{\halph} &= \frac{Kd(\bmax-d)(a_N-a_M)+sKd\bmax a_M}{(\bmax-d)(\bmax(1-s)-d)(a_N-a_M(1-f))}.
+\end{align}
+We can also see directly that these are positive, using the assumptions listed above.
+
+Now, setting $\frac{dA}{dt}=0$, we get
+\begin{align}
+0 &= 1-P_S -\hA F(\hM,\hN) \\
+\hA &= \frac{1-P_S}{F(\hN,\hM)} \\
+&= \frac{(1-P_S)\halph}{u\left( \frac{\hM}{K_A+\hM} \right)\hM} \\
+&= \frac{(1-P_S)\halph (K_A+\hM)}{u \hM^2},
+\end{align}
+which leads to the quadratic equation
+\begin{equation}
+u\frac{\hA}{\halph}\hM^2-(1-P_S)\hM-(1-P_S)K_A=0.
+\end{equation}
+The solutions to this quadratic equation are
+\begin{equation}
+\hM = \frac{(1-P_S) \pm \sqrt{(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A}}{2u\frac{\hA}{\halph}}.
+\end{equation}
+But, by assumptions 6, 9 and 10, 
+\begin{equation}
+4u\frac{\hA}{\halph}(1-P_S)K_A>0, 
+\end{equation}
+so 
+\begin{equation}
+(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A>(1-P_S)^2, 
+\end{equation}
+so
+\begin{equation}
+\sqrt{(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A}>1-P_S,
+\end{equation}
+so the solution
+\begin{equation}
+\hM = \frac{(1-P_S) - \sqrt{(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A}}{2u\frac{\hA}{\halph}}
+\end{equation}
+is negative. Since we are looking for positive solutions, we ignore this one, considering only
+\begin{equation}
+\hM = \frac{(1-P_S) + \sqrt{(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A}}{2u\frac{\hA}{\halph}},
+\end{equation}
+which is positive, by the assumptions.
+
+Now setting $\frac{dR}{dt}=0$, we get
+\begin{equation}
+0 = D-(a_N \hM + a_N \hN)\hR.
+\end{equation}
+Solving for $\hN$ gives
+\begin{equation}
+\hN = \frac{D}{a_N \hR} -\frac{a_M}{a_N}\hM.
+\end{equation}
+This is positive whenever
+\begin{equation}
+\hM \hR < \frac{D}{a_M}.\label{FinalCondition}
+\end{equation}
+In the limit as $f \rightarrow \fmin$ from the right, $\hR \rightarrow 0$ from above, so (\ref{FinalCondition}) is satisfied
+for $f$ sufficiently close to $\fmin$. The derivative of $\hR$ with respect to $f$, computed
+starting from (\ref{SecondhRExpression}), is
+\begin{equation}
+\frac{d\hR}{df}=\frac{Kd}{e(\bmax -d)(1-\fmin)}\frac{\fmin a_M +a_N-a_M}{(f a_M +a_N-a_M)^2},
+\end{equation}
+which is positive, by the assumptions. Therefore $\hR$ increases as $f$ increases from $\fmin$.
+Likewise, setting
+\begin{align}
+\eta &= \frac{\halph}{\hA} \\
+&= \frac{a_M (\bmax - d)(\bmax (1-s)-d) f +(a_N-a_M)(\bmax-d)(\bmax(1-s)-d)}{Kd(\bmax-d)(a_N-a_M)+sKd\bmax a_M},
+\end{align}
+we can write
+\begin{equation}
+\hM = \frac{1-P_S}{2u}\eta + \frac{1}{2u}\sqrt{(1-P_s)^2 \eta^2 + 4u (1-P_S)K_A \eta}.\label{Mveta}
+\end{equation}
+Again making use of the assumptions listed above, it is straightforward to see that $\eta$ is a
+linear, positive-slope function of $f$, and therefore increases as $f$ increases. But (\ref{Mveta}) indicates
+that $\hM$ increases as $\eta$ increases, so $\hM$ increases as $f$ increases from $\fmin$. Thus the
+condition (\ref{FinalCondition}) is satisfied for $f$ up to some value, and then is not satisfied for $f$ equal
+to that value or higher than that value. We take $\fmax$ to be the minimum
+of this value and $1$. Although we have not computed a closed-form solution for $\fmax$, for any specific values
+of model parameters it would be straightforward and computationally fast to compute $\fmax$ to any desired precision
+by computing $\hM$ and $\hR$ for a range of values of $f$ increasing from $\fmin$, and then evaluating for which
+values the condition (\ref{FinalCondition}) is satisfied.
+
+In summary, the calculations here indicate that $\fmin<f<\fmax$ is a necessary and sufficient condition
+for the existence of a positive equilibrium of the model dynamical equations ((1)-(4) in the main text).
+The equilibrium is then given by
+\begin{align}
+\hR &= \frac{Kd(f-\fmin)}{e(a_N-a_M(1-f))(\bmax-d)(1-\fmin)} \\
+\frac{\hA}{\halph} &= \frac{Kd(\bmax-d)(a_N-a_M)+sKd\bmax a_M}{(\bmax-d)(\bmax(1-s)-d)(a_N-a_M(1-f))} \\
+\hM &= \frac{(1-P_S) + \sqrt{(1-P_S)^2+4u\frac{\hA}{\halph}(1-P_S)K_A}}{2u\frac{\hA}{\halph}} \\
+\hN &= \frac{D}{a_N \hR}-\frac{a_M}{a_N}\hM \\
+\hA &= \frac{\hA}{\halph}(\hM+(1-f)\hN).
+\end{align}
+For any given values of the parameters (1)-(4) in the main text, the model equilibrium can be obtained
+straightforwardly by evaluating these expressions in turn.
+
+\section{Stability of the model equilibrium}\label{sect:stability}
+
+\noindent We evaluated the local asymptotic stability of the model equilibrium numerically, as follows. 
+We selected model parameters within the ranges specified by Table \ref{tab:paramranges}, independently
+and following uniform distributions across the specified ranges for each parameter. For each set of parameters that 
+satisfied the assumptions listed above (section \ref{sect:assumptions}) we computed the range of
+$f$ values $\fmin$ to $\fmax$. The bound $\fmax$ was estimated with a root-finding algorithm in
+the R programming language (the function `uniroot' in the `stats' package) which had very good but finite 
+precision. If the imprecision for $\fmax$ reported by uniroot was more than $1/50$th the distance 
+between $\fmin$ and $\fmax$, parameters were not used. Otherwise, $27$ values of $f$ were spaced 
+evenly from $\fmin$ and $\fmax$, the first and last were discarded (these were $\fmin$ and $\fmax$
+themselves), and the other $f$ values were combined with values for the other parameters. For these parameter sets, 
+the model Jacobian was calculated at the equilibrium, eigenvalues of the Jacobian were
+computed using the `eigen' function in R, and the maximal real part of these eigenvalues was retained. 
+If this real part was negative, the model equilibrium for those parameters was stable. Stability was checked
+for 297925 parameter combinations, and in every case the model equilibrium was stable. Although this does not 
+guarantee that the model equilibrium we described (section \ref{sect:equil}) is always stable, it does 
+indicate that stability is common for reasonable model parameters.
+
+\begin{table}
+\begin{center}
+\caption{Ranges used for model parameters in evaluating stability of the equilibrium. See section \ref{sect:stability}}.
+\label{tab:paramranges}
+\begin{tabular}{lll}
+\hline
+\textbf{Parameter} & \textbf{Lower} & \textbf{Upper} \\
+\hline
+$u$ & 0.001 & 1 \\
+$\bmax$ & 0.001 & 5 \\
+$d$ & 0.001 & 5 \\
+$s$ & 0.001 & 0.999 \\
+$e$ & 0.001 & 0.999 \\
+$a_M$ & 0.001 & 5 \\
+$a_N$ & 0.001 & 5 \\
+$D$ & 0.001 & 5 \\
+$K_A$ & 0.01 & 15 \\
+$K$ & 0.01 & 15 \\
+$P_S$ & 0.001 & 0.999 \\ 
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{document}
+
