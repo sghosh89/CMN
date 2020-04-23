@@ -18,9 +18,10 @@ This repository records the complete workflow that produced the paper. All analy
    - FORTRAN 77, ifort compiler
    - Origin pro/ any other data drawing tool (if necessary)
    
- ## How to compile
+## How to compile
  
-The main manuscript is written using standard microsoft word and Endnotes (for citations), Appendix can be compiled using any tex compiler (SG used TexLive) from Appendix.tex. First, all numerical simulation from model analysis were carried out using FORTRAN 77 and ifort compiler (source code ARMN.f) and results were saved as .dat files in ARMN_  
+The main manuscript is written using standard microsoft word and Endnotes (for citations), Appendix can be compiled using any tex compiler (SG used TexLive) from Appendix.tex. First, all numerical simulation from model analysis were carried out using FORTRAN 77 and ifort compiler (source code ARMN.f) and results were stored as .dat files in ARMN_Results/ARMN_dat/ folders. For convenience, we already provided the .dat files, so one can skip this step. Next, one needs to run the Master.R scipt to get all the plots to be saved as pdfs in ARMN_Results/ folder.
+SG used R version 3.4.4 to run the R script.
    
 ## Acknowlegements 
 
