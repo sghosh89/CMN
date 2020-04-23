@@ -1,5 +1,16 @@
-! Allocated carbon = x, Mutualist = y, Non-mutualist N = z, uncolonized Root = v
-! Consider for parameters aKM = aKN, eM=eN
+! 4 state variables: 
+! 	Carbon allocation rate by the plant = x, 
+! 	Density of mutualist symbiont = y, 
+!	Density of non-mutualist symbiont = z, 
+!	Length of new roots available for colonization by symbionts = v
+
+! Consider for these default parameters in the input file:
+!	Half saturation constant for the symbionts aKM = aKN = 10, 
+!	Half saturation constant for allocated carbon aKA =5, 
+!	Energy allocation rate by the plant per colonized root eM = eN = 0.5, 
+!	Phosphorus uptake per unit of preferentially allocated carbon received by the mutualists u=0.4, 
+!	Maximum growth rate of symbionts per capita bmax=0.8, 
+!	Death rate of symbionts per capita d=0.5
           
              implicit real*8(a-h,o-z)
                
