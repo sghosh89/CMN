@@ -2,7 +2,6 @@
 *.eps
 *.png
 *.jpeg
-*.dat
 *.RDS
 *.msg
 *.jpg
