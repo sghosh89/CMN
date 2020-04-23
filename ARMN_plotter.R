@@ -441,7 +441,7 @@ for(i in c(1:nrow(ps_and_fmax))){
 }
 
 (z<-ps_f_PM[which(ps_f_PM$PM>1),]) # this table shows at f=fmax, PM should be 1 but instead it's slightly >1
-# I think, this is because uniroot function just finds the root (that could be 0,>0,<0)
+# I think, this is because uniroot function just finds the root (that could be 0,>0,<0) and these are numerical precession error
 # but for meaningful biological variable Neq can't be negative, so we can consider 
 # Neq goes to zero and PM = 1 for given ps, f combination
 
