@@ -146,7 +146,7 @@ resloc<-"./ARMN_Results/"
 # ----------------- when f < fmin ----------
 f<-0.2
 xlm<-c(0,600)
-ylm<-c(0,40000)
+ylm<-c(0,20000)
 #ylm=c(0,16000)
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 x<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
