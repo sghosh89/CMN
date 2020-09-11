@@ -17,8 +17,11 @@ source("get_MNAR_eqm_analytical.R")
 #     resloc = folder name to save the plot
 #     nametag = additional info to file name
 #     plot_MZNGI,plot_NZNGI = logical 
+#     arw_x0,arw_x1,arw_y0,arw_y1 : used for drawing arrow on the trajectory
 
-Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,x1,xlm,ylm,n,resloc,nametag,plot_MZNGI,plot_NZNGI){
+Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
+                     x1,xlm,ylm,n,resloc,nametag,plot_MZNGI,plot_NZNGI,
+                     arw_x0,arw_x1,arw_y0,arw_y1){
   
   alpha<-(Meq+Neq)*(1-f+((f*Meq)/(Meq+Neq)))
   
@@ -87,10 +90,10 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   
   pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_by_alpha_vs_R.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,7,2,2),pty="s",mgp=c(3.5,1,0),family="serif")
+  op<-par(mar=c(6,8,2,2),pty="s",mgp=c(3.5,1,0),family="serif")
   
   plot(NA,xlim=xlm,ylim=ylm/alpha,
-       xlab="x",ylab="y",
+       xlab="Plant's uncolonized root-length",ylab="Preferential allocation rate \n scaled by symbiont density",
        #xlab=expression(hat(R)),ylab=bquote(I == hat(A)/hat(alpha)),
        cex.lab=2.5,cex.axis=2)
  
@@ -129,9 +132,12 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   lines(x1$R,x1$A_by_alpha,col="black",lty="dashed",lwd=2)
   
   
-  #arrows(x1$R[which(1:nrow(x1) %% n == 0)-0.1], x1$A[which(1:nrow(x1) %% n == 0)-0.5], 
-  #       x1$R[1:nrow(x1) %% n == 0], x1$A[1:nrow(x1) %% n == 0] - 0.01, angle=40, 
+  #arrows(x1$R[which(1:nrow(x1) %% n == 0)-0.1], x1$A_by_alpha[which(1:nrow(x1) %% n == 0)-0.5], 
+  #       x1$R[1:nrow(x1) %% n == 0], x1$A_by_alpha[1:nrow(x1) %% n == 0] - 0.01, angle=40, 
   #       length=0.1, col="black",lwd=2)
+  
+  arrows(x0=arw_x0,y0=arw_y0,x1=arw_x1,y1=arw_y1,angle=30,lwd=2,length=0.15)
+  #arrows(x0=45,y0=10,x1=46,y1=10.5,angle=30,lwd=2,length=0.15)
   
   par(op)
   dev.off()
@@ -156,7 +162,8 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm=xlm,ylm=ylm,n=5000,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
+           x1,xlm=xlm,ylm=ylm,n=50,resloc=resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T,
+           arw_x0=0,arw_x1=0,arw_y0=10,arw_y1=10.5)
 
 # ----------------- when fmin < f < fmax ----------
 f<-0.3
@@ -170,8 +177,8 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
-
+           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T,
+           arw_x0=30,arw_x1=26.5,arw_y0=12,arw_y1=12.5)
 # ----------------- when f > fmax ----------
 f<-0.6
 x1<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
@@ -184,7 +191,8 @@ Meq<-tail(Meq,1)
 Neq<-x$N
 Neq<-tail(Neq,1)
 Plotter_AR(f=f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,d=0.5,s=0.1,
-           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T)
+           x1,xlm,ylm,n=200,resloc,nametag="phi_5_",plot_MZNGI = T, plot_NZNGI = T,
+           arw_x0=45,arw_x1=46.5,arw_y0=10,arw_y1=10.5)
 
 
 #======================================================================================================
