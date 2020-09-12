@@ -90,7 +90,7 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   
   pdf(paste(resloc,nametag,"f_",f,"_KM_",KM,"_KN_",KN,"_A_by_alpha_vs_R.pdf",sep=""),width=8,height=8)
   
-  op<-par(mar=c(6,8,2,2),pty="s",mgp=c(3.5,1,0),family="serif")
+  op<-par(mar=c(6,8,1,2),pty="s",mgp=c(3.5,1,0),family="serif")
   
   plot(NA,xlim=xlm,ylim=ylm/alpha,
        xlab="Plant's uncolonized root-length",ylab="Preferential allocation rate \n scaled by symbiont density",
