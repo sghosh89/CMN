@@ -208,6 +208,7 @@ get_phi_f_PM_data<-function(aM,aN,s){
     
     f_range<-seq(from=finit,to=fmax,by=(fmax-finit)/50)
     
+    
     for(j in c(1:length(f_range))){
       
       f<-f_range[j]
@@ -245,63 +246,63 @@ get_phi_f_PM_data<-function(aM,aN,s){
 #----------------------------- aM = aN -----------------------------------------------------
 
 # for aM = aN, s=0.025
-aM<-0.1
-aN<-0.1
-s<-0.025
-ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+#aM<-0.1
+#aN<-0.1
+#s<-0.025
+#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
 
 
 # for aM = aN, s=0.1
-#aM<-0.1
-#aN<-0.1
-#s<-0.1
-#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
-
-# for aM = aN, s=0.2
-#aM<-0.1
-#aN<-0.1
-#s<-0.2
-#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
-
-# for aM = aN, s=0.25
 aM<-0.1
 aN<-0.1
-s<-0.25
+s<-0.1
 ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
 write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+
+# for aM = aN, s=0.2
+aM<-0.1
+aN<-0.1
+s<-0.2
+ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+
+# for aM = aN, s=0.25
+#aM<-0.1
+#aN<-0.1
+#s<-0.25
+#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
 
 #----------------------------- aM < aN -----------------------------------------------------
 
 # for aM < aN, s=0.025
-aM<-0.1
-aN<-0.2
-s<-0.025
-ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+#aM<-0.1
+#aN<-0.2
+#s<-0.025
+#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
 
 # for aM < aN, s=0.1
-#aM<-0.1
-#aN<-0.2
-#s<-0.1
-#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
-
-# for aM < aN, s=0.2
-#aM<-0.1
-#aN<-0.2
-#s<-0.2
-#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
-#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
-
-# for aM < aN, s=0.25
 aM<-0.1
 aN<-0.2
-s<-0.25
+s<-0.1
 ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
 write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+
+# for aM < aN, s=0.2
+aM<-0.1
+aN<-0.2
+s<-0.2
+ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
+
+# for aM < aN, s=0.25
+#aM<-0.1
+#aN<-0.2
+#s<-0.25
+#ans<-get_phi_f_PM_data(aM=aM,aN=aN,s=s)
+#write.csv(ans,paste("./ARMN_Results/phi_f_PM_aM_",aM,"_aN_",aN,"_s_",s,".csv",sep=""),row.names = F)
 
 
 
