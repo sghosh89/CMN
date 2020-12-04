@@ -49,3 +49,7 @@ get_MNAR_eqm_analytical<-function(f,ps=0.3,s=0.1,aM=0.1,aN=0.2,phi=5,getalleqmva
   }
   
 }
+
+
+
+# test case
