@@ -210,7 +210,7 @@ indicate that stability is common for reasonable model parameters.
 \begin{center}
 \caption{Ranges used for model parameters in evaluating stability of the equilibrium. See section \ref{sect:stability}.}
 \label{tab:paramranges}
-\begin{tabular}{lll}
+\begin{tabular}{ccc}
 \hline
 \textbf{Parameter} & \textbf{Lower} & \textbf{Upper} \\
 \hline
@@ -229,6 +229,47 @@ $P_S$ & 0.001 & 0.999 \\
 \end{tabular}
 \end{center}
 \end{table}
+
+\section{Alternative form of the efficiency of phosphorus return in Eq. 1}\label{sect:altmodel}
+
+Here we start by rewriting the functional form of phosphorus return from Eq. (1) of main text as follows:
+
+\begin{align}
+F(M,N) &= u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace  \dfrac{M/(M+N)}{1-f+f\lbrace M/(M+N)\rbrace }\right\rbrace\\
+or,\;\ F(M,N) &= F_{1}(M,N) = u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace \dfrac{M}{M+N(1-f)} \right\rbrace   \label{fmn1}
+\end{align}
+
+
+One can consider a simpler and alternative form for $F(M,N)$ in Eq. (1) as follows;
+\begin{align}
+F(M,N) &= u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace f+(1-f)\left( \dfrac{M}{M+N}\right) \right\rbrace \\
+or,\;\ F(M,N) &= F_{2}(M,N) = u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace \dfrac{M+Nf}{M+N} \right\rbrace  \label{fmn2}
+\end{align}
+$F(M,N)$ from Eq. \ref{fmn2} is depicted in Fig. \ref{fig:fmn2} and its shape is very similar to Fig. 1(a) in the main text.
+
+We simulated Eqs. (1) - (4) with $F_{2}(M,N)$ as $F(M,N)$ in Eq. (2) and got qualitatively same results as of Fig. 2 in the main text. This happened because the two terms $F_{1}$ and $F_{2}$ are same at equilibrium (see Table 2) for $f \rightarrow 0$, $f \rightarrow f_{min}$, $f \rightarrow f_{max}$ and $f \rightarrow 1$. Therefore, we can say that our finding is robust in nature.
+
+\begin{table}
+\begin{center}
+\caption{Comparing two functional forms at the equilibrium. See section \ref{sect:altmodel}.}
+\label{tab:compareFMN}
+\begin{tabular}{ccccc}
+\hline
+$F(M,N)$ at eqm. & when $f \rightarrow 0$ & when $f \rightarrow f_{min}$ & when $f \rightarrow f_{max}$ & when $f \rightarrow 1$\\
+\hline
+$F_{1}(\hM,\hN) \rightarrow$ & $u \left( \dfrac{\hM}{\hM+K_{A}}\right) \left(\dfrac{\hM}{\hM+\hN}\right)$ & 0 & $u \left( \dfrac{\hM}{\hM+K_{A}}\right)$ & $u \left( \dfrac{\hM}{\hM+K_{A}}\right)$ \\
+$F_{2}(\hM,\hN) \rightarrow$ & $u \left( \dfrac{\hM}{\hM+K_{A}}\right) \left(\dfrac{\hM}{\hM+\hN}\right)$ & 0 & $u \left( \dfrac{\hM}{\hM+K_{A}}\right)$ & $u \left( \dfrac{\hM}{\hM+K_{A}}\right)$\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}
+\includegraphics[scale=0.5]{./ARMN_Results/Puptake_vs_M_N_alternative.pdf}
+\caption{P-uptake via mycorrhizal fungi, $F_2(M,N)$ as a saturating function of densities of mutualists
+$(M)$ and non-mutualists $(N)$ (Eq. \ref{fmn2}). Parameters used: $f = 0.3, u = 0.4, K_A = 5$.}\label{fig:fmn2}
+\end{figure}
+
 
 \end{document}
 
