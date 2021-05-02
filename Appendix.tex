@@ -52,7 +52,7 @@ These assumptions are referred to by number in the derivations that follow.
 \section{Model equilibrium}\label{sect:equil}
 
 \noindent A positive equilibrium of the dynamical model, here denoted $\hA>0,\hR>0,\hM>0,\hN>0$, occurs if and only if
-a positive solution exists to the the system of equations obtained by setting the right sides of (1)-(4)
+a positive solution exists to the the system of equations obtained by setting the right sides of (1),(3),(4),(6)
 %***DAN: note that references to the main text are not dynamic links
 in the main text to $0$. So we examine that system of equations. 
 Setting $\frac{dM}{dt}=0$ and $\frac{dN}{dt}=0$, substituting in the expressions for $C_M$ and $C_N$, and carrying out
@@ -86,7 +86,7 @@ After some algebra, this becomes
 f>\frac{\bmax s}{\bmax-d}.\label{FirstNecessaryCondition}
 \end{equation}
 The condition (\ref{FirstNecessaryCondition}) is our first necessary condition for the existence of a positive equilibrium to
-the model dynamical equations ((1)-(4) in the main text). We denote $\fmin=\frac{\bmax s}{\bmax-d}$. By assumption 5,
+the model dynamical equations ((1),(3),(4),(6) in the main text). We denote $\fmin=\frac{\bmax s}{\bmax-d}$. By assumption 5,
 $\bmax(1-s)-d>0$, so $d<\bmax(1-s)$, so $d<\bmax-\bmax s$, so $\bmax s < \bmax - d$, so $\fmin<1$. Thus no additional assumptions
 are needed to conclude that (\ref{FirstNecessaryCondition}) can be satisfied for some $0<f<1$.
 
@@ -175,7 +175,7 @@ by computing $\hM$ and $\hR$ for a range of values of $f$ increasing from $\fmin
 values the condition (\ref{FinalCondition}) is satisfied.
 
 In summary, the calculations here indicate that $\fmin<f<\fmax$ is a necessary and sufficient condition
-for the existence of a positive equilibrium of the model dynamical equations ((1)-(4) in the main text).
+for the existence of a positive equilibrium of the model dynamical equations ((1), (3), (4), (6) in the main text).
 The equilibrium is then given by
 \begin{align}
 \hR &= \frac{Kd(f-\fmin)}{e(a_N-a_M(1-f))(\bmax-d)(1-\fmin)} \\
@@ -184,7 +184,7 @@ The equilibrium is then given by
 \hN &= \frac{D}{a_N \hR}-\frac{a_M}{a_N}\hM \\
 \hA &= \frac{\hA}{\halph}(\hM+(1-f)\hN).
 \end{align}
-For any given values of the parameters (1)-(4) in the main text, the model equilibrium can be obtained
+For any given values of the parameters (1), (3), (4), (6) in the main text, the model equilibrium can be obtained
 straightforwardly by evaluating these expressions in turn.
 
 \section{Stability of the model equilibrium}\label{sect:stability}
@@ -247,7 +247,7 @@ or,\;\ F(M,N) &= F_{2}(M,N) = u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace \d
 \end{align}
 $F(M,N)$ from Eq. \ref{fmn2} is depicted in Fig. \ref{fig:fmn2} and its shape is very similar to Fig. 1(a) in the main text.
 
-We simulated Eqs. (1) - (4) with $F_{2}(M,N)$ as $F(M,N)$ in Eq. (2) and got qualitatively same results as of Fig. 2 in the main text. This happened because the two terms $F_{1}$ and $F_{2}$ are same at equilibrium (see Table 2) for $f \rightarrow 0$, $f \rightarrow f_{min}$, $f \rightarrow f_{max}$ and $f \rightarrow 1$. Therefore, we can say that our finding is robust in nature.
+We simulated Eqs. (1) - (7) with $F_{2}(M,N)$ as $F(M,N)$ in Eq. (2) and got qualitatively same results as of Fig. 2 in the main text. This happened because the two terms $F_{1}$ and $F_{2}$ are same at equilibrium (see Table 2) for $f \rightarrow 0$, $f \rightarrow f_{min}$, $f \rightarrow f_{max}$ and $f \rightarrow 1$. Therefore, we can say that our finding is robust in nature.
 
 \begin{table}
 \begin{center}
