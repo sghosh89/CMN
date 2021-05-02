@@ -101,8 +101,8 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   if(plot_MZNGI==T && plot_NZNGI==T){
     abline(a=iM0, b=sM0,col="red",lwd=2)
     abline(a =iN0, b=sN0,col="blue",lwd=2)
-    legend("top", c("Eq. 8, from the \n mutualist model equation.",
-                         "Eq. 9, from the \n non-mutualist model equation."), 
+    legend("top", c("Eq. 11, from the \n mutualist model equation.",
+                         "Eq. 12, from the \n non-mutualist model equation."), 
            col = c("red", "blue"),seg.len = c(0.8,0.8),
            cex = 2.5, lty = c(1, 1), lwd=c(2,2), xpd = TRUE, horiz = F, inset = c(0,0),
            y.intersp = 2,x.intersp = 0.1,
@@ -111,14 +111,14 @@ Plotter_AR<-function(f,KM=10,KN=10,Meq,Neq,eM=0.5,eN=0.5,aM=0.1,aN=0.2,bmax=0.8,
   
   if(plot_MZNGI==T && plot_NZNGI==F){
     abline(a=iM0, b=sM0,col="red",lwd=2)
-    legend("topright", c("Mutualist ZNGI (Eqn. 8)"), col = c("red"),
+    legend("topright", c("Mutualist ZNGI (Eqn. 11)"), col = c("red"),
            cex = 2, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
            bty = "n") 
   }
   
   if(plot_MZNGI==F && plot_NZNGI==T){
     abline(a =iN0, b=sN0,col="blue",lwd=2)
-    legend("topright", c("Non-mutualist ZNGI (Eqn. 9)"), col = c("blue"),
+    legend("topright", c("Non-mutualist ZNGI (Eqn. 12)"), col = c("blue"),
            cex = 2, lty = c(1), lwd=c(2), xpd = TRUE, horiz = F, inset = c(0,0),y.intersp = 0.8,x.intersp = 0.1,
            bty = "n") 
   }
