@@ -528,19 +528,21 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F) # I made a contou
       
       # schematic diagram for nullclines(?)
       
-      pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=8,height=8)
+      pdf(paste(resloc,"schematic_diagram.pdf",sep=""),width=10,height=10)
       linepos<- -34
       linepos2<- -11.5
      
-      op<-par(mar=c(3,3,2,2),mgp=c(1,1,0),pty="s",family="serif")
-      plot(-1,-2,xlim=c(0,0.8),ylim=c(0,1),xlab="x", ylab="y",
+      op<-par(mar=c(6,9,2,3),mgp=c(3.5,1,0),pty="s",family="serif")
+      plot(-1,-2,xlim=c(0,0.8),ylim=c(0,1), 
+           xlab=expression("Plant's uncolonized root-length (" * hat(R) * ")" ),
+           ylab=expression("Preferential allocation rate \n scaled by symbiont density (" * hat(A)/hat(alpha) * ")" ),
            xaxt="n",yaxt="n",cex.lab=3)
       abline(a=0.5,b=-0.7,lwd=2)
       abline(a=0.7,b=-2.5,lty="dashed",lwd=2)
       #text1<-bquote("-ea"[M])
-      legend("top", c("Equation (8), from the \n mutualist model equation.",
+      legend("top", c("Equation (11), from the \n mutualist model equation.",
                       expression("Slope = -ea"[M]*"."),
-                      "Equation (9), from the \n non-mutualist model equation.",
+                      "Equation (12), from the \n non-mutualist model equation.",
                       expression("Slope = -ea"[N]*"/(1-f).")), 
              cex = 2, lty = c(1, NA, 2, NA), lwd=c(2,NA,2,NA), xpd = TRUE, horiz = F, inset = c(0,0,0,0),
              y.intersp = c(2,1.4,2,1.8),x.intersp = 0.2,
