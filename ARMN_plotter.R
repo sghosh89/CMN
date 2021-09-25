@@ -218,6 +218,48 @@ Plotter_ARMN_vs_t<-function(x1,xlm,ylm,nametag,taglegend,resloc){
   dev.off()
 }
 
+Plotter2_ARMN_vs_t<-function(xC,xS,nametag,resloc){
+  
+  pdf(paste(resloc,nametag,"_vs_t.pdf",sep=""),width=8,height=8)
+  
+  ## add extra space to right margin of plot within frame
+  op<-par(mar=c(5, 4, 2, 4)+0.1, pty="s",family="serif")
+  
+  ## Plot first set of data and draw its axis
+  plot(xC[,1],xC[,2], type="l", axes=FALSE, xlim=c(0,1000),
+       ylim=c(0,150), xlab="", ylab="", lwd=2,cex.axis=2,
+       col="black")
+  lines(xC[,1],xC[,3],col="black",lty="dashed",lwd=2)
+  axis(2, ylim=c(0,150),col="black",las=1,cex.axis=2) 
+  box()
+  
+  ## Allow a second plot on the same graph
+  par(new=TRUE)
+  
+  ## Plot the second plot and put axis scale on right
+  plot(xS[,1],xS[,2], type="l", axes=FALSE, xlim=c(0,1000),
+       ylim=c(0,3), xlab="", ylab="", lwd=2,
+       col="magenta")
+  lines(xS[,1],xS[,3],col="magenta",lty="dashed",lwd=2)
+  ## a little farther out (line=4) to make room for labels
+  #mtext("Cell Density",side=4,col="red",line=4) 
+  axis(4, ylim=c(0,3), col="magenta",col.axis="magenta",las=1, cex.axis=2)
+  
+  ## Draw the time axis
+  axis(1,pretty(range(c(0:1000)),5),cex.axis=2)
+  mtext("time",side=1,col="black",line=3,cex=2.5)  
+  
+  ## Add Legend
+  legend("topright", c("rate of preferential \n C-allocation, A","length of \n new roots, R","mutualist, M","non-mutualist, N"),
+         col = c("black", "black","magenta","magenta"),text.col = c("black", "black","magenta","magenta"),
+         cex = 2.5, lty = c(1, 2, 1, 2), lwd=c(2,2,2,2), xpd = TRUE, 
+         horiz = F, inset = c(0,0),
+         y.intersp = c(0.8,1.2,1.1,1),x.intersp = 0.2,
+         bty = "n")
+  par(op)
+  dev.off()
+}
+
 #----------------------------
 
 resloc<-"./ARMN_Results/"
@@ -227,31 +269,21 @@ resloc<-"./ARMN_Results/"
 xC<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.2_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 
-Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.2_KM_10_KN_10_AR",
-                  taglegend=c("A","R"), resloc)
-Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.2_KM_10_KN_10_MN",
-                  taglegend=c("M","N"),resloc)
+Plotter2_ARMN_vs_t(xC=xC,xS=xS,nametag="phi_5_f_0.2_KM_10_KN_10_ARMN",resloc)
 
 #----------for fmin < f < fmax ---------
 
 xC<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.3_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 
-Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.3_KM_10_KN_10_AR",
-                  taglegend=c("A","R"), resloc)
-Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.3_KM_10_KN_10_MN",
-                  taglegend=c("M","N"),resloc)
+Plotter2_ARMN_vs_t(xC=xC,xS=xS,nametag="phi_5_f_0.3_KM_10_KN_10_ARMN",resloc)
 
 #----------for f > fmax ---------
 
 xC<-read.delim("./ARMN_Results/ARMN_dat/tAR_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 xS<-read.delim("./ARMN_Results/ARMN_dat/tMN_f_0.6_ps_0.3_km_10_kn_10.dat",sep="",header = F)
 
-Plotter_ARMN_vs_t(x1=xC,xlm=c(0,1000),ylm=c(0,100),nametag="phi_5_f_0.6_KM_10_KN_10_AR",
-                  taglegend=c("A","R"), resloc)
-Plotter_ARMN_vs_t(x1=xS,xlm=c(0,1000),ylm=c(0,3),nametag="phi_5_f_0.6_KM_10_KN_10_MN",
-                  taglegend=c("M","N"),resloc)
-
+Plotter2_ARMN_vs_t(xC=xC,xS=xS,nametag="phi_5_f_0.6_KM_10_KN_10_ARMN",resloc)
 
 #==============================================================================================
 
