@@ -25,15 +25,15 @@ The main manuscript is written using standard microsoft word and Endnotes (for c
 ## Short summary for each file
    
    - **ARMN.R**: R script solving 4 variable ODE, arguments are explained in that script.
-   - **ARMN.f**: equivalent FORTRAN code doing same things as the R script ARMN.R but in much faster way.
-   - **ARMN.in**: input file for ARMN.f
-   - **ARMN_plotter.R**: plotter function related to output from ARMN.f and generates Figs (1 - 4) for the manuscript.
-   - **eigenval_analysis.R**: R script with the function to compute eigen values at equilibrium. If maximum of real part of eigenvalues are real, that means equilibrium is stable.
-   - **get_fmax.R**: R script that generates data plotted in Fig 5, i.e., regime of co-existence for different combination of parameters s, aM, aN. It makes some additional plots for range of fidelity vs. s given other parameters.
-   - **get_MNAR_eqm_analytical.R**: R script with the function to get equilibrium of the ODE model used in ARMN.f using analytical expression, expression is derived in the manuscript.
-   - **LookAtStability_cleaned.r**: R script to check stability within the fidelity range (f_min,f_max) given all possible combination of other parameters used in the model.
+   - **ARMN.f**: equivalent FORTRAN code doing same things as the R script **ARMN.R** does, but in much faster way.
+   - **ARMN.in**: input file for **ARMN.f**.
+   - **ARMN_plotter.R**: plotter function related to output from **ARMN.f** and generates Figs (1 - 4) for the manuscript.
+   - **eigenval_analysis.R**: R script with the function to compute eigen values at equilibrium. If maximum of real part of eigenvalues is negative, that means the equilibrium is stable.
+   - **get_fmax.R**: R script that generates data plotted in Fig 5, i.e., regime of co-existence for different combination of parameters *s*, *aM*, *aN*. It makes some additional plots for range of fidelity vs. *s* given other parameters.
+   - **get_MNAR_eqm_analytical.R**: R script with the function to get equilibrium of the ODE model used in ARMN.f using the analytical expression which is derived in the manuscript.
+   - **LookAtStability_cleaned.r**: R script to check stability within the fidelity range (*f_min,f_max*) given all possible combination of other parameters used in the model.
    - **Appendix.tex**: supplementary latex file used for the manuscript.
-   - **ARMN_alternative.R**: solver for 4 variable ODE with different functional form used in appendix.
+   - **ARMN_alternative.R**: solver for 4 variable ODE with different functional form of *F(M,N)* used in the appendix.
    - **Master.R**: R script to generate all figures for the main manuscript, a master file.
    
 ## Acknowlegements 
