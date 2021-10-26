@@ -35,6 +35,8 @@ The main manuscript is written using standard microsoft word and Endnotes (for c
    - **Appendix.tex**: supplementary latex file used for the manuscript.
    - **ARMN_alternative.R**: solver for 4 variable ODE with different functional form of *F(M,N)* used in the appendix.
    - **Master.R**: R script to generate all figures for the main manuscript, a master file.
+
+**NOTE**: within the script, input for each function are well explained and commented out. 
    
 ## Acknowlegements 
 
