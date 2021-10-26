@@ -594,7 +594,7 @@ write.csv(ps_f_PM,"./ARMN_Results/ps_f_PM.csv", row.names = F) # I made a contou
   # Now call the plotter function
   
 resloc <- "./ARMN_Results/"
-multi_plotter(resloc, figname = "M_by_N_eqm_vs_phi")
+#multi_plotter(resloc, figname = "M_by_N_eqm_vs_phi") # additional plot, not needed now
 multi_plotter(resloc, figname = "Puptake_vs_M_N")
 multi_plotter(resloc, figname = "schematic_diagram")
 
