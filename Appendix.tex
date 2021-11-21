@@ -11,6 +11,7 @@
 \usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{xr}
+\usepackage{fancyhdr}
 
 \newcommand{\hA}{\hat{A}}
 \newcommand{\hR}{\hat{R}}
@@ -21,11 +22,37 @@
 \newcommand{\fmin}{f_{\text{min}}}
 \newcommand{\fmax}{f_{\text{max}}}
 
-\title{Appendix for ``Symbiont coexistence may be common in mutualisms because of negative physiological feedback in preferential allocation and resource partitioning''}
 
-\author{Shyamolina Ghosh, \and Daniel C. Reuman, \and James D. Bever}
-\date{}
+\setcounter{section}{0}
+\renewcommand{\thesection}{S\arabic{section}}
 
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\renewcommand{\theequation}{S\arabic{equation}}
+
+
+\fancyhf{}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{}
+\fancyhead[R]{Page \thepage}
+\lhead{Short title: Symbiont competition and coexistence}
+
+
+\title{Supplementary material for ``Preferential allocation of benefits and resource competition among recipients allows coexistence of symbionts within hosts"}
+
+\author{Shyamolina Ghosh$^1$, \and Daniel C. Reuman$^{1,2}$, \and James D. Bever$^{1,*}$}
+
+\date{%
+    $^1$Department of Ecology and Evolutionary Biology and Kansas Biological Survey, The University of Kansas, 1200 Sunnyside Avenue, Lawrence, KS, 66045, USA\\%
+    $^2$Laboratory of Populations, Rockefeller University, 1230 York Ave, New York, NY, 10065, USA\\[2ex]% 
+    $^*$corresponding author: jbever@ku.edu \\\vspace{1 cm}   
+    \textbf{Journal: The American Naturalist}   
+}
 \begin{document}
 
 \maketitle
@@ -247,7 +274,7 @@ or,\;\ F(M,N) &= F_{2}(M,N) = u \left( \dfrac{M}{M+K_{A}}\right) \left\lbrace \d
 \end{align}
 $F(M,N)$ from Eq. \ref{fmn2} is depicted in Fig. \ref{fig:fmn2} and its shape is very similar to Fig. 1(a) in the main text.
 
-We simulated Eqs. (1) - (7) of main text with $F_{2}(M,N)$ as $F(M,N)$ in Eq. (5) and got qualitatively same results as of Fig. 2 in the main text. This happened because the two terms $F_{1}$ and $F_{2}$ are same at equilibrium (see Table 2) for $f \rightarrow 0$, $f \rightarrow f_{min}$, $f \rightarrow f_{max}$ and $f \rightarrow 1$. Therefore, we can say that our finding is robust in nature.
+We simulated Eqs. (1) - (7) of main text with $F_{2}(M,N)$ as $F(M,N)$ in Eq. (5) and got qualitatively same results as of Fig. 2 in the main text. This happened because the two terms $F_{1}$ and $F_{2}$ are same at equilibrium (see Table \ref{tab:compareFMN}) for $f \rightarrow 0$, $f \rightarrow f_{min}$, $f \rightarrow f_{max}$ and $f \rightarrow 1$. Therefore, we can say that our finding is robust in nature.
 
 \begin{table}
 \begin{center}
